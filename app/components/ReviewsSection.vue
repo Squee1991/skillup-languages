@@ -123,37 +123,58 @@ const current = ref(0)
 const dragX = ref(0)
 const dragging = ref(false)
 let startX = 0
-let timer: ReturnType<typeof setInterval> | undefined
-
-// куда улетает верхняя карточка: -1 — влево, 1 — вправо
-const flyDir = ref(-1)
+let timer: ReturnType<typeof setTimeout> | undefined
 let wheelLocked = false
+// мышь над колодой — автолистание на паузе
+const hovered = ref(false)
 
+// куда улетела каждая карточка: -1 — влево, 1 — вправо
+const flyDirs = ref<number[]>(reviews.map(() => -1))
+
+const isFirst = computed(() => current.value === 0)
+const isLast = computed(() => current.value === n - 1)
+
+// вперёд: верхняя карточка улетает, стопка под ней становится тоньше
 const next = (dir = -1) => {
-  flyDir.value = dir
-  current.value = (current.value + 1) % n
+  if (isLast.value) return
+  flyDirs.value[current.value] = dir
+  current.value++
 }
+// назад: последняя улетевшая карточка возвращается на стопку
 const prev = () => {
-  flyDir.value = -1
-  current.value = (current.value - 1 + n) % n
+  if (!isFirst.value) current.value--
 }
 const goTo = (i: number) => (current.value = i)
 
-// прокрутка вбок тачпадом/колесом над колодой — листаем, по одной карточке за жест
+// любое ручное действие откладывает автолистание заново
+const manual = (action: () => void) => {
+  action()
+  startAuto()
+}
+
+// прокрутка вбок тачпадом/колесом над колодой — по одной карточке за жест
 const onWheel = (e: WheelEvent) => {
   if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 15) return
   e.preventDefault()
   if (wheelLocked) return
   wheelLocked = true
   setTimeout(() => (wheelLocked = false), 700)
-  if (e.deltaX > 0) next()
-  else prev()
-  startAuto()
+  manual(() => (e.deltaX > 0 ? next() : prev()))
 }
 
-// положение карточки в колоде: 0 — сверху, n-1 — только что улетела
+// положение карточки: < 0 — уже улетела, 0 — сверху, 1…n — лежит в стопке
 const cardStyle = (i: number) => {
-  const offset = (i - current.value + n) % n
+  const offset = i - current.value
+
+  if (offset < 0) {
+    const dir = flyDirs.value[i] ?? -1
+    return {
+      transform: `translate(${70 * dir}%, -30px) rotate(${20 * dir}deg) scale(0.9)`,
+      zIndex: 20 + i,
+      opacity: 0,
+      pointerEvents: 'none' as const
+    }
+  }
 
   if (offset === 0) {
     return {
@@ -162,26 +183,40 @@ const cardStyle = (i: number) => {
       transition: dragging.value ? 'none' : undefined
     }
   }
-  if (offset === 1) return { transform: 'translateY(18px) rotate(3deg) scale(0.95)', zIndex: 9, pointerEvents: 'none' as const }
-  if (offset === 2) return { transform: 'translateY(36px) rotate(-3deg) scale(0.9)', zIndex: 8, pointerEvents: 'none' as const }
-  if (offset === n - 1) {
-    return {
-      transform: `translate(${70 * flyDir.value}%, -30px) rotate(${20 * flyDir.value}deg) scale(0.9)`,
-      zIndex: 11,
-      opacity: 0,
-      pointerEvents: 'none' as const
-    }
+
+  // каждая следующая карточка чуть ниже, меньше и повёрнута то в одну, то в другую сторону
+  const tilt = (offset % 2 ? 1 : -1) * Math.min(1 + offset * 0.4, 3)
+  return {
+    transform: `translateY(${offset * 9}px) rotate(${tilt}deg) scale(${1 - offset * 0.025})`,
+    zIndex: 10 - offset,
+    pointerEvents: 'none' as const
   }
-  return { transform: 'translateY(48px) scale(0.85)', zIndex: 1, opacity: 0, pointerEvents: 'none' as const }
 }
 
+// автолистание: дошли до конца — пауза, и карточки по одной слетаются обратно в колоду
 const startAuto = () => {
   stopAuto()
-  timer = setInterval(() => next(), 5000)
+  if (hovered.value || dragging.value) return
+  timer = setTimeout(() => {
+    if (isLast.value) gatherBack()
+    else {
+      next()
+      startAuto()
+    }
+  }, isLast.value ? 3000 : 5000)
 }
-const stopAuto = () => timer && clearInterval(timer)
+const stopAuto = () => {
+  if (timer) clearTimeout(timer)
+  timer = undefined
+}
 
-// свайп: тащим верхнюю карточку и бросаем в любую сторону — она улетает туда, а мы листаем вперёд
+const gatherBack = () => {
+  if (isFirst.value) return startAuto()
+  prev()
+  timer = setTimeout(gatherBack, 160)
+}
+
+// свайп: тащим верхнюю карточку и бросаем в любую сторону — она улетает туда
 const onDown = (e: PointerEvent) => {
   if (e.pointerType === 'mouse' && e.button !== 0) return
   dragging.value = true
@@ -190,14 +225,17 @@ const onDown = (e: PointerEvent) => {
   ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
 }
 const onMove = (e: PointerEvent) => {
-  if (dragging.value) dragX.value = e.clientX - startX
+  if (!dragging.value) return
+  const dx = e.clientX - startX
+  // последнюю карточку выбросить нельзя — она лишь слегка поддаётся
+  dragX.value = isLast.value ? dx / 4 : dx
 }
 const onUp = () => {
   if (!dragging.value) return
   dragging.value = false
-  if (Math.abs(dragX.value) > 60) next(Math.sign(dragX.value))
+  const dx = dragX.value
   dragX.value = 0
-  startAuto()
+  manual(() => Math.abs(dx) > 60 && next(Math.sign(dx)))
 }
 
 onMounted(startAuto)
@@ -211,8 +249,8 @@ onBeforeUnmount(stopAuto)
       <h2 class="section-title">{{ t('reviews.title') }}</h2>
       <p class="section-subtitle">{{ t('reviews.subtitle') }}</p>
 
-      <div class="slider" @mouseenter="stopAuto" @mouseleave="startAuto">
-        <button class="arrow arrow-prev" :aria-label="t('reviews.prev')" @click="prev">←</button>
+      <div class="slider" @mouseenter="hovered = true; stopAuto()" @mouseleave="hovered = false; startAuto()">
+        <button class="arrow arrow-prev" :disabled="isFirst" :aria-label="t('reviews.prev')" @click="manual(prev)">←</button>
 
         <div
           class="deck"
@@ -244,8 +282,10 @@ onBeforeUnmount(stopAuto)
           </figure>
         </div>
 
-        <button class="arrow arrow-next" :aria-label="t('reviews.next')" @click="next()">→</button>
+        <button class="arrow arrow-next" :disabled="isLast" :aria-label="t('reviews.next')" @click="manual(next)">→</button>
       </div>
+
+      <p class="counter">{{ current + 1 }} / {{ n }}</p>
 
       <div class="dots">
         <button
@@ -254,7 +294,7 @@ onBeforeUnmount(stopAuto)
           class="dot"
           :class="{ active: i === current }"
           :aria-label="t('reviews.goTo', { n: i + 1 })"
-          @click="goTo(i)"
+          @click="manual(() => goTo(i))"
         />
       </div>
     </div>
@@ -286,7 +326,8 @@ onBeforeUnmount(stopAuto)
   display: grid;
   width: 100%;
   max-width: 560px;
-  padding-bottom: 40px;
+  /* место под стопку: каждая карточка в ней ниже предыдущей на 9px */
+  padding-bottom: 84px;
   touch-action: pan-y;
   cursor: grab;
   user-select: none;
@@ -385,12 +426,26 @@ figcaption {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.arrow:hover {
+.arrow:hover:not(:disabled) {
   transform: translateY(-3px) scale(1.06);
   background: var(--yellow);
+  color: var(--ink);
 }
 
-.arrow:active {
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.counter {
+  margin: 0 0 10px;
+  text-align: center;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.arrow:active:not(:disabled) {
   transform: translateY(3px);
   box-shadow: 0 2px 0 var(--ink);
 }
