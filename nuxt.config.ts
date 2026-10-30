@@ -15,7 +15,7 @@ export default defineNuxtConfig({
                 {name: 'theme-color', content: '#7c3aed'}
             ],
             link: [
-                {rel: 'icon', type: 'image/svg+xml', href: (process.env.NUXT_APP_BASE_URL || '/') + 'favicon.svg'},
+                {rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg'},
                 {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
                 {rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: ''},
                 {
