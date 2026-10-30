@@ -1,31 +1,34 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
+// тексты — в i18n/locales: features.items.<key>
 const features = [
-  { icon: '🎮', title: 'Игры вместо зубрёжки', text: 'Слова и грамматика закрепляются через мини-игры, квизы и челленджи.', color: '#fde68a' },
-  { icon: '⏱️', title: '5 минут в день', text: 'Короткие уроки легко вписать в дорогу, обед или перерыв.', color: '#bae6fd' },
-  { icon: '🗣️', title: 'Живое произношение', text: 'Озвучка носителями и тренажёр речи с подсказками.', color: '#fbcfe8' },
-  { icon: '🔥', title: 'Серии и награды', text: 'Глоби следит за серией дней и дарит бонусы за упорство.', color: '#fed7aa' },
-  { icon: '📱', title: 'Везде с тобой', text: 'Android, iOS и сайт — прогресс синхронизируется между устройствами.', color: '#bbf7d0' },
-  { icon: '🎯', title: 'По уровням A1–B2', text: 'Программа выстроена по европейской шкале CEFR — от нуля до свободы.', color: '#ddd6fe' }
+  { key: 'games', icon: '🎮', color: '#fde68a' },
+  { key: 'minutes', icon: '⏱️', color: '#bae6fd' },
+  { key: 'speech', icon: '🗣️', color: '#fbcfe8' },
+  { key: 'streaks', icon: '🔥', color: '#fed7aa' },
+  { key: 'anywhere', icon: '📱', color: '#bbf7d0' },
+  { key: 'levels', icon: '🎯', color: '#ddd6fe' }
 ]
 </script>
 
 <template>
   <section id="features" class="section">
     <div class="container">
-      <span class="tag tag-center">💡 Почему SkillUp Languages</span>
-      <h2 class="section-title">Учиться — легко и в кайф</h2>
-      <p class="section-subtitle">Мы сделали всё, чтобы язык стал любимой привычкой, а не скучной обязанностью.</p>
+      <span class="tag tag-center">{{ t('features.tag') }}</span>
+      <h2 class="section-title">{{ t('features.title') }}</h2>
+      <p class="section-subtitle">{{ t('features.subtitle') }}</p>
 
       <div class="grid">
         <article
           v-for="(f, i) in features"
-          :key="f.title"
+          :key="f.key"
           class="feature"
           :style="{ '--c': f.color, '--tilt': (i % 2 ? 1 : -1) + 'deg' }"
         >
           <div class="icon">{{ f.icon }}</div>
-          <h3>{{ f.title }}</h3>
-          <p>{{ f.text }}</p>
+          <h3>{{ t(`features.items.${f.key}.title`) }}</h3>
+          <p>{{ t(`features.items.${f.key}.text`) }}</p>
         </article>
       </div>
     </div>

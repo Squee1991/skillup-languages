@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { languages } from '~/data/languages'
 
+const { t } = useI18n()
+const { l } = useL10n()
+const localePath = useLocalePath()
+
 const year = new Date().getFullYear()
 </script>
 
@@ -8,21 +12,21 @@ const year = new Date().getFullYear()
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <NuxtLink to="/" class="logo">🌍 Skill<b>Up</b> <small>Languages</small></NuxtLink>
-        <p class="about">Яркие приложения для изучения языков. Учись играючи — каждый день понемногу.</p>
+        <NuxtLink :to="localePath('/')" class="logo">🌍 Skill<b>Up</b> <small>Languages</small></NuxtLink>
+        <p class="about">{{ t('footer.about') }}</p>
       </div>
 
       <div>
-        <h4>Языки</h4>
+        <h4>{{ t('footer.languages') }}</h4>
         <ul>
-          <li v-for="l in languages" :key="l.id">
-            <NuxtLink :to="`/languages/${l.id}`"><FlagIcon :id="l.id" /> {{ l.name }}</NuxtLink>
+          <li v-for="lang in languages" :key="lang.id">
+            <NuxtLink :to="localePath(`/languages/${lang.id}`)"><FlagIcon :id="lang.id" /> {{ l(lang.name) }}</NuxtLink>
           </li>
         </ul>
       </div>
 
       <div>
-        <h4>Контакты</h4>
+        <h4>{{ t('footer.contacts') }}</h4>
         <ul>
           <li><a href="#">✉️ hello@skilluplanguages.com</a></li>
           <li><a href="#">✈️ Telegram</a></li>
@@ -30,7 +34,7 @@ const year = new Date().getFullYear()
         </ul>
       </div>
     </div>
-    <p class="copy">© {{ year }} SkillUp Languages. Сделано с 💜 для тех, кто учит языки.</p>
+    <p class="copy">© {{ year }} SkillUp Languages. {{ t('footer.made') }}</p>
   </footer>
 </template>
 
@@ -52,7 +56,7 @@ const year = new Date().getFullYear()
   font-family: 'Baloo 2', sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--on-color);
   text-decoration: none;
 }
 
@@ -73,7 +77,7 @@ const year = new Date().getFullYear()
 }
 
 h4 {
-  color: var(--white);
+  color: var(--on-color);
   font-size: 1.2rem;
   margin-bottom: 12px;
 }

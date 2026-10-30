@@ -1,27 +1,30 @@
 <script setup lang="ts">
-import { platformMeta, type AppLink } from '~/data/languages'
+import type { AppLink } from '~/data/languages'
 
 defineProps<{
   app: AppLink
   showFeatures?: boolean
 }>()
+
+const { t } = useI18n()
+const { l } = useL10n()
 </script>
 
 <template>
   <article class="app-card" :class="{ soon: app.comingSoon }">
-    <span v-if="app.badge" class="badge">{{ app.badge }}</span>
-    <div class="app-icon">{{ platformMeta[app.platform].icon }}</div>
-    <p class="app-platform">{{ platformMeta[app.platform].label }}</p>
+    <span v-if="app.badge" class="badge">{{ l(app.badge) }}</span>
+    <div class="app-icon" :class="app.platform"><PlatformIcon :platform="app.platform" /></div>
+    <p class="app-platform">{{ t(`platform.${app.platform}`) }}</p>
     <h4>{{ app.title }}</h4>
-    <p class="app-desc">{{ app.description }}</p>
+    <p class="app-desc">{{ l(app.description) }}</p>
 
-    <ul v-if="showFeatures && app.features?.length" class="app-features">
-      <li v-for="f in app.features" :key="f">✅ {{ f }}</li>
+    <ul v-if="showFeatures && app.features" class="app-features">
+      <li v-for="f in l(app.features)" :key="f">✅ {{ f }}</li>
     </ul>
 
-    <span v-if="app.comingSoon" class="btn btn-secondary app-btn disabled">⏳ Скоро</span>
+    <span v-if="app.comingSoon" class="btn btn-secondary app-btn disabled">{{ t('platform.soon') }}</span>
     <a v-else :href="app.url" target="_blank" rel="noopener" class="btn btn-primary app-btn">
-      {{ platformMeta[app.platform].store }} →
+      {{ t(`platform.store.${app.platform}`) }} →
     </a>
   </article>
 </template>
@@ -33,7 +36,7 @@ defineProps<{
   display: flex;
   flex-direction: column;
   background: var(--white);
-  color: var(--ink);
+  color: var(--text);
   border: var(--border);
   border-radius: var(--radius);
   padding: 24px;
@@ -41,7 +44,7 @@ defineProps<{
 }
 
 .app-card.soon {
-  background: #f8fafc;
+  background: var(--surface-muted);
 }
 
 .badge {
@@ -49,7 +52,7 @@ defineProps<{
   top: -14px;
   right: 18px;
   background: var(--pink);
-  color: var(--white);
+  color: var(--on-color);
   font-weight: 800;
   font-size: 0.85rem;
   padding: 4px 12px;
@@ -63,11 +66,24 @@ defineProps<{
   place-items: center;
   width: 64px;
   height: 64px;
-  font-size: 2rem;
-  background: var(--accent);
+  font-size: 2.2rem;
   border: var(--border);
   border-radius: 20px;
   margin-bottom: 14px;
+}
+
+/* фон значка — в цвет платформы */
+.app-icon.android {
+  background: color-mix(in srgb, #3ddc84 22%, var(--white));
+}
+
+.app-icon.ios {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.app-icon.web {
+  background: color-mix(in srgb, #2563eb 20%, var(--white));
 }
 
 .app-platform {

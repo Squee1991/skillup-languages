@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import MascotGlobe from '~/components/mascots/MascotGlobe.vue'
+
+const { t } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -11,9 +14,13 @@ import MascotGlobe from '~/components/mascots/MascotGlobe.vue'
         </div>
         <MascotGlobe class="cta-mascot" />
         <div class="cta-text">
-          <h2>Готов заговорить на новом языке?</h2>
-          <p>Первая неделя — бесплатно. Без карты, без подвохов, только ты и Глоби.</p>
-          <NuxtLink to="/#apps" class="btn btn-yellow">🎁 Начать бесплатно</NuxtLink>
+          <h2>{{ t('cta.title') }}</h2>
+          <i18n-t keypath="cta.text" tag="p" scope="global">
+            <template #trial>
+              <b>{{ t('cta.trial') }}</b>
+            </template>
+          </i18n-t>
+          <NuxtLink :to="localePath('/') + '#apps'" class="btn btn-yellow">{{ t('cta.button') }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -33,7 +40,7 @@ import MascotGlobe from '~/components/mascots/MascotGlobe.vue'
   align-items: center;
   gap: 40px;
   padding: 48px;
-  color: var(--white);
+  color: var(--on-color);
   background: linear-gradient(120deg, var(--pink) 0%, var(--purple) 60%, #4f46e5 100%);
   border: var(--border);
   border-radius: 40px;

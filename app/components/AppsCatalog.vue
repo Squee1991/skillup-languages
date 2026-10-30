@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { languages, platformMeta, type Language, type Platform } from '~/data/languages'
+import { languages, platforms, soft, type Language, type Platform } from '~/data/languages'
 import LanguageMascot from '~/components/LanguageMascot.vue'
 
-const platforms: Platform[] = ['android', 'ios', 'web']
+const { t } = useI18n()
+const { l, count } = useL10n()
+const localePath = useLocalePath()
 
-const steps = ['Выбери язык', 'Выбери платформу', 'Скачай и учись']
+const steps = [
+  { icon: '🌍', key: 'language', color: 'var(--yellow)' },
+  { icon: '📱', key: 'platform', color: '#f9a8d4' },
+  { icon: '🚀', key: 'start', color: '#86efac' }
+]
 
 // для каждой платформы: готово / скоро / нет
 const statusOf = (lang: Language, p: Platform) => {
@@ -17,16 +23,16 @@ const statusOf = (lang: Language, p: Platform) => {
 <template>
   <section id="apps" class="catalog">
     <div class="container">
-      <span class="tag tag-center">🗺️ Каталог</span>
-      <h2 class="section-title">Какой язык будем учить?</h2>
-      <p class="section-subtitle">
-        Нажми на язык — покажем все его приложения для Android, iOS и браузера.
-      </p>
+      <h2 class="section-title">{{ t('catalog.title') }}</h2>
+      <p class="section-subtitle">{{ t('catalog.subtitle') }}</p>
 
       <ol class="steps">
-        <li v-for="(s, i) in steps" :key="s" :class="{ current: i === 0 }">
-          <span class="step-num">{{ i + 1 }}</span>
-          {{ s }}
+        <li v-for="(s, i) in steps" :key="s.key" :style="{ '--c': s.color, '--d': i * 0.3 + 's' }">
+          <span class="step-circle">
+            {{ s.icon }}
+            <span class="step-num">{{ i + 1 }}</span>
+          </span>
+          <span class="step-label">{{ t(`catalog.steps.${s.key}`) }}</span>
         </li>
       </ol>
 
@@ -34,9 +40,9 @@ const statusOf = (lang: Language, p: Platform) => {
         <NuxtLink
           v-for="lang in languages"
           :key="lang.id"
-          :to="`/languages/${lang.id}`"
+          :to="localePath(`/languages/${lang.id}`)"
           class="lang-card"
-          :style="{ '--accent': lang.color, '--accent-soft': lang.colorSoft }"
+          :style="{ '--accent': lang.color, '--accent-soft': soft(lang.color) }"
         >
           <span class="lang-top">
             <span class="greeting">{{ lang.greeting }}</span>
@@ -47,14 +53,11 @@ const statusOf = (lang: Language, p: Platform) => {
 
           <span class="lang-body">
             <span class="lang-title">
-              <FlagIcon :id="lang.id" class="lang-flag" />
-              <span>
-                <span class="lang-name">{{ lang.name }}</span>
-                <span class="lang-native">{{ lang.nativeName }} · {{ lang.levels }}</span>
-              </span>
+              <span class="lang-name"><FlagIcon :id="lang.id" class="lang-flag" />{{ l(lang.name) }}</span>
+              <span class="lang-native">{{ lang.nativeName }}</span>
             </span>
 
-            <span class="lang-tagline">{{ lang.tagline }}</span>
+            <span class="lang-tagline">{{ l(lang.tagline) }}</span>
 
             <span class="platforms">
               <span
@@ -62,28 +65,31 @@ const statusOf = (lang: Language, p: Platform) => {
                 :key="p"
                 class="platform"
                 :class="statusOf(lang, p)"
-                :title="statusOf(lang, p) === 'soon' ? 'Скоро' : platformMeta[p].label"
+                :title="t(`platform.${p}`)"
               >
-                {{ platformMeta[p].icon }} {{ platformMeta[p].label }}
+                <PlatformIcon :platform="p" /> {{ t(`platform.${p}`) }}
                 <b v-if="statusOf(lang, p) === 'ready'">✓</b>
-                <b v-else-if="statusOf(lang, p) === 'soon'">скоро</b>
+                <b v-else-if="statusOf(lang, p) === 'soon'">{{ t('catalog.soon') }}</b>
               </span>
             </span>
 
-            <span class="lang-learners">👥 {{ lang.learners }} учеников</span>
+            <span class="lang-learners">👥 {{ t('catalog.learners', { count: count(lang.learners) }) }}</span>
 
-            <span class="lang-btn">Выбрать {{ lang.name.toLowerCase() }} →</span>
+            <span class="lang-btn">{{ t('catalog.choose', { name: l(lang.nameAcc) }) }}</span>
           </span>
         </NuxtLink>
       </div>
     </div>
+    <WaveDivider position="bottom" />
   </section>
 </template>
 
 <style scoped>
 .catalog {
-  background: var(--purple);
-  color: var(--white);
+  position: relative;
+  background: var(--catalog-bg);
+  color: var(--on-color);
+  transition: background-color 0.3s ease;
   padding: 72px 0 110px;
   margin-top: -1px;
 }
@@ -93,57 +99,92 @@ const statusOf = (lang: Language, p: Platform) => {
   margin-bottom: 24px;
 }
 
-.tag-center {
-  display: table;
-  margin: 0 auto 16px;
-  color: var(--ink);
-}
-
+/* шаги — дорожка из трёх остановок */
 .steps {
+  position: relative;
   list-style: none;
   padding: 0;
-  margin: 0 auto 40px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px 28px;
+  margin: 0 auto 48px;
+  max-width: 640px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* сама дорожка: пунктир, по которому «бегут» штрихи */
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 31px;
+  left: calc(100% / 6);
+  right: calc(100% / 6);
+  height: 6px;
+  border-radius: 6px;
+  background: repeating-linear-gradient(90deg, #fde68a 0 14px, transparent 14px 26px);
+  animation: road 1.2s linear infinite;
 }
 
 .steps li {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  font-weight: 800;
-  color: #ddd6fe;
+  gap: 10px;
+  text-align: center;
 }
 
-.steps li:not(:last-child)::after {
-  content: '→';
-  position: absolute;
-  right: -21px;
-  color: #a78bfa;
-}
-
-.steps li.current {
-  color: var(--white);
+.step-circle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  font-size: 1.9rem;
+  background: var(--c);
+  border: var(--border);
+  border-radius: 50%;
+  box-shadow: 0 5px 0 var(--ink);
+  animation: bob 2.4s ease-in-out infinite;
+  animation-delay: var(--d);
 }
 
 .step-num {
+  position: absolute;
+  top: -6px;
+  right: -6px;
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
+  font-family: 'Baloo 2', sans-serif;
   font-size: 0.9rem;
-  color: var(--ink);
-  background: #c4b5fd;
-  border: var(--border);
+  font-weight: 800;
+  color: var(--on-color);
+  background: var(--ink);
   border-radius: 50%;
 }
 
-.steps li.current .step-num {
-  background: var(--yellow);
-  animation: wiggle 1.4s ease-in-out infinite;
+.step-label {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  color: var(--on-color);
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes road {
+  to {
+    background-position: 26px 0;
+  }
 }
 
 .languages {
@@ -157,22 +198,22 @@ const statusOf = (lang: Language, p: Platform) => {
   flex-direction: column;
   overflow: hidden;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--text);
   background: var(--white);
   border: var(--border);
   border-radius: 32px;
-  box-shadow: var(--shadow-pop);
+  box-shadow: var(--card-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .lang-card:hover {
   transform: translateY(-8px) rotate(-1deg);
-  box-shadow: 0 14px 0 var(--ink);
+  box-shadow: 0 18px 32px rgba(30, 27, 75, 0.4);
 }
 
 .lang-card:active {
   transform: translateY(2px);
-  box-shadow: 0 3px 0 var(--ink);
+  box-shadow: 0 4px 12px rgba(30, 27, 75, 0.35);
 }
 
 .lang-top {
@@ -216,12 +257,14 @@ const statusOf = (lang: Language, p: Platform) => {
 
 .lang-title {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
 }
 
+/* флаг стоит прямо перед названием, в одну строку */
 .lang-flag {
-  font-size: 1.8rem;
+  margin-right: 10px;
+  font-size: 0.8em;
+  vertical-align: 0.02em;
 }
 
 .lang-name {
@@ -263,16 +306,16 @@ const statusOf = (lang: Language, p: Platform) => {
 }
 
 .platform.ready {
-  background: #dcfce7;
+  background: color-mix(in srgb, var(--green) 22%, var(--white));
 }
 
 .platform.ready b {
-  color: #16a34a;
+  color: var(--green);
 }
 
 .platform.soon {
-  background: #f1f5f9;
-  color: #64748b;
+  background: var(--surface-muted);
+  color: var(--ink-soft);
   border-style: dashed;
 }
 
@@ -298,11 +341,11 @@ const statusOf = (lang: Language, p: Platform) => {
   font-weight: 800;
   font-size: 1.15rem;
   padding: 12px 16px;
-  color: var(--white);
+  color: var(--on-color);
   background: var(--accent);
   border: var(--border);
   border-radius: 999px;
-  box-shadow: 0 5px 0 var(--ink);
+  box-shadow: 0 4px 10px rgba(30, 27, 75, 0.25);
   transition: transform 0.15s ease;
 }
 
@@ -352,10 +395,6 @@ const statusOf = (lang: Language, p: Platform) => {
     font-size: 1.4rem;
   }
 
-  .lang-flag {
-    font-size: 1.3rem;
-  }
-
   .lang-tagline,
   .lang-learners {
     display: none;
@@ -369,28 +408,57 @@ const statusOf = (lang: Language, p: Platform) => {
 }
 
 @media (max-width: 600px) {
-  /* шаги — три колонки, номер над текстом */
   .steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
   }
 
-  .steps li {
-    flex-direction: column;
-    text-align: center;
+  .steps::before {
+    top: 24px;
+    height: 5px;
+  }
+
+  .step-circle {
+    width: 52px;
+    height: 52px;
+    font-size: 1.4rem;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
     font-size: 0.8rem;
-    line-height: 1.2;
   }
 
-  .steps li:not(:last-child)::after {
-    top: 4px;
-    right: -10px;
+  .step-label {
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 420px) {
+  .steps::before {
+    top: 20px;
+    height: 4px;
+  }
+
+  .step-circle {
+    width: 44px;
+    height: 44px;
+    font-size: 1.15rem;
+    box-shadow: 0 3px 0 var(--ink);
+  }
+
+  .step-num {
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+  }
+
   .lang-body {
     min-width: 0;
     padding: 14px 12px;

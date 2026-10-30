@@ -6,13 +6,46 @@
   --orange: #f97316;
   --green: #22c55e;
   --sky: #38bdf8;
+  /* --ink — мультяшные обводки и тени, а также тёмный текст на ярких плашках */
   --ink: #1e1b4b;
+  /* --text — основной текст на фоне и карточках */
+  --text: #1e1b4b;
   --ink-soft: #4c4a7a;
   --bg: #fff8ee;
+  /* --white — фон карточек (в тёмной теме он тёмный), --on-color — белый текст на ярком */
   --white: #ffffff;
+  --on-color: #ffffff;
+  --surface-muted: #f8fafc;
+  --catalog-bg: #7c3aed;
+  --header-bg: rgba(255, 248, 238, 0.85);
+  --hero-bg: linear-gradient(160deg, #fff8ee 0%, #ffe4f1 55%, #e9e3ff 100%);
+  --how-bg: linear-gradient(180deg, #e0f2fe 0%, #fef3c7 100%);
+  --sky-soft: #e0f2fe;
+  --card-shadow: 0 10px 24px rgba(30, 27, 75, 0.35);
+  /* насыщенность мягких цветных подложек (см. soft() в data/languages.ts) */
+  --soft-k: 1;
   --radius: 28px;
   --shadow-pop: 0 6px 0 var(--ink);
   --border: 3px solid var(--ink);
+  color-scheme: light;
+}
+
+/* тёмная тема: включается модулем @nuxtjs/color-mode классом .dark на <html> */
+.dark {
+  --ink: #0b0919;
+  --text: #f3f0ff;
+  --ink-soft: #b9b2df;
+  --bg: #15122e;
+  --white: #252047;
+  --surface-muted: #1d1939;
+  --catalog-bg: #4c1d95;
+  --header-bg: rgba(21, 18, 46, 0.85);
+  --hero-bg: linear-gradient(160deg, #1a1538 0%, #2c1742 55%, #1c1a48 100%);
+  --how-bg: linear-gradient(180deg, #112a44 0%, #2a2416 100%);
+  --sky-soft: #112a44;
+  --card-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  --soft-k: 0.6;
+  color-scheme: dark;
 }
 
 *,
@@ -24,14 +57,17 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 84px;
+  /* страховка: ничего не должно раздвигать страницу вбок */
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   font-family: 'Nunito', system-ui, sans-serif;
-  color: var(--ink);
+  color: var(--text);
   background: var(--bg);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
 }
 
@@ -86,6 +122,7 @@ a {
   border-radius: 999px;
   border: var(--border);
   background: var(--yellow);
+  color: var(--ink);
   margin-bottom: 16px;
 }
 
@@ -117,12 +154,12 @@ a {
 
 .btn-primary {
   background: var(--purple);
-  color: var(--white);
+  color: var(--on-color);
 }
 
 .btn-secondary {
   background: var(--white);
-  color: var(--ink);
+  color: var(--text);
 }
 
 .btn-yellow {
@@ -188,4 +225,11 @@ a {
 
 .page-leave-to {
   opacity: 0;
+}
+
+/* плавная смена темы: старая и новая картинка страницы, новая открывается кругом (см. ThemeToggle) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }

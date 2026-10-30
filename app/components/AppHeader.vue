@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { languages } from '~/data/languages'
+import { languages, soft } from '~/data/languages'
 import LanguageMascot from '~/components/LanguageMascot.vue'
 
 const open = ref(false)
 const route = useRoute()
+const { t } = useI18n()
+const { l } = useL10n()
+const localePath = useLocalePath()
 
-const links = [
-  { href: '/#apps', label: 'Приложения', icon: '📱', color: '#fde68a' },
-  { href: '/#features', label: 'Почему мы', icon: '💡', color: '#bae6fd' },
-  { href: '/#how', label: 'Как это работает', icon: '🧭', color: '#bbf7d0' },
-  { href: '/#reviews', label: 'Отзывы', icon: '💬', color: '#fbcfe8' }
-]
+// ссылки на разделы главной: /#apps, /en#apps …
+const home = (hash: string) => localePath('/') + hash
+
+const links = computed(() => [
+  { href: home('#apps'), label: t('nav.apps'), icon: '📱', color: '#fde68a' },
+  { href: home('#features'), label: t('nav.features'), icon: '💡', color: '#bae6fd' },
+  { href: home('#how'), label: t('nav.how'), icon: '🧭', color: '#bbf7d0' },
+  { href: home('#reviews'), label: t('nav.reviews'), icon: '💬', color: '#fbcfe8' }
+])
 
 const close = () => (open.value = false)
 const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
@@ -31,7 +37,7 @@ onBeforeUnmount(() => {
 <template>
   <header class="header">
     <div class="container header-inner">
-      <NuxtLink to="/" class="logo">
+      <NuxtLink :to="localePath('/')" class="logo">
         <span class="logo-icon">🌍</span>
         <span class="logo-text">
           <span>Skill<b>Up</b></span>
@@ -43,12 +49,16 @@ onBeforeUnmount(() => {
         <NuxtLink v-for="link in links" :key="link.href" :to="link.href" class="nav-link">
           {{ link.label }}
         </NuxtLink>
-        <NuxtLink to="/#apps" class="btn btn-yellow nav-cta">Выбрать язык</NuxtLink>
       </nav>
 
-      <button class="burger" :aria-expanded="open" aria-label="Открыть меню" @click="open = true">
-        <span /><span /><span />
-      </button>
+      <div class="controls">
+        <LocaleSwitcher class="desktop-only" />
+        <ThemeToggle />
+        <NuxtLink :to="home('#apps')" class="btn btn-yellow nav-cta">{{ t('nav.chooseLanguage') }}</NuxtLink>
+        <button class="burger" :aria-expanded="open" :aria-label="t('nav.openMenu')" @click="open = true">
+          <span /><span /><span />
+        </button>
+      </div>
     </div>
 
     <!-- мобильное меню: выезжает справа -->
@@ -57,10 +67,10 @@ onBeforeUnmount(() => {
         <div v-if="open" class="drawer-root">
           <div class="overlay" @click="close" />
 
-          <aside class="drawer" role="dialog" aria-modal="true" aria-label="Меню">
+          <aside class="drawer" role="dialog" aria-modal="true" :aria-label="t('nav.menu')">
             <div class="drawer-head">
-              <span class="drawer-title">Меню</span>
-              <button class="close" aria-label="Закрыть меню" @click="close">✕</button>
+              <span class="drawer-title">{{ t('nav.menu') }}</span>
+              <button class="close" :aria-label="t('nav.closeMenu')" @click="close">✕</button>
             </div>
 
             <nav class="drawer-links">
@@ -78,29 +88,32 @@ onBeforeUnmount(() => {
               </NuxtLink>
             </nav>
 
-            <p class="drawer-subtitle stagger" :style="{ '--i': links.length }">Учить язык</p>
+            <p class="drawer-subtitle stagger" :style="{ '--i': links.length }">{{ t('nav.learnLanguage') }}</p>
             <div class="drawer-langs stagger" :style="{ '--i': links.length + 1 }">
               <NuxtLink
-                v-for="l in languages"
-                :key="l.id"
-                :to="`/languages/${l.id}`"
+                v-for="lang in languages"
+                :key="lang.id"
+                :to="localePath(`/languages/${lang.id}`)"
                 class="drawer-lang"
-                :style="{ '--accent-soft': l.colorSoft }"
+                :style="{ '--accent-soft': soft(lang.color) }"
                 @click="close"
               >
-                <LanguageMascot :id="l.id" class="drawer-mascot" />
-                <span>{{ l.name }}</span>
+                <LanguageMascot :id="lang.id" class="drawer-mascot" />
+                <span>{{ l(lang.name) }}</span>
               </NuxtLink>
             </div>
 
             <NuxtLink
-              to="/#apps"
+              :to="home('#apps')"
               class="btn btn-yellow drawer-cta stagger"
               :style="{ '--i': links.length + 2 }"
               @click="close"
             >
-              🚀 Выбрать приложение
+              {{ t('nav.chooseApp') }}
             </NuxtLink>
+
+            <p class="drawer-subtitle stagger" :style="{ '--i': links.length + 3 }">{{ t('nav.siteLanguage') }}</p>
+            <LocaleSwitcher inline class="stagger" :style="{ '--i': links.length + 4 }" />
           </aside>
         </div>
       </Transition>
@@ -113,8 +126,9 @@ onBeforeUnmount(() => {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 248, 238, 0.85);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
+  transition: background-color 0.3s ease;
   border-bottom: var(--border);
 }
 
@@ -194,7 +208,7 @@ onBeforeUnmount(() => {
   width: 100%;
 }
 
-@media (max-width: 1100px) and (min-width: 881px) {
+@media (max-width: 1240px) and (min-width: 881px) {
   .nav {
     gap: 18px;
   }
@@ -202,6 +216,18 @@ onBeforeUnmount(() => {
   .nav-link:nth-child(3) {
     display: none;
   }
+}
+
+@media (max-width: 1060px) and (min-width: 881px) {
+  .nav-link:nth-child(2) {
+    display: none;
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .nav-cta {
@@ -290,7 +316,7 @@ onBeforeUnmount(() => {
   font-family: 'Baloo 2', sans-serif;
   font-size: 2rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--on-color);
 }
 
 .close {
@@ -300,7 +326,7 @@ onBeforeUnmount(() => {
   height: 46px;
   font-size: 1.3rem;
   font-weight: 800;
-  color: var(--ink);
+  color: var(--text);
   background: var(--white);
   border: var(--border);
   border-radius: 50%;
@@ -327,7 +353,7 @@ onBeforeUnmount(() => {
   font-size: 1.3rem;
   font-weight: 700;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--text);
   background: var(--white);
   border: var(--border);
   border-radius: 20px;
@@ -383,7 +409,7 @@ onBeforeUnmount(() => {
   font-weight: 800;
   font-size: 0.85rem;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--text);
   background: var(--accent-soft);
   border: var(--border);
   border-radius: 18px;
@@ -402,6 +428,10 @@ onBeforeUnmount(() => {
 .drawer-cta {
   justify-content: center;
   margin-top: 24px;
+}
+
+.drawer-cta + .drawer-subtitle {
+  margin-top: 28px;
 }
 
 /* анимация открытия: фон проявляется, панель выезжает с пружинкой, пункты появляются по очереди */
@@ -485,8 +515,14 @@ onBeforeUnmount(() => {
     display: flex;
   }
 
-  .nav {
+  .nav,
+  .nav-cta,
+  .desktop-only {
     display: none;
+  }
+
+  .controls {
+    gap: 10px;
   }
 }
 </style>

@@ -19,6 +19,10 @@
       stroke-width="5"
     />
     <ellipse cx="120" cy="196" rx="52" ry="40" fill="#fde4c4" />
+    <!-- лапки -->
+    <ellipse cx="92" cy="238" rx="22" ry="12" fill="#92400e" stroke="#1e1b4b" stroke-width="5" />
+    <ellipse cx="148" cy="238" rx="22" ry="12" fill="#92400e" stroke="#1e1b4b" stroke-width="5" />
+    <path d="M84 234 v8 M92 233 v9 M100 234 v8 M140 234 v8 M148 233 v9 M156 234 v8" stroke="#1e1b4b" stroke-width="2.5" stroke-linecap="round" opacity="0.5" />
     <!-- глаза -->
     <circle cx="92" cy="106" r="16" fill="#fff" stroke="#1e1b4b" stroke-width="4" />
     <circle cx="148" cy="106" r="16" fill="#fff" stroke="#1e1b4b" stroke-width="4" />

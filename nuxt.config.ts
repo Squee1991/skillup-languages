@@ -1,18 +1,39 @@
 export default defineNuxtConfig({
     compatibilityDate: '2026-10-01',
     devtools: {enabled: true},
+    modules: ['@nuxtjs/i18n', '@nuxtjs/color-mode'],
     css: ['~/assets/css/main.css'],
+
+    // переводы лежат в i18n/locales/*.json, русский — без префикса в адресе (/), остальные — /uk, /en
+    i18n: {
+        baseUrl: 'https://skillup-languages.vercel.app',
+        defaultLocale: 'ru',
+        strategy: 'prefix_except_default',
+        locales: [
+            {code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru.json'},
+            {code: 'uk', language: 'uk-UA', name: 'Українська', file: 'uk.json'},
+            {code: 'en', language: 'en-US', name: 'English', file: 'en.json'}
+        ],
+        detectBrowserLanguage: {
+            useCookie: true,
+            cookieKey: 'skillup_lang',
+            redirectOn: 'root'
+        }
+    },
+
+    // тема: класс .light / .dark на <html>, по умолчанию — как в системе
+    colorMode: {
+        classSuffix: '',
+        preference: 'system',
+        fallback: 'light',
+        storageKey: 'skillup-color-mode'
+    },
+
     app: {
         pageTransition: {name: 'page', mode: 'out-in'},
         head: {
-            htmlAttrs: {lang: 'ru'},
-            title: 'SkillUp Languages — учи языки играючи',
             meta: [
                 {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-                {
-                    name: 'description',
-                    content: 'SkillUp Languages — яркие приложения для изучения немецкого, испанского и польского языков на Android, iOS и в браузере.'
-                },
                 {name: 'theme-color', content: '#7c3aed'}
             ],
             link: [

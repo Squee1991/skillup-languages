@@ -1,34 +1,39 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
+// тексты — в i18n/locales: how.items.<key>
 const steps = [
-  { n: 1, icon: '🌍', title: 'Выбери язык', text: 'Немецкий, испанский или польский — что ближе к твоей цели.', color: 'var(--yellow)' },
-  { n: 2, icon: '📲', title: 'Скачай приложение', text: 'Android, iOS или сайт — как тебе удобнее.', color: 'var(--sky)' },
-  { n: 3, icon: '🏆', title: 'Занимайся и расти', text: 'Пройди тест на уровень и получай награды за каждый день.', color: 'var(--green)' }
+  { n: 1, key: 'choose', icon: '🌍', color: 'var(--yellow)' },
+  { n: 2, key: 'download', icon: '📲', color: 'var(--sky)' },
+  { n: 3, key: 'grow', icon: '🏆', color: 'var(--green)' }
 ]
 </script>
 
 <template>
   <section id="how" class="section how">
+    <WaveDivider position="top" />
     <div class="container">
-      <span class="tag tag-center">🧭 Как начать</span>
-      <h2 class="section-title">Три шага до первого «Hallo!»</h2>
-      <p class="section-subtitle">Никаких сложных регистраций — начать можно уже через минуту.</p>
+      <span class="tag tag-center">{{ t('how.tag') }}</span>
+      <h2 class="section-title">{{ t('how.title') }}</h2>
+      <p class="section-subtitle">{{ t('how.subtitle') }}</p>
 
       <ol class="steps">
         <li v-for="s in steps" :key="s.n" class="step">
           <span class="num" :style="{ background: s.color }">{{ s.n }}</span>
           <div class="step-icon">{{ s.icon }}</div>
-          <h3>{{ s.title }}</h3>
-          <p>{{ s.text }}</p>
+          <h3>{{ t(`how.items.${s.key}.title`) }}</h3>
+          <p>{{ t(`how.items.${s.key}.text`) }}</p>
         </li>
       </ol>
     </div>
+    <WaveDivider position="bottom" />
   </section>
 </template>
 
 <style scoped>
 .how {
-  background: linear-gradient(180deg, #e0f2fe 0%, #fef3c7 100%);
-  border-block: var(--border);
+  background: var(--how-bg);
+  padding-block: 130px;
 }
 
 .tag-center {
@@ -79,6 +84,7 @@ const steps = [
   font-family: 'Baloo 2', sans-serif;
   font-weight: 800;
   font-size: 1.4rem;
+  color: var(--ink);
   border: var(--border);
   border-radius: 50%;
 }

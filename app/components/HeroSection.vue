@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { languages } from '~/data/languages'
+import { languages, soft } from '~/data/languages'
 import MascotGlobe from '~/components/mascots/MascotGlobe.vue'
 
-const stats = [
-  { value: '28 000+', label: 'учеников' },
-  { value: '4.8 ★', label: 'рейтинг' },
-  { value: '5 мин', label: 'в день' }
-]
+const { t } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -17,26 +14,15 @@ const stats = [
 
     <div class="container hero-inner">
       <div class="hero-text">
-        <span class="tag">🎉 Языки — это весело</span>
         <h1>
-          Учи языки <span class="highlight">играючи</span> вместе с SkillUp Languages
+          {{ t('hero.before') }} <span class="highlight">{{ t('hero.highlight') }}</span> {{ t('hero.after') }}
         </h1>
-        <p class="lead">
-          Немецкий, испанский и польский — в приложениях для Android, iOS и прямо в браузере.
-          Короткие уроки, игры и весёлый Глоби, который не даст забросить.
-        </p>
+        <p class="lead">{{ t('hero.lead') }}</p>
 
         <div class="actions">
-          <a href="#apps" class="btn btn-primary">🚀 Найти своё приложение</a>
-          <a href="#how" class="btn btn-secondary">Как это работает</a>
+          <a href="#apps" class="btn btn-primary">{{ t('hero.findApp') }}</a>
+          <a href="#how" class="btn btn-secondary">{{ t('hero.howItWorks') }}</a>
         </div>
-
-        <ul class="stats">
-          <li v-for="s in stats" :key="s.label">
-            <b>{{ s.value }}</b>
-            <span>{{ s.label }}</span>
-          </li>
-        </ul>
       </div>
 
       <div class="hero-visual">
@@ -45,10 +31,10 @@ const stats = [
         <NuxtLink
           v-for="(lang, i) in languages"
           :key="lang.id"
-          :to="`/languages/${lang.id}`"
+          :to="localePath(`/languages/${lang.id}`)"
           class="bubble"
           :class="'bubble-' + i"
-          :style="{ background: lang.colorSoft }"
+          :style="{ background: soft(lang.color) }"
         >
           <FlagIcon :id="lang.id" class="bubble-flag" />
           {{ lang.greeting }}
@@ -57,7 +43,7 @@ const stats = [
     </div>
 
     <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 40 C240 90 480 0 720 40 C960 80 1200 0 1440 40 L1440 80 L0 80 Z" fill="#7c3aed" />
+      <path d="M0 40 C240 90 480 0 720 40 C960 80 1200 0 1440 40 L1440 80 L0 80 Z" style="fill: var(--catalog-bg)" />
     </svg>
   </section>
 </template>
@@ -67,7 +53,7 @@ const stats = [
   position: relative;
   overflow: hidden;
   padding: 72px 0 140px;
-  background: linear-gradient(160deg, #fff8ee 0%, #ffe4f1 55%, #e9e3ff 100%);
+  background: var(--hero-bg);
 }
 
 .blob {
@@ -76,6 +62,10 @@ const stats = [
   filter: blur(2px);
   opacity: 0.55;
   animation: float 8s ease-in-out infinite;
+}
+
+:global(.dark .hero .blob) {
+  opacity: 0.22;
 }
 
 .blob-1 {
@@ -129,8 +119,8 @@ h1 {
   position: absolute;
   left: -4px;
   right: -4px;
-  bottom: 6px;
-  height: 18px;
+  bottom: 14px;
+  height: 14px;
   background: var(--yellow);
   border-radius: 8px;
   z-index: -1;
@@ -148,38 +138,6 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  margin-bottom: 40px;
-}
-
-.stats {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.stats li {
-  display: flex;
-  flex-direction: column;
-  background: var(--white);
-  border: var(--border);
-  border-radius: 20px;
-  padding: 10px 20px;
-  box-shadow: 0 4px 0 var(--ink);
-}
-
-.stats b {
-  font-family: 'Baloo 2', sans-serif;
-  font-size: 1.5rem;
-  line-height: 1.2;
-}
-
-.stats span {
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-  font-weight: 700;
 }
 
 .hero-visual {
@@ -236,7 +194,7 @@ h1 {
 
 .bubble-1 {
   top: 38%;
-  right: -14%;
+  right: -6%;
   --r: 5deg;
   animation-delay: -1.5s;
 }
@@ -266,8 +224,7 @@ h1 {
     margin-inline: auto;
   }
 
-  .actions,
-  .stats {
+  .actions {
     justify-content: center;
   }
 
@@ -285,7 +242,7 @@ h1 {
   }
 
   .bubble-1 {
-    right: -8%;
+    right: -2%;
   }
 
   .bubble-2 {

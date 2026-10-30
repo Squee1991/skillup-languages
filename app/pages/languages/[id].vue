@@ -1,18 +1,26 @@
 <script setup lang="ts">
-import { findLanguage, languages, platformMeta } from '~/data/languages'
+import { findLanguage, languages, soft } from '~/data/languages'
 import AppCard from '~/components/AppCard.vue'
 import LanguageMascot from '~/components/LanguageMascot.vue'
 import CtaSection from '~/components/CtaSection.vue'
 
 const route = useRoute()
+const { t } = useI18n()
+const { l, count } = useL10n()
+const localePath = useLocalePath()
 const lang = findLanguage(route.params.id as string)
 
 if (!lang) {
-  throw createError({ statusCode: 404, statusMessage: 'Такого языка пока нет', fatal: true })
+  throw createError({ statusCode: 404, statusMessage: 'Not found', fatal: true })
 }
 
-const others = languages.filter((l) => l.id !== lang.id)
-const readyApps = lang.apps.filter((a) => !a.comingSoon)
+const others = languages.filter((o) => o.id !== lang.id)
+const ready = computed(() =>
+  lang.apps
+    .filter((a) => !a.comingSoon)
+    .map((a) => t(`platform.${a.platform}`))
+    .join(', ')
+)
 const flipped = ref(new Set<number>())
 
 const toggle = (i: number) => {
@@ -22,46 +30,45 @@ const toggle = (i: number) => {
 }
 
 useSeoMeta({
-  title: `${lang.name} язык — SkillUp Languages`,
-  description: `${lang.tagline}. Приложения для изучения ${lang.nameGenitive} на Android, iOS и в браузере.`
+  title: () => t('lang.metaTitle', { name: l(lang.name) }),
+  description: () => t('lang.metaDescription', { tagline: l(lang.tagline), name: l(lang.nameGen) })
 })
 </script>
 
 <template>
-  <div :style="{ '--accent': lang!.color, '--accent-soft': lang!.colorSoft }">
+  <div :style="{ '--accent': lang!.color, '--accent-soft': soft(lang!.color) }">
     <!-- Шапка языка -->
     <section class="lang-hero">
       <div class="container">
-        <NuxtLink to="/#apps" class="back-link">← Все языки</NuxtLink>
+        <NuxtLink :to="localePath('/') + '#apps'" class="back-link">{{ t('lang.back') }}</NuxtLink>
       </div>
       <div class="container hero-grid">
         <div>
           <h1>
             <FlagIcon :id="lang!.id" class="flag" />
-            {{ lang!.name }}
+            {{ l(lang!.name) }}
             <span class="native">{{ lang!.nativeName }}</span>
           </h1>
-          <p class="tagline">{{ lang!.tagline }}</p>
-          <p class="about">{{ lang!.about }}</p>
+          <p class="tagline">{{ l(lang!.tagline) }}</p>
+          <p class="about">{{ l(lang!.about) }}</p>
 
           <p class="intro">
-            <b>{{ lang!.mascot.name }}:</b> {{ lang!.mascot.intro }}
+            <b>{{ l(lang!.mascot.name) }}:</b> {{ l(lang!.mascot.intro) }}
           </p>
 
           <ul class="chips">
-            <li>📊 Уровни {{ lang!.levels }}</li>
-            <li>👥 {{ lang!.learners }} учеников</li>
-            <li>📱 Готово: {{ readyApps.map((a) => platformMeta[a.platform].label).join(', ') }}</li>
+            <li>{{ t('lang.learners', { count: count(lang!.learners) }) }}</li>
+            <li>{{ t('lang.ready', { list: ready }) }}</li>
           </ul>
 
-          <a href="#platforms" class="btn btn-primary">🚀 Выбрать приложение</a>
+          <a href="#platforms" class="btn btn-primary">{{ t('lang.chooseApp') }}</a>
         </div>
 
         <div class="visual">
           <div class="circle" />
           <LanguageMascot :id="lang!.id" class="owl" />
           <span class="bubble">{{ lang!.greeting }}</span>
-          <span class="name-tag">{{ lang!.mascot.name }}</span>
+          <span class="name-tag">{{ l(lang!.mascot.name) }}</span>
         </div>
       </div>
     </section>
@@ -69,9 +76,9 @@ useSeoMeta({
     <!-- Платформы -->
     <section id="platforms" class="section platforms">
       <div class="container">
-        <span class="tag tag-center">📱 Платформы</span>
-        <h2 class="section-title">Где учить {{ lang!.nameGenitive }}</h2>
-        <p class="section-subtitle">Выбирай удобный формат — прогресс общий для всех устройств.</p>
+        <span class="tag tag-center">{{ t('lang.platformsTag') }}</span>
+        <h2 class="section-title">{{ t('lang.platformsTitle', { name: l(lang!.nameAcc) }) }}</h2>
+        <p class="section-subtitle">{{ t('lang.platformsSubtitle') }}</p>
 
         <div class="apps">
           <AppCard v-for="app in lang!.apps" :key="app.platform" :app="app" show-features />
@@ -82,13 +89,13 @@ useSeoMeta({
     <!-- Зачем учить -->
     <section class="section reasons-section">
       <div class="container">
-        <span class="tag tag-center">💡 Зачем</span>
-        <h2 class="section-title">Зачем учить {{ lang!.nameGenitive }}?</h2>
+        <span class="tag tag-center">{{ t('lang.whyTag') }}</span>
+        <h2 class="section-title">{{ t('lang.whyTitle', { name: l(lang!.nameAcc) }) }}</h2>
         <div class="reasons">
-          <article v-for="r in lang!.reasons" :key="r.title" class="reason">
+          <article v-for="r in lang!.reasons" :key="r.icon" class="reason">
             <div class="reason-icon">{{ r.icon }}</div>
-            <h3>{{ r.title }}</h3>
-            <p>{{ r.text }}</p>
+            <h3>{{ l(r.title) }}</h3>
+            <p>{{ l(r.text) }}</p>
           </article>
         </div>
       </div>
@@ -97,20 +104,25 @@ useSeoMeta({
     <!-- Программа -->
     <section class="section">
       <div class="container">
-        <span class="tag tag-center">🧩 Программа</span>
-        <h2 class="section-title">Что ты изучишь</h2>
-        <ul class="topics">
-          <li v-for="(t, i) in lang!.topics" :key="t" :style="{ '--d': i * 0.08 + 's' }">{{ t }}</li>
-        </ul>
+        <span class="tag tag-center">{{ t('lang.programTag') }}</span>
+        <h2 class="section-title">{{ t('lang.programTitle') }}</h2>
+        <div class="program">
+          <p v-for="(text, i) in l(lang!.program)" :key="i">
+            <template v-for="(part, j) in text.split('*')" :key="j">
+              <mark v-if="j % 2">{{ part }}</mark>
+              <template v-else>{{ part }}</template>
+            </template>
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- Фразы -->
     <section class="section phrases-section">
       <div class="container">
-        <span class="tag tag-center">🗣️ Попробуй</span>
-        <h2 class="section-title">Первые фразы уже сейчас</h2>
-        <p class="section-subtitle">Нажми на карточку, чтобы увидеть перевод.</p>
+        <span class="tag tag-center">{{ t('lang.phrasesTag') }}</span>
+        <h2 class="section-title">{{ t('lang.phrasesTitle') }}</h2>
+        <p class="section-subtitle">{{ t('lang.phrasesSubtitle') }}</p>
 
         <div class="phrases">
           <button
@@ -122,7 +134,7 @@ useSeoMeta({
           >
             <span class="phrase-inner">
               <span class="face front">{{ p.word }}</span>
-              <span class="face back">{{ p.translation }}</span>
+              <span class="face back">{{ l(p.translation) }}</span>
             </span>
           </button>
         </div>
@@ -132,20 +144,20 @@ useSeoMeta({
     <!-- Другие языки -->
     <section class="section">
       <div class="container">
-        <h2 class="section-title">Другие языки</h2>
-        <p class="section-subtitle">Учи сразу несколько — Глоби не против 🌍</p>
+        <h2 class="section-title">{{ t('lang.othersTitle') }}</h2>
+        <p class="section-subtitle">{{ t('lang.othersSubtitle') }}</p>
         <div class="others">
           <NuxtLink
             v-for="o in others"
             :key="o.id"
-            :to="`/languages/${o.id}`"
+            :to="localePath(`/languages/${o.id}`)"
             class="other"
-            :style="{ '--accent': o.color, '--accent-soft': o.colorSoft }"
+            :style="{ '--accent': o.color, '--accent-soft': soft(o.color) }"
           >
             <LanguageMascot :id="o.id" class="other-mascot" />
             <span>
-              <b>{{ o.name }}</b>
-              <small><FlagIcon :id="o.id" /> {{ o.nativeName }} · {{ o.mascot.name }}</small>
+              <b>{{ l(o.name) }}</b>
+              <small><FlagIcon :id="o.id" /> {{ o.nativeName }} · {{ l(o.mascot.name) }}</small>
             </span>
             <span class="arrow">→</span>
           </NuxtLink>
@@ -160,7 +172,7 @@ useSeoMeta({
 <style scoped>
 .lang-hero {
   padding: 48px 0 72px;
-  background: linear-gradient(160deg, var(--accent-soft) 0%, #fff8ee 100%);
+  background: linear-gradient(160deg, var(--accent-soft) 0%, var(--bg) 100%);
   border-bottom: var(--border);
 }
 
@@ -276,7 +288,7 @@ h1 {
 .bubble {
   position: absolute;
   top: 0;
-  right: -10%;
+  right: -4%;
   font-family: 'Baloo 2', sans-serif;
   font-weight: 800;
   font-size: 1.4rem;
@@ -299,7 +311,7 @@ h1 {
   font-weight: 800;
   font-size: 1.1rem;
   padding: 4px 16px;
-  color: var(--white);
+  color: var(--on-color);
   background: var(--ink);
   border-radius: 999px;
   rotate: -3deg;
@@ -355,35 +367,33 @@ h1 {
   color: var(--ink-soft);
 }
 
-.topics {
-  list-style: none;
-  padding: 0;
-  margin: 40px 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px;
-}
-
-.topics li {
-  font-family: 'Baloo 2', sans-serif;
-  font-weight: 700;
+.program {
+  display: grid;
+  gap: 16px;
+  max-width: 820px;
+  margin: 40px auto 0;
+  padding: 32px 36px;
   font-size: 1.2rem;
-  padding: 10px 22px;
-  background: var(--accent-soft);
+  line-height: 1.9;
+  background: var(--white);
   border: var(--border);
-  border-radius: 999px;
-  box-shadow: 0 4px 0 var(--ink);
-  animation: pop-in 0.4s ease both;
-  animation-delay: var(--d);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
 }
 
-.topics li:nth-child(even) {
-  transform: rotate(1.5deg);
+/* ключевые темы выделены маркером в цвет языка */
+.program mark {
+  font-weight: 800;
+  color: var(--text);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: 8px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .phrases-section {
-  background: linear-gradient(180deg, #e0f2fe 0%, var(--accent-soft) 100%);
+  background: linear-gradient(180deg, var(--sky-soft) 0%, var(--accent-soft) 100%);
   border-block: var(--border);
 }
 
@@ -439,7 +449,7 @@ h1 {
 
 .back {
   background: var(--accent);
-  color: var(--white);
+  color: var(--on-color);
   transform: rotateY(180deg);
 }
 
