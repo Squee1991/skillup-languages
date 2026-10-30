@@ -99,7 +99,7 @@ ul a:hover {
   text-align: center;
   font-size: 0.9rem;
   opacity: 0.7;
-  padding: 5px 10px;
+  padding: 4px 10px;
 }
 
 @media (max-width: 720px) {
