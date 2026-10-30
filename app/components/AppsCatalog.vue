@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import { languages, platformMeta, type Platform } from '~/data/languages'
-import AppCard from '~/components/AppCard.vue'
+import { languages, platformMeta, type Language, type Platform } from '~/data/languages'
 import LanguageMascot from '~/components/LanguageMascot.vue'
 
-const activeId = ref(languages[0]!.id)
-const platform = ref<Platform | 'all'>('all')
+const platforms: Platform[] = ['android', 'ios', 'web']
 
-const active = computed(() => languages.find((l) => l.id === activeId.value)!)
-const apps = computed(() =>
-  platform.value === 'all' ? active.value.apps : active.value.apps.filter((a) => a.platform === platform.value)
-)
+const steps = ['Выбери язык', 'Выбери платформу', 'Скачай и учись']
 
-const filters: { id: Platform | 'all'; label: string }[] = [
-  { id: 'all', label: '✨ Все' },
-  { id: 'android', label: `${platformMeta.android.icon} Android` },
-  { id: 'ios', label: `${platformMeta.ios.icon} iOS` },
-  { id: 'web', label: `${platformMeta.web.icon} Сайт` }
-]
+// для каждой платформы: готово / скоро / нет
+const statusOf = (lang: Language, p: Platform) => {
+  const app = lang.apps.find((a) => a.platform === p)
+  if (!app) return 'none'
+  return app.comingSoon ? 'soon' : 'ready'
+}
 </script>
 
 <template>
@@ -25,61 +20,61 @@ const filters: { id: Platform | 'all'; label: string }[] = [
       <span class="tag tag-center">🗺️ Каталог</span>
       <h2 class="section-title">Какой язык будем учить?</h2>
       <p class="section-subtitle">
-        Выбери язык и платформу — и сразу переходи к нужному приложению.
+        Нажми на язык — покажем все его приложения для Android, iOS и браузера.
       </p>
 
-      <div class="languages" role="tablist">
-        <button
+      <ol class="steps">
+        <li v-for="(s, i) in steps" :key="s" :class="{ current: i === 0 }">
+          <span class="step-num">{{ i + 1 }}</span>
+          {{ s }}
+        </li>
+      </ol>
+
+      <div class="languages">
+        <NuxtLink
           v-for="lang in languages"
           :key="lang.id"
-          role="tab"
-          :aria-selected="lang.id === activeId"
+          :to="`/languages/${lang.id}`"
           class="lang-card"
-          :class="{ active: lang.id === activeId }"
           :style="{ '--accent': lang.color, '--accent-soft': lang.colorSoft }"
-          @click="activeId = lang.id"
         >
-          <span class="lang-pic">
-            <LanguageMascot :id="lang.id" />
-            <FlagIcon :id="lang.id" class="lang-flag" />
+          <span class="lang-top">
+            <span class="greeting">{{ lang.greeting }}</span>
+            <span class="lang-pic">
+              <LanguageMascot :id="lang.id" />
+            </span>
           </span>
-          <span class="lang-name">{{ lang.name }}</span>
-          <span class="lang-native">{{ lang.nativeName }}</span>
-          <span class="lang-learners">👥 {{ lang.learners }} учеников</span>
-        </button>
-      </div>
 
-      <div class="panel" :style="{ '--accent': active.color, '--accent-soft': active.colorSoft }">
-        <div class="panel-head">
-          <h3>
-            <FlagIcon :id="active.id" /> {{ active.name }}: {{ active.greeting }}
-          </h3>
-          <div class="filters">
-            <button
-              v-for="f in filters"
-              :key="f.id"
-              class="filter"
-              :class="{ active: platform === f.id }"
-              @click="platform = f.id"
-            >
-              {{ f.label }}
-            </button>
-          </div>
-        </div>
+          <span class="lang-body">
+            <span class="lang-title">
+              <FlagIcon :id="lang.id" class="lang-flag" />
+              <span>
+                <span class="lang-name">{{ lang.name }}</span>
+                <span class="lang-native">{{ lang.nativeName }} · {{ lang.levels }}</span>
+              </span>
+            </span>
 
-        <TransitionGroup name="card" tag="div" class="apps">
-          <AppCard v-for="app in apps" :key="active.id + app.platform" :app="app" />
-        </TransitionGroup>
+            <span class="lang-tagline">{{ lang.tagline }}</span>
 
-        <p v-if="!apps.length" class="empty">
-          🌍 Для этой платформы приложение пока в разработке — загляни позже!
-        </p>
+            <span class="platforms">
+              <span
+                v-for="p in platforms"
+                :key="p"
+                class="platform"
+                :class="statusOf(lang, p)"
+                :title="statusOf(lang, p) === 'soon' ? 'Скоро' : platformMeta[p].label"
+              >
+                {{ platformMeta[p].icon }} {{ platformMeta[p].label }}
+                <b v-if="statusOf(lang, p) === 'ready'">✓</b>
+                <b v-else-if="statusOf(lang, p) === 'soon'">скоро</b>
+              </span>
+            </span>
 
-        <div class="more">
-          <NuxtLink :to="`/languages/${active.id}`" class="btn btn-yellow">
-            <FlagIcon :id="active.id" /> Всё о курсе {{ active.nameGenitive }} →
-          </NuxtLink>
-        </div>
+            <span class="lang-learners">👥 {{ lang.learners }} учеников</span>
+
+            <span class="lang-btn">Выбрать {{ lang.name.toLowerCase() }} →</span>
+          </span>
+        </NuxtLink>
       </div>
     </div>
   </section>
@@ -95,6 +90,7 @@ const filters: { id: Platform | 'all'; label: string }[] = [
 
 .catalog .section-subtitle {
   color: #ddd6fe;
+  margin-bottom: 24px;
 }
 
 .tag-center {
@@ -103,196 +99,316 @@ const filters: { id: Platform | 'all'; label: string }[] = [
   color: var(--ink);
 }
 
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 28px;
+}
+
+.steps li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  color: #ddd6fe;
+}
+
+.steps li:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -21px;
+  color: #a78bfa;
+}
+
+.steps li.current {
+  color: var(--white);
+}
+
+.step-num {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: #c4b5fd;
+  border: var(--border);
+  border-radius: 50%;
+}
+
+.steps li.current .step-num {
+  background: var(--yellow);
+  animation: wiggle 1.4s ease-in-out infinite;
+}
+
 .languages {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 32px;
+  gap: 28px;
 }
 
 .lang-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  font-family: inherit;
+  overflow: hidden;
+  text-decoration: none;
   color: var(--ink);
   background: var(--white);
   border: var(--border);
-  border-radius: var(--radius);
-  padding: 24px 16px;
+  border-radius: 32px;
   box-shadow: var(--shadow-pop);
-  cursor: pointer;
-  transition: transform 0.15s ease, background 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .lang-card:hover {
-  transform: translateY(-4px) rotate(-1deg);
+  transform: translateY(-8px) rotate(-1deg);
+  box-shadow: 0 14px 0 var(--ink);
 }
 
-.lang-card.active {
+.lang-card:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+.lang-top {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 12px;
   background: var(--accent-soft);
-  transform: translateY(-6px);
-  box-shadow: 0 10px 0 var(--ink);
+  border-bottom: var(--border);
 }
 
 .lang-pic {
-  position: relative;
-  width: 110px;
-  margin-bottom: 6px;
+  width: 140px;
+  transition: transform 0.25s ease;
+}
+
+.lang-card:hover .lang-pic {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.greeting {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+  padding: 2px 12px;
+  background: var(--white);
+  border: var(--border);
+  border-radius: 14px 14px 14px 4px;
+  rotate: 4deg;
+}
+
+.lang-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 14px;
+  padding: 20px 22px 22px;
+}
+
+.lang-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .lang-flag {
-  position: absolute;
-  right: -10px;
-  bottom: -4px;
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-.lang-card.active .lang-flag {
-  animation: wiggle 1.2s ease-in-out infinite;
+  font-size: 1.8rem;
 }
 
 .lang-name {
+  display: block;
   font-family: 'Baloo 2', sans-serif;
   font-weight: 800;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
+  line-height: 1.1;
 }
 
 .lang-native {
-  font-weight: 700;
+  display: block;
+  font-weight: 800;
+  font-size: 0.9rem;
   color: var(--accent);
 }
 
+.lang-tagline {
+  color: var(--ink-soft);
+  font-weight: 600;
+  flex: 1;
+}
+
+.platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 4px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+}
+
+.platform.ready {
+  background: #dcfce7;
+}
+
+.platform.ready b {
+  color: #16a34a;
+}
+
+.platform.soon {
+  background: #f1f5f9;
+  color: #64748b;
+  border-style: dashed;
+}
+
+.platform.soon b {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.platform.none {
+  display: none;
+}
+
 .lang-learners {
-  margin-top: 8px;
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--ink-soft);
 }
 
-.panel {
-  background: var(--accent-soft);
-  color: var(--ink);
-  border: var(--border);
-  border-radius: 36px;
-  padding: 32px;
-  box-shadow: 0 10px 0 var(--ink);
-  transition: background 0.3s ease;
-}
-
-.panel-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 28px;
-}
-
-.panel-head h3 {
-  font-size: 2rem;
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.filter {
-  font-family: inherit;
+.lang-btn {
+  display: block;
+  text-align: center;
+  font-family: 'Baloo 2', sans-serif;
   font-weight: 800;
-  font-size: 0.95rem;
-  padding: 8px 16px;
+  font-size: 1.15rem;
+  padding: 12px 16px;
+  color: var(--white);
+  background: var(--accent);
   border: var(--border);
   border-radius: 999px;
-  background: var(--white);
-  color: var(--ink);
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 5px 0 var(--ink);
+  transition: transform 0.15s ease;
 }
 
-.filter:hover {
-  transform: translateY(-2px);
+.lang-card:hover .lang-btn {
+  transform: scale(1.03);
 }
 
-.filter.active {
-  background: var(--ink);
-  color: var(--white);
-}
-
-.apps {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.empty {
-  text-align: center;
-  font-weight: 700;
-  padding: 24px;
-}
-
-.more {
-  display: flex;
-  justify-content: center;
-  margin-top: 32px;
-}
-
-.card-enter-active {
-  animation: pop-in 0.35s ease both;
-}
-
-.card-leave-active {
-  display: none;
-}
-
-@media (max-width: 720px) {
+@media (max-width: 960px) {
   .languages {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-inline: auto;
+    gap: 22px;
   }
 
+  /* на телефоне: маскот слева, текст справа — карточка ниже */
   .lang-card {
-    padding: 14px 6px;
-    min-width: 0;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+  }
+
+  .lang-top {
+    align-items: center;
+    padding: 12px;
+    border-bottom: 0;
+    border-right: var(--border);
   }
 
   .lang-pic {
-    width: 70px;
+    width: 96px;
   }
 
-  .lang-flag {
-    font-size: 1rem;
-    right: -6px;
+  .greeting {
+    top: 8px;
+    right: auto;
+    left: 8px;
+    font-size: 0.8rem;
+    padding: 0 8px;
+  }
+
+  .lang-body {
+    gap: 10px;
+    padding: 16px;
   }
 
   .lang-name {
-    font-size: 0.95rem;
+    font-size: 1.4rem;
   }
 
+  .lang-flag {
+    font-size: 1.3rem;
+  }
+
+  .lang-tagline,
   .lang-learners {
     display: none;
   }
 
-  .panel {
-    padding: 22px 14px;
+  .lang-btn {
+    font-size: 0.95rem;
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  /* шаги — три колонки, номер над текстом */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 28px;
   }
 
-  .panel-head h3 {
-    font-size: 1.5rem;
+  .steps li {
+    flex-direction: column;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.2;
   }
 
-  .apps {
-    gap: 16px;
+  .steps li:not(:last-child)::after {
+    top: 4px;
+    right: -10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .lang-body {
+    min-width: 0;
+    padding: 14px 12px;
   }
 
-  .more .btn {
-    width: 100%;
-    justify-content: center;
-    font-size: 1rem;
+  .lang-btn {
+    font-size: 0.85rem;
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .lang-card {
+    grid-template-columns: 96px 1fr;
+  }
+
+  .lang-pic {
+    width: 76px;
   }
 }
 </style>
