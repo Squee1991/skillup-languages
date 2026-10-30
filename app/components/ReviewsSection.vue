@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const reviews = [
-  { name: 'Анна', avatar: '👩‍💼', lang: '🇩🇪', text: 'Наконец-то поняла артикли! Учу немецкий в метро и за 3 месяца дошла до A2.', color: '#fef3c7' },
-  { name: 'Дмитрий', avatar: '🧑‍💻', lang: '🇵🇱', text: 'Переехал в Варшаву — приложение реально спасло в первые недели. Падежи больше не пугают.', color: '#fce7f3' },
-  { name: 'Мария', avatar: '👩‍🎨', lang: '🇪🇸', text: 'Сова Скилли не даёт пропускать дни 😅 Уже 120 дней подряд, говорю с испанцами в отпуске!', color: '#fee2e2' }
+  { name: 'Анна', avatar: '👩‍💼', lang: 'german', text: 'Наконец-то поняла артикли! Учу немецкий в метро и за 3 месяца дошла до A2.', color: '#fef3c7' },
+  { name: 'Дмитрий', avatar: '🧑‍💻', lang: 'polish', text: 'Переехал в Варшаву — приложение реально спасло в первые недели. Падежи больше не пугают.', color: '#fce7f3' },
+  { name: 'Мария', avatar: '👩‍🎨', lang: 'spanish', text: 'Сова Скилли не даёт пропускать дни 😅 Уже 120 дней подряд, говорю с испанцами в отпуске!', color: '#fee2e2' }
 ]
 </script>
 
@@ -20,7 +20,7 @@ const reviews = [
           <figcaption>
             <span class="avatar">{{ r.avatar }}</span>
             <b>{{ r.name }}</b>
-            <span class="flag">{{ r.lang }}</span>
+            <FlagIcon :id="r.lang" class="flag" />
           </figcaption>
         </figure>
       </div>
@@ -92,7 +92,7 @@ figcaption {
 
 .flag {
   margin-left: auto;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
 }
 
 @media (max-width: 400px) {

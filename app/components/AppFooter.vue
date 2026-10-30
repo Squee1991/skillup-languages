@@ -8,7 +8,7 @@ const year = new Date().getFullYear()
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <a href="#" class="logo">🦉 Skill<b>Up</b> <small>Languages</small></a>
+        <NuxtLink to="/" class="logo">🦉 Skill<b>Up</b> <small>Languages</small></NuxtLink>
         <p class="about">Яркие приложения для изучения языков. Учись играючи — каждый день понемногу.</p>
       </div>
 
@@ -16,7 +16,7 @@ const year = new Date().getFullYear()
         <h4>Языки</h4>
         <ul>
           <li v-for="l in languages" :key="l.id">
-            <a href="#apps">{{ l.flag }} {{ l.name }}</a>
+            <NuxtLink :to="`/languages/${l.id}`"><FlagIcon :id="l.id" /> {{ l.name }}</NuxtLink>
           </li>
         </ul>
       </div>
@@ -99,6 +99,7 @@ ul a:hover {
   text-align: center;
   font-size: 0.9rem;
   opacity: 0.7;
+  padding: 5px 10px;
 }
 
 @media (max-width: 720px) {

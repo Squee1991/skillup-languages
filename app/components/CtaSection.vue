@@ -9,7 +9,7 @@
         <div class="cta-text">
           <h2>Готов заговорить на новом языке?</h2>
           <p>Первая неделя — бесплатно. Без карты, без подвохов, только ты и сова Скилли.</p>
-          <a href="#apps" class="btn btn-yellow">🎁 Начать бесплатно</a>
+          <NuxtLink to="/#apps" class="btn btn-yellow">🎁 Начать бесплатно</NuxtLink>
         </div>
       </div>
     </div>
@@ -38,7 +38,16 @@
 
 .cta-owl {
   position: relative;
+  width: 100%;
+  max-width: 220px;
   animation: float 4s ease-in-out infinite;
+}
+
+/* слой конфетти не должен занимать ячейку сетки */
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .cta-text {

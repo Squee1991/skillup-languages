@@ -41,17 +41,17 @@ const stats = [
       <div class="hero-visual">
         <div class="sun" />
         <MascotOwl class="mascot" />
-        <a
+        <NuxtLink
           v-for="(lang, i) in languages"
           :key="lang.id"
-          :href="'#apps'"
+          :to="`/languages/${lang.id}`"
           class="bubble"
           :class="'bubble-' + i"
           :style="{ background: lang.colorSoft }"
         >
-          <span class="bubble-flag">{{ lang.flag }}</span>
+          <FlagIcon :id="lang.id" class="bubble-flag" />
           {{ lang.greeting }}
-        </a>
+        </NuxtLink>
       </div>
     </div>
 
@@ -224,7 +224,7 @@ h1 {
 }
 
 .bubble-flag {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .bubble-0 {
