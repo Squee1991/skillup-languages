@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { languages } from '~/data/languages'
+import MascotGlobe from '~/components/mascots/MascotGlobe.vue'
 
 const stats = [
   { value: '28 000+', label: 'учеников' },
@@ -22,7 +23,7 @@ const stats = [
         </h1>
         <p class="lead">
           Немецкий, испанский и польский — в приложениях для Android, iOS и прямо в браузере.
-          Короткие уроки, игры и умная сова, которая не даст забросить.
+          Короткие уроки, игры и весёлый Глоби, который не даст забросить.
         </p>
 
         <div class="actions">
@@ -40,7 +41,7 @@ const stats = [
 
       <div class="hero-visual">
         <div class="sun" />
-        <MascotOwl class="mascot" />
+        <MascotGlobe class="mascot" />
         <NuxtLink
           v-for="(lang, i) in languages"
           :key="lang.id"

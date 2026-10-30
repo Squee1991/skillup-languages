@@ -8,7 +8,7 @@ const year = new Date().getFullYear()
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <NuxtLink to="/" class="logo">🦉 Skill<b>Up</b> <small>Languages</small></NuxtLink>
+        <NuxtLink to="/" class="logo">🌍 Skill<b>Up</b> <small>Languages</small></NuxtLink>
         <p class="about">Яркие приложения для изучения языков. Учись играючи — каждый день понемногу.</p>
       </div>
 

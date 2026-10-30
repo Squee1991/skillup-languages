@@ -133,7 +133,7 @@ useSeoMeta({
     <section class="section">
       <div class="container">
         <h2 class="section-title">Другие языки</h2>
-        <p class="section-subtitle">Учи сразу несколько — сова Скилли не против 🦉</p>
+        <p class="section-subtitle">Учи сразу несколько — Глоби не против 🌍</p>
         <div class="others">
           <NuxtLink
             v-for="o in others"

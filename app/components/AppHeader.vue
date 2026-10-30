@@ -32,7 +32,7 @@ onBeforeUnmount(() => {
   <header class="header">
     <div class="container header-inner">
       <NuxtLink to="/" class="logo">
-        <span class="logo-icon">🦉</span>
+        <span class="logo-icon">🌍</span>
         <span class="logo-text">
           <span>Skill<b>Up</b></span>
           <small>Languages</small>

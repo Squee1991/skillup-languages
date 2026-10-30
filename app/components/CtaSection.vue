@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import MascotGlobe from '~/components/mascots/MascotGlobe.vue'
+</script>
+
 <template>
   <section class="cta-wrap">
     <div class="container">
@@ -5,10 +9,10 @@
         <div class="confetti" aria-hidden="true">
           <span v-for="i in 14" :key="i" :style="{ '--i': i }" />
         </div>
-        <MascotOwl class="cta-owl" />
+        <MascotGlobe class="cta-mascot" />
         <div class="cta-text">
           <h2>Готов заговорить на новом языке?</h2>
-          <p>Первая неделя — бесплатно. Без карты, без подвохов, только ты и сова Скилли.</p>
+          <p>Первая неделя — бесплатно. Без карты, без подвохов, только ты и Глоби.</p>
           <NuxtLink to="/#apps" class="btn btn-yellow">🎁 Начать бесплатно</NuxtLink>
         </div>
       </div>
@@ -36,7 +40,7 @@
   box-shadow: 0 10px 0 var(--ink);
 }
 
-.cta-owl {
+.cta-mascot {
   position: relative;
   width: 100%;
   max-width: 220px;
@@ -96,7 +100,7 @@
     gap: 16px;
   }
 
-  .cta-owl {
+  .cta-mascot {
     max-width: 150px;
     margin-inline: auto;
   }

@@ -72,7 +72,7 @@ const filters: { id: Platform | 'all'; label: string }[] = [
         </TransitionGroup>
 
         <p v-if="!apps.length" class="empty">
-          🦉 Для этой платформы приложение пока в разработке — загляни позже!
+          🌍 Для этой платформы приложение пока в разработке — загляни позже!
         </p>
 
         <div class="more">
