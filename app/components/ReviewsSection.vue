@@ -252,7 +252,7 @@ const gatherBack = () => {
   timer = setTimeout(gatherBack, 160)
 }
 
-// свайп: тащим верхнюю карточку и бросаем в любую сторону — она улетает туда
+// свайп: тащим верхнюю карточку влево — листаем вперёд, вправо — назад
 const onDown = (e: PointerEvent) => {
   if (e.pointerType === 'mouse' && e.button !== 0) return
   dragging.value = true
@@ -263,21 +263,20 @@ const onDown = (e: PointerEvent) => {
 const onMove = (e: PointerEvent) => {
   if (!dragging.value) return
   const dx = e.clientX - startX
-  // последнюю карточку выбросить нельзя — она лишь слегка поддаётся
-  dragX.value = isLast.value ? dx / 4 : dx
+  // дальше листать некуда — карточка лишь слегка поддаётся
+  const blocked = (dx < 0 && isLast.value) || (dx > 0 && isFirst.value)
+  dragX.value = blocked ? dx / 4 : dx
 }
 const onUp = () => {
   if (!dragging.value) return
   dragging.value = false
   const dx = dragX.value
   dragX.value = 0
-  // свайп последней карточки собирает колоду обратно
-  if (isLast.value && Math.abs(dx) > 15) {
-    stopAuto()
-    gatherBack()
-    return
-  }
-  manual(() => Math.abs(dx) > 60 && next(Math.sign(dx)))
+  // влево — карточка улетает, вправо — возвращается предыдущая
+  manual(() => {
+    if (dx < -60) next(-1)
+    else if (dx > 60) prev()
+  })
 }
 
 // пауза при наведении — только для мыши: на тач-экранах mouseenter эмулируется,
