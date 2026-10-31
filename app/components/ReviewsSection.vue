@@ -271,7 +271,26 @@ const onUp = () => {
   dragging.value = false
   const dx = dragX.value
   dragX.value = 0
+  // свайп последней карточки собирает колоду обратно
+  if (isLast.value && Math.abs(dx) > 15) {
+    stopAuto()
+    gatherBack()
+    return
+  }
   manual(() => Math.abs(dx) > 60 && next(Math.sign(dx)))
+}
+
+// пауза при наведении — только для мыши: на тач-экранах mouseenter эмулируется,
+// а mouseleave не приходит, и автолистание зависало навсегда
+const onEnter = (e: PointerEvent) => {
+  if (e.pointerType !== 'mouse') return
+  hovered.value = true
+  stopAuto()
+}
+const onLeave = (e: PointerEvent) => {
+  if (e.pointerType !== 'mouse') return
+  hovered.value = false
+  startAuto()
 }
 
 onMounted(startAuto)
@@ -285,7 +304,7 @@ onBeforeUnmount(stopAuto)
       <h2 class="section-title">{{ t('reviews.title') }}</h2>
       <p class="section-subtitle">{{ t('reviews.subtitle') }}</p>
 
-      <div class="slider" @mouseenter="hovered = true; stopAuto()" @mouseleave="hovered = false; startAuto()">
+      <div class="slider" @pointerenter="onEnter" @pointerleave="onLeave">
         <button class="arrow arrow-prev" :disabled="isFirst" :aria-label="t('reviews.prev')" @click="manual(prev)">←</button>
 
         <div
