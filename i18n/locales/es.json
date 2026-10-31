@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "SkillUp Languages — aprende idiomas jugando",
+    "description": "SkillUp Languages — apps coloridas para aprender alemán, español y polaco en Android, iOS y en el navegador."
+  },
+  "nav": {
+    "apps": "Apps",
+    "features": "Por qué nosotros",
+    "how": "Cómo funciona",
+    "reviews": "Opiniones",
+    "chooseLanguage": "Elegir idioma",
+    "menu": "Menú",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "learnLanguage": "Aprender un idioma",
+    "chooseApp": "🚀 Encontrar mi app",
+    "siteLanguage": "Idioma del sitio",
+    "theme": "Tema",
+    "themeLight": "Claro",
+    "themeDark": "Oscuro",
+    "toggleTheme": "Cambiar tema"
+  },
+  "hero": {
+    "before": "Aprende idiomas",
+    "highlight": "jugando",
+    "after": "con SkillUp Languages",
+    "lead": "Alemán, español y polaco — en apps para Android, iOS y directamente en tu navegador. Lecciones cortas, juegos y el alegre Globi, que no te dejará rendirte.",
+    "findApp": "🚀 Encuentra tu app",
+    "howItWorks": "Cómo funciona"
+  },
+  "catalog": {
+    "title": "¿Qué idioma vamos a aprender?",
+    "subtitle": "Toca un idioma — te mostraremos todas sus apps para Android, iOS y navegador.",
+    "steps": {
+      "language": "Elige un idioma",
+      "platform": "Elige una plataforma",
+      "start": "Descarga y aprende"
+    },
+    "soon": "pronto",
+    "learners": "{count} estudiantes",
+    "choose": "Elegir {name} →"
+  },
+  "platform": {
+    "android": "Android",
+    "ios": "iOS",
+    "web": "Web",
+    "store": {
+      "android": "Google Play",
+      "ios": "App Store",
+      "web": "Abrir en el navegador"
+    },
+    "soon": "⏳ Próximamente"
+  },
+  "features": {
+    "tag": "💡 Por qué SkillUp Languages",
+    "title": "Aprender es fácil y divertido",
+    "subtitle": "Hicimos todo para que el idioma sea tu hábito favorito, no una obligación aburrida.",
+    "items": {
+      "games": { "title": "Juegos en vez de memorizar", "text": "Las palabras y la gramática se fijan con minijuegos, cuestionarios y retos." },
+      "minutes": { "title": "5 minutos al día", "text": "Las lecciones cortas caben en el trayecto, la comida o un descanso." },
+      "speech": { "title": "Pronunciación real", "text": "Audio de hablantes nativos y un entrenador de habla con pistas." },
+      "streaks": { "title": "Rachas y premios", "text": "Globi vigila tu racha de días y te premia por tu constancia." },
+      "anywhere": { "title": "Siempre contigo", "text": "Android, iOS y web — tu progreso se sincroniza entre dispositivos." },
+      "levels": { "title": "Niveles A1–B2", "text": "El curso sigue el Marco Común Europeo (MCER) — de cero a la fluidez." }
+    }
+  },
+  "how": {
+    "tag": "🧭 Cómo empezar",
+    "title": "Tres pasos hacia tu primer «Hallo!»",
+    "subtitle": "Sin registros complicados — puedes empezar en un minuto.",
+    "items": {
+      "choose": { "title": "Elige un idioma", "text": "Alemán, español o polaco — el que mejor encaje con tu objetivo." },
+      "download": { "title": "Descarga la app", "text": "Android, iOS o web — como te resulte más cómodo." },
+      "grow": { "title": "Practica y avanza", "text": "Haz una prueba de nivel y gana premios cada día." }
+    }
+  },
+  "reviews": {
+    "tag": "💬 Opiniones",
+    "title": "Nuestros estudiantes nos adoran",
+    "subtitle": "Miles de personas ya hablan un nuevo idioma. ¡Tú eres el siguiente!",
+    "prev": "Opinión anterior",
+    "next": "Opinión siguiente",
+    "goTo": "Opinión {n}"
+  },
+  "cta": {
+    "title": "¿Listo para hablar un nuevo idioma?",
+    "text": "Descarga la app para Android o iOS y pruébala {trial}. Lecciones cortas cada día — y Globi se asegurará de que no lo dejes.",
+    "trial": "3 días gratis",
+    "button": "🎁 Probar 3 días gratis"
+  },
+  "footer": {
+    "about": "Apps coloridas para aprender idiomas. Aprende jugando — un poco cada día.",
+    "languages": "Idiomas",
+    "contacts": "Contacto",
+    "made": "Hecho con 💜 para quienes aprenden idiomas."
+  },
+  "lang": {
+    "back": "← Todos los idiomas",
+    "learners": "👥 {count} estudiantes",
+    "ready": "📱 Disponible: {list}",
+    "chooseApp": "🚀 Elegir app",
+    "platformsTag": "📱 Plataformas",
+    "platformsTitle": "Dónde aprender {name}",
+    "platformsSubtitle": "Elige el formato que prefieras — tu progreso es el mismo en todos los dispositivos.",
+    "whyTag": "💡 Por qué",
+    "whyTitle": "¿Por qué aprender {name}?",
+    "programTag": "🧩 Curso",
+    "programTitle": "Qué aprenderás",
+    "phrasesTag": "🗣️ Pruébalo",
+    "phrasesTitle": "Tus primeras frases ahora mismo",
+    "phrasesSubtitle": "Toca una tarjeta para ver la traducción.",
+    "othersTitle": "Otros idiomas",
+    "othersSubtitle": "Aprende varios a la vez — a Globi no le importa 🌍",
+    "notFound": "Este idioma aún no está disponible",
+    "metaTitle": "{name} — SkillUp Languages",
+    "metaDescription": "{tagline}. Apps para aprender {name} en Android, iOS y en el navegador."
+  }
+}

@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     modules: ['@nuxtjs/i18n', '@nuxtjs/color-mode'],
     css: ['~/assets/css/main.css'],
 
-    // переводы лежат в i18n/locales/*.json, русский — без префикса в адресе (/), остальные — /uk, /en
+    // переводы лежат в i18n/locales/*.json, русский — без префикса в адресе (/), остальные — /uk, /en, /de …
     i18n: {
         baseUrl: 'https://skillup-languages.vercel.app',
         defaultLocale: 'ru',
@@ -12,7 +12,11 @@ export default defineNuxtConfig({
         locales: [
             {code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru.json'},
             {code: 'uk', language: 'uk-UA', name: 'Українська', file: 'uk.json'},
-            {code: 'en', language: 'en-US', name: 'English', file: 'en.json'}
+            {code: 'en', language: 'en-US', name: 'English', file: 'en.json'},
+            {code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json'},
+            {code: 'es', language: 'es-ES', name: 'Español', file: 'es.json'},
+            {code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json'},
+            {code: 'pl', language: 'pl-PL', name: 'Polski', file: 'pl.json'}
         ],
         detectBrowserLanguage: {
             useCookie: true,

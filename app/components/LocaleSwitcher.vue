@@ -5,7 +5,7 @@ defineProps<{ inline?: boolean }>()
 const { locale, locales, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
-const short: Record<string, string> = { ru: 'RU', uk: 'UA', en: 'EN' }
+const short: Record<string, string> = { ru: 'RU', uk: 'UA', en: 'EN', de: 'DE', es: 'ES', fr: 'FR', pl: 'PL' }
 
 const open = ref(false)
 const root = ref<HTMLElement>()
@@ -68,9 +68,11 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 .trigger {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
+  width: 76px;
   height: 44px;
-  padding: 0 14px;
+  padding: 0;
   font-family: 'Baloo 2', sans-serif;
   font-size: 1rem;
   font-weight: 800;
@@ -154,12 +156,12 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 }
 
 .inline {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
 .pill {
-  flex: 1;
   padding: 8px 0;
   text-align: center;
   font-family: 'Baloo 2', sans-serif;

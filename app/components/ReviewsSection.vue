@@ -18,102 +18,138 @@ const colorOf = (lang: string) => soft(findLanguage(lang)?.color ?? '#7c3aed', 2
 // ВНИМАНИЕ: отзывы-заглушки — перед запуском замени на настоящие
 const reviews: Review[] = [
   {
-    name: { ru: 'Анна', uk: 'Ганна', en: 'Anna' },
+    name: { ru: 'Анна', uk: 'Ганна', en: 'Anna', de: 'Anna', es: 'Anna', fr: 'Anna', pl: 'Anna' },
     avatar: '👩‍💼',
     lang: 'german',
     platform: 'android',
     text: {
       ru: 'Наконец-то поняла артикли! Учу немецкий в метро и за 3 месяца дошла до A2.',
       uk: 'Нарешті зрозуміла артиклі! Вчу німецьку в метро і за 3 місяці дійшла до A2.',
-      en: 'Finally got the articles! I study German on the subway and reached A2 in 3 months.'
+      en: 'Finally got the articles! I study German on the subway and reached A2 in 3 months.',
+      de: 'Endlich habe ich die Artikel verstanden! Ich lerne Deutsch in der U-Bahn und war nach 3 Monaten auf A2.',
+      es: '¡Por fin entendí los artículos! Estudio alemán en el metro y en 3 meses llegué al A2.',
+      fr: 'J’ai enfin compris les articles ! J’apprends l’allemand dans le métro et j’ai atteint le A2 en 3 mois.',
+      pl: 'Wreszcie zrozumiałam rodzajniki! Uczę się niemieckiego w metrze i w 3 miesiące doszłam do A2.'
     }
   },
   {
-    name: { ru: 'Дмитрий', uk: 'Дмитро', en: 'Dmitry' },
+    name: { ru: 'Дмитрий', uk: 'Дмитро', en: 'Dmitry', de: 'Dmitri', es: 'Dmitri', fr: 'Dmitri', pl: 'Dmitrij' },
     avatar: '🧑‍💻',
     lang: 'polish',
     platform: 'web',
     text: {
       ru: 'Переехал в Варшаву — приложение реально спасло в первые недели. Падежи больше не пугают.',
       uk: 'Переїхав до Варшави — застосунок реально врятував у перші тижні. Відмінки більше не лякають.',
-      en: 'Moved to Warsaw — the app really saved me in the first weeks. Cases don’t scare me anymore.'
+      en: 'Moved to Warsaw — the app really saved me in the first weeks. Cases don’t scare me anymore.',
+      de: 'Bin nach Warschau gezogen — die App hat mich in den ersten Wochen echt gerettet. Die Fälle machen mir keine Angst mehr.',
+      es: 'Me mudé a Varsovia y la app me salvó en las primeras semanas. Los casos ya no me asustan.',
+      fr: 'J’ai déménagé à Varsovie — l’appli m’a vraiment sauvé les premières semaines. Les cas ne me font plus peur.',
+      pl: 'Przeprowadziłem się do Warszawy — aplikacja naprawdę uratowała mnie w pierwszych tygodniach. Przypadki już mnie nie straszą.'
     }
   },
   {
-    name: { ru: 'Мария', uk: 'Марія', en: 'Maria' },
+    name: { ru: 'Мария', uk: 'Марія', en: 'Maria', de: 'Maria', es: 'María', fr: 'Maria', pl: 'Maria' },
     avatar: '👩‍🎨',
     lang: 'spanish',
     platform: 'ios',
     text: {
       ru: 'Глоби не даёт пропускать дни 😅 Уже 120 дней подряд, говорю с испанцами в отпуске!',
       uk: 'Глобі не дає пропускати дні 😅 Вже 120 днів поспіль, говорю з іспанцями у відпустці!',
-      en: 'Globi won’t let me skip a day 😅 120 days in a row — I chat with Spaniards on vacation!'
+      en: 'Globi won’t let me skip a day 😅 120 days in a row — I chat with Spaniards on vacation!',
+      de: 'Globi lässt mich keinen Tag auslassen 😅 120 Tage am Stück — im Urlaub plaudere ich mit Spaniern!',
+      es: 'Globi no me deja saltarme ni un día 😅 120 días seguidos — ¡en vacaciones hablo con españoles!',
+      fr: 'Globi ne me laisse sauter aucun jour 😅 120 jours d’affilée — en vacances, je discute avec des Espagnols !',
+      pl: 'Globi nie pozwala mi opuścić ani dnia 😅 120 dni z rzędu — na wakacjach rozmawiam z Hiszpanami!'
     }
   },
   {
-    name: { ru: 'Олег', uk: 'Олег', en: 'Oleg' },
+    name: { ru: 'Олег', uk: 'Олег', en: 'Oleg', de: 'Oleg', es: 'Oleg', fr: 'Oleg', pl: 'Oleg' },
     avatar: '👨‍🔧',
     lang: 'german',
     platform: 'ios',
     text: {
       ru: 'Готовился к собеседованию в немецкую компанию. Фразы для работы — то, что нужно, оффер мой!',
       uk: 'Готувався до співбесіди в німецьку компанію. Фрази для роботи — те, що треба, офер мій!',
-      en: 'Prepared for an interview at a German company. The work phrases were spot on — I got the offer!'
+      en: 'Prepared for an interview at a German company. The work phrases were spot on — I got the offer!',
+      de: 'Habe mich auf ein Vorstellungsgespräch bei einer deutschen Firma vorbereitet. Die Business-Phrasen waren genau richtig — ich habe das Angebot bekommen!',
+      es: 'Me preparé para una entrevista en una empresa alemana. Las frases de trabajo fueron justo lo que necesitaba — ¡conseguí la oferta!',
+      fr: 'Je me suis préparé à un entretien dans une entreprise allemande. Les phrases pro étaient pile ce qu’il fallait — j’ai décroché l’offre !',
+      pl: 'Przygotowywałem się do rozmowy w niemieckiej firmie. Zwroty do pracy były strzałem w dziesiątkę — dostałem ofertę!'
     }
   },
   {
-    name: { ru: 'Катя', uk: 'Катя', en: 'Katya' },
+    name: { ru: 'Катя', uk: 'Катя', en: 'Katya', de: 'Katja', es: 'Katia', fr: 'Katia', pl: 'Katia' },
     avatar: '👩‍🎓',
     lang: 'spanish',
     platform: 'android',
     text: {
       ru: 'Смотрю сериалы на испанском и понимаю половину без субтитров. Год назад не знала ни слова!',
       uk: 'Дивлюся серіали іспанською і розумію половину без субтитрів. Рік тому не знала жодного слова!',
-      en: 'I watch shows in Spanish and understand half without subtitles. A year ago I didn’t know a word!'
+      en: 'I watch shows in Spanish and understand half without subtitles. A year ago I didn’t know a word!',
+      de: 'Ich schaue Serien auf Spanisch und verstehe die Hälfte ohne Untertitel. Vor einem Jahr konnte ich kein Wort!',
+      es: 'Veo series en español y entiendo la mitad sin subtítulos. ¡Hace un año no sabía ni una palabra!',
+      fr: 'Je regarde des séries en espagnol et j’en comprends la moitié sans sous-titres. Il y a un an, je ne connaissais pas un mot !',
+      pl: 'Oglądam seriale po hiszpańsku i rozumiem połowę bez napisów. Rok temu nie znałam ani słowa!'
     }
   },
   {
-    name: { ru: 'Игорь', uk: 'Ігор', en: 'Igor' },
+    name: { ru: 'Игорь', uk: 'Ігор', en: 'Igor', de: 'Igor', es: 'Ígor', fr: 'Igor', pl: 'Igor' },
     avatar: '🧔',
     lang: 'polish',
     platform: 'android',
     text: {
       ru: 'Уроки по 5 минут — идеально для меня. Занимаюсь в обед, и польский наконец-то сдвинулся с места.',
       uk: 'Уроки по 5 хвилин — ідеально для мене. Займаюся в обід, і польська нарешті зрушила з місця.',
-      en: '5-minute lessons are perfect for me. I practice at lunch, and my Polish is finally moving forward.'
+      en: '5-minute lessons are perfect for me. I practice at lunch, and my Polish is finally moving forward.',
+      de: '5-Minuten-Lektionen sind perfekt für mich. Ich übe in der Mittagspause, und mein Polnisch kommt endlich voran.',
+      es: 'Las lecciones de 5 minutos son perfectas para mí. Practico a la hora de comer y mi polaco por fin avanza.',
+      fr: 'Les leçons de 5 minutes sont parfaites pour moi. Je m’entraîne à la pause déjeuner, et mon polonais avance enfin.',
+      pl: '5-minutowe lekcje są dla mnie idealne. Ćwiczę w przerwie na lunch i mój polski wreszcie ruszył z miejsca.'
     }
   },
   {
-    name: { ru: 'Светлана', uk: 'Світлана', en: 'Svetlana' },
+    name: { ru: 'Светлана', uk: 'Світлана', en: 'Svetlana', de: 'Swetlana', es: 'Svetlana', fr: 'Svetlana', pl: 'Swietłana' },
     avatar: '👩‍🏫',
     lang: 'german',
     platform: 'web',
     text: {
       ru: 'Занимаюсь с ноутбука на работе, а дома продолжаю с телефона. Прогресс общий — очень удобно.',
       uk: 'Займаюся з ноутбука на роботі, а вдома продовжую з телефона. Прогрес спільний — дуже зручно.',
-      en: 'I study on my laptop at work and continue on my phone at home. Shared progress — so convenient.'
+      en: 'I study on my laptop at work and continue on my phone at home. Shared progress — so convenient.',
+      de: 'Ich lerne am Laptop bei der Arbeit und mache zu Hause am Handy weiter. Gemeinsamer Fortschritt — super praktisch.',
+      es: 'Estudio en el portátil en el trabajo y sigo en el móvil en casa. Progreso compartido — muy cómodo.',
+      fr: 'J’étudie sur mon ordi au travail et je continue sur mon téléphone à la maison. Progression partagée — super pratique.',
+      pl: 'Uczę się na laptopie w pracy, a w domu kontynuuję na telefonie. Wspólne postępy — bardzo wygodne.'
     }
   },
   {
-    name: { ru: 'Артём', uk: 'Артем', en: 'Artem' },
+    name: { ru: 'Артём', uk: 'Артем', en: 'Artem', de: 'Artjom', es: 'Artiom', fr: 'Artiom', pl: 'Artiom' },
     avatar: '👨‍🎤',
     lang: 'spanish',
     platform: 'ios',
     text: {
       ru: 'Произношение с озвучкой — топ. Испанцы в Барселоне сказали, что у меня хороший акцент 🔥',
       uk: 'Вимова з озвученням — топ. Іспанці в Барселоні сказали, що в мене гарний акцент 🔥',
-      en: 'The voiced pronunciation is top-notch. People in Barcelona said my accent is great 🔥'
+      en: 'The voiced pronunciation is top-notch. People in Barcelona said my accent is great 🔥',
+      de: 'Die vertonte Aussprache ist top. In Barcelona meinten die Leute, mein Akzent sei super 🔥',
+      es: 'La pronunciación con audio es lo más. En Barcelona me dijeron que tengo muy buen acento 🔥',
+      fr: 'La prononciation audio est au top. À Barcelone, on m’a dit que j’avais un super accent 🔥',
+      pl: 'Wymowa z nagraniami to sztos. W Barcelonie powiedzieli mi, że mam świetny akcent 🔥'
     }
   },
   {
-    name: { ru: 'Лиза', uk: 'Ліза', en: 'Liza' },
+    name: { ru: 'Лиза', uk: 'Ліза', en: 'Liza', de: 'Lisa', es: 'Liza', fr: 'Liza', pl: 'Liza' },
     avatar: '👩‍🚀',
     lang: 'polish',
     platform: 'ios',
     text: {
       ru: 'Готовилась к Karta Polaka и сдала с первого раза. Спасибо за вопросы по истории и традициям!',
       uk: 'Готувалася до Karta Polaka і склала з першого разу. Дякую за питання з історії та традицій!',
-      en: 'Prepared for the Karta Polaka and passed on the first try. Thanks for the history and traditions questions!'
+      en: 'Prepared for the Karta Polaka and passed on the first try. Thanks for the history and traditions questions!',
+      de: 'Habe mich auf die Karta Polaka vorbereitet und beim ersten Versuch bestanden. Danke für die Fragen zu Geschichte und Traditionen!',
+      es: 'Me preparé para la Karta Polaka y aprobé a la primera. ¡Gracias por las preguntas de historia y tradiciones!',
+      fr: 'Je me suis préparée à la Karta Polaka et je l’ai obtenue du premier coup. Merci pour les questions d’histoire et de traditions !',
+      pl: 'Przygotowałam się do Karty Polaka i zdałam za pierwszym razem. Dzięki za pytania z historii i tradycji!'
     }
   }
 ]

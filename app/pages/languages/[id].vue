@@ -77,7 +77,7 @@ useSeoMeta({
     <section id="platforms" class="section platforms">
       <div class="container">
         <span class="tag tag-center">{{ t('lang.platformsTag') }}</span>
-        <h2 class="section-title">{{ t('lang.platformsTitle', { name: l(lang!.nameAcc) }) }}</h2>
+        <h2 class="section-title">{{ t('lang.platformsTitle', { name: l(lang!.nameAcc), gen: l(lang!.nameGen) }) }}</h2>
         <p class="section-subtitle">{{ t('lang.platformsSubtitle') }}</p>
 
         <div class="apps">
@@ -90,7 +90,7 @@ useSeoMeta({
     <section class="section reasons-section">
       <div class="container">
         <span class="tag tag-center">{{ t('lang.whyTag') }}</span>
-        <h2 class="section-title">{{ t('lang.whyTitle', { name: l(lang!.nameAcc) }) }}</h2>
+        <h2 class="section-title">{{ t('lang.whyTitle', { name: l(lang!.nameAcc), gen: l(lang!.nameGen) }) }}</h2>
         <div class="reasons">
           <article v-for="r in lang!.reasons" :key="r.icon" class="reason">
             <div class="reason-icon">{{ r.icon }}</div>

@@ -230,9 +230,13 @@ onBeforeUnmount(() => {
   gap: 12px;
 }
 
+/* фиксированная ширина под самую длинную надпись (fr «Choisir une langue»), чтобы при смене языка кнопка не прыгала */
 .nav-cta {
-  padding: 8px 20px;
+  justify-content: center;
+  width: 184px;
+  padding: 8px 12px;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 .burger {

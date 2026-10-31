@@ -71,20 +71,17 @@ const toggle = async () => {
   border-radius: 50%;
   box-shadow: 0 4px 0 var(--ink);
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.7s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.7s ease;
+}
+
+/* нажатие: кнопка проседает, а смена темы расходится от неё кругом */
+.sky:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--ink);
 }
 
 .sky.night {
   background: linear-gradient(180deg, #1e1b4b 0%, #4c1d95 100%);
-}
-
-.sky:hover {
-  transform: scale(1.06);
-}
-
-.sky:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--ink);
 }
 
 .sky.placeholder {
