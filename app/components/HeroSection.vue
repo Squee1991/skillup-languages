@@ -20,8 +20,7 @@ const localePath = useLocalePath()
         <p class="lead">{{ t('hero.lead') }}</p>
 
         <div class="actions">
-          <a href="#apps" class="btn btn-primary">{{ t('hero.findApp') }}</a>
-          <a href="#how" class="btn btn-secondary">{{ t('hero.howItWorks') }}</a>
+          <a href="#apps" class="btn btn-primary hero-cta">{{ t('hero.findApp') }}</a>
         </div>
       </div>
 
@@ -138,6 +137,13 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+/* в тёмной теме фиолетовая кнопка сливается с фиолетовым фоном — делаем её жёлтой, как «Выбрать язык» в шапке */
+:root.dark .hero-cta {
+  background: var(--yellow);
+  color: var(--ink);
+  --glow: rgba(217, 119, 6, 0.5);
 }
 
 .hero-visual {

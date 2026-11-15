@@ -9,13 +9,16 @@
     <!-- ножки -->
     <ellipse cx="96" cy="240" rx="20" ry="11" fill="#f97316" stroke="#1e1b4b" stroke-width="5" />
     <ellipse cx="144" cy="240" rx="20" ry="11" fill="#f97316" stroke="#1e1b4b" stroke-width="5" />
-    <!-- ручки -->
+    <!-- ручки: тонкие «макаронины» с ладошками; начинаются под планетой (её круг рисуется поверх),
+         поэтому прикреплены к телу. Машущая ручка держится ниже наушника -->
     <g class="arm-wave">
-      <path d="M36 196 C18 190 10 174 14 158" stroke="#1e1b4b" stroke-width="6" fill="none" stroke-linecap="round" />
-      <circle cx="14" cy="150" r="11" fill="#38bdf8" stroke="#1e1b4b" stroke-width="5" />
+      <path d="M64 192 C48 194 36 190 26 182" stroke="#1e1b4b" stroke-width="13" fill="none" stroke-linecap="round" />
+      <path d="M64 192 C48 194 36 190 26 182" stroke="#38bdf8" stroke-width="5" fill="none" stroke-linecap="round" />
+      <circle cx="21" cy="178" r="10" fill="#38bdf8" stroke="#1e1b4b" stroke-width="4.5" />
     </g>
-    <path d="M204 196 C220 204 226 216 222 226" stroke="#1e1b4b" stroke-width="6" fill="none" stroke-linecap="round" />
-    <circle cx="221" cy="230" r="11" fill="#38bdf8" stroke="#1e1b4b" stroke-width="5" />
+    <path d="M176 192 C190 198 200 206 204 216" stroke="#1e1b4b" stroke-width="13" fill="none" stroke-linecap="round" />
+    <path d="M176 192 C190 198 200 206 204 216" stroke="#38bdf8" stroke-width="5" fill="none" stroke-linecap="round" />
+    <circle cx="206" cy="222" r="10" fill="#38bdf8" stroke="#1e1b4b" stroke-width="4.5" />
     <!-- планета -->
     <circle cx="120" cy="140" r="92" fill="#38bdf8" />
     <g clip-path="url(#globe-clip)" fill="#4ade80" stroke="#1e1b4b" stroke-width="4" stroke-linejoin="round">
@@ -60,7 +63,8 @@
 }
 
 .arm-wave {
-  transform-origin: 36px 196px;
+  /* плечо — у края планеты */
+  transform-origin: 62px 194px;
   animation: wave 1.6s ease-in-out infinite;
 }
 
@@ -81,10 +85,10 @@
 @keyframes wave {
   0%,
   100% {
-    transform: rotate(0deg);
+    transform: rotate(-14deg);
   }
   50% {
-    transform: rotate(16deg);
+    transform: rotate(-1deg);
   }
 }
 

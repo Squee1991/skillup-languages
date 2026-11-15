@@ -13,7 +13,7 @@
     "openMenu": "Otwórz menu",
     "closeMenu": "Zamknij menu",
     "learnLanguage": "Ucz się języka",
-    "chooseApp": "🚀 Znajdź aplikację",
+    "chooseApp": "Znajdź aplikację",
     "siteLanguage": "Język strony",
     "theme": "Motyw",
     "themeLight": "Jasny",
@@ -25,8 +25,7 @@
     "highlight": "przez zabawę",
     "after": "ze SkillUp Languages",
     "lead": "Niemiecki, hiszpański i polski — w aplikacjach na Androida, iOS i prosto w przeglądarce. Krótkie lekcje, gry i wesoły Globi, który nie pozwoli ci się poddać.",
-    "findApp": "🚀 Znajdź swoją aplikację",
-    "howItWorks": "Jak to działa"
+    "findApp": "Znajdź swoją aplikację"
   },
   "catalog": {
     "title": "Jakiego języka będziemy się uczyć?",
@@ -99,7 +98,7 @@
   "lang": {
     "back": "← Wszystkie języki",
     "ready": "📱 Dostępne: {list}",
-    "chooseApp": "🚀 Wybierz aplikację",
+    "chooseApp": "Wybierz aplikację",
     "platformsTag": "📱 Platformy",
     "platformsTitle": "Gdzie uczyć się {gen}",
     "platformsSubtitle": "Wybierz, co ci wygodniej.",
