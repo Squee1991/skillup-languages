@@ -109,7 +109,8 @@ h1 {
 
 .highlight {
   position: relative;
-  color: var(--purple);
+  /* розовый, как наушники Глоби */
+  color: #ec4899;
   white-space: nowrap;
 }
 
@@ -192,14 +193,15 @@ h1 {
   font-size: 1.1rem;
 }
 
+/* приветствия — по углам, за краем планеты, чтобы не закрывать Глоби */
 .bubble-0 {
   top: 4%;
-  left: -12%;
+  left: -8%;
   --r: -6deg;
 }
 
 .bubble-1 {
-  top: 38%;
+  top: 4%;
   right: -6%;
   --r: 5deg;
   animation-delay: -1.5s;
@@ -244,15 +246,17 @@ h1 {
   }
 
   .bubble-0 {
-    left: -6%;
+    left: -8%;
   }
 
+  /* на узком экране справа мало места — облачко ближе, но всё равно над углом, не на Глоби */
   .bubble-1 {
-    right: -2%;
+    top: 2%;
+    right: -4%;
   }
 
   .bubble-2 {
-    left: -4%;
+    left: -8%;
   }
 }
 </style>

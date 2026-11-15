@@ -1,6 +1,3 @@
-// v-reveal — блок мягко «всплывает», когда доскроллили до него.
-// v-reveal="120" — с задержкой 120 мс (для лесенки из карточек).
-// Что уже видно при загрузке, не прячем — иначе контент мигнёт.
 export default defineNuxtPlugin((nuxtApp) => {
   let observer: IntersectionObserver | undefined
 
