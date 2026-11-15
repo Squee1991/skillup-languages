@@ -6,7 +6,7 @@ import CtaSection from '~/components/CtaSection.vue'
 
 const route = useRoute()
 const { t } = useI18n()
-const { l, count } = useL10n()
+const { l } = useL10n()
 const localePath = useLocalePath()
 const lang = findLanguage(route.params.id as string)
 
@@ -36,7 +36,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div :style="{ '--accent': lang!.color, '--accent-soft': soft(lang!.color) }">
+  <div class="lang-page" :style="{ '--accent': lang!.color, '--accent-soft': soft(lang!.color) }">
     <!-- Шапка языка -->
     <section class="lang-hero">
       <div class="container">
@@ -57,7 +57,6 @@ useSeoMeta({
           </p>
 
           <ul class="chips">
-            <li>{{ t('lang.learners', { count: count(lang!.learners) }) }}</li>
             <li>{{ t('lang.ready', { list: ready }) }}</li>
           </ul>
 
@@ -71,6 +70,7 @@ useSeoMeta({
           <span class="name-tag">{{ l(lang!.mascot.name) }}</span>
         </div>
       </div>
+      <WaveDivider position="bottom" color="var(--accent-soft)" />
     </section>
 
     <!-- Платформы -->
@@ -81,9 +81,10 @@ useSeoMeta({
         <p class="section-subtitle">{{ t('lang.platformsSubtitle') }}</p>
 
         <div class="apps">
-          <AppCard v-for="app in lang!.apps" :key="app.platform" :app="app" show-features />
+          <AppCard v-for="app in lang!.apps" :key="app.platform" :app="app" />
         </div>
       </div>
+      <WaveDivider position="bottom" />
     </section>
 
     <!-- Зачем учить -->
@@ -119,6 +120,7 @@ useSeoMeta({
 
     <!-- Фразы -->
     <section class="section phrases-section">
+      <WaveDivider position="top" />
       <div class="container">
         <span class="tag tag-center">{{ t('lang.phrasesTag') }}</span>
         <h2 class="section-title">{{ t('lang.phrasesTitle') }}</h2>
@@ -139,6 +141,7 @@ useSeoMeta({
           </button>
         </div>
       </div>
+      <WaveDivider position="bottom" />
     </section>
 
     <!-- Другие языки -->
@@ -170,10 +173,21 @@ useSeoMeta({
 </template>
 
 <style scoped>
+/* общие мягкие токены (main.css) пересчитываем в цвет языка: --accent задан на этом блоке */
+.lang-page {
+  --line: color-mix(in srgb, var(--accent) 30%, transparent);
+  --border: 2px solid var(--line);
+  --shadow-sm: 0 6px 14px -6px color-mix(in srgb, var(--accent) 50%, transparent);
+  --shadow-pop: 0 12px 28px -10px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 2px 6px rgba(30, 27, 75, 0.06);
+  --card-shadow: 0 18px 40px -14px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 2px 6px rgba(30, 27, 75, 0.06);
+}
+
 .lang-hero {
-  padding: 48px 0 72px;
+  position: relative;
+  padding: 48px 0 120px;
   background: linear-gradient(160deg, var(--accent-soft) 0%, var(--bg) 100%);
-  border-bottom: var(--border);
 }
 
 .hero-grid {
@@ -225,7 +239,7 @@ h1 {
   background: var(--white);
   border: var(--border);
   border-radius: 20px;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-pop);
 }
 
 .intro b {
@@ -277,7 +291,7 @@ h1 {
   border-radius: 50%;
   background: var(--accent);
   border: var(--border);
-  box-shadow: 0 8px 0 var(--ink);
+  box-shadow: 0 0 0 12px color-mix(in srgb, var(--accent) 18%, transparent), 0 24px 48px -16px color-mix(in srgb, var(--accent) 60%, transparent);
 }
 
 .owl {
@@ -296,7 +310,7 @@ h1 {
   background: var(--white);
   border: var(--border);
   border-radius: 20px 20px 20px 4px;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-pop);
   animation: float 5s ease-in-out infinite;
   --r: 6deg;
 }
@@ -317,19 +331,23 @@ h1 {
   rotate: -3deg;
 }
 
+
 .tag-center {
   display: table;
   margin: 0 auto 16px;
 }
 
 .platforms {
+  position: relative;
+  padding-bottom: 140px;
   background: var(--accent-soft);
-  border-bottom: var(--border);
 }
 
+/* карточки по центру, без пустых колонок, когда платформ меньше трёх */
 .apps {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
+  justify-content: center;
   gap: 24px;
 }
 
@@ -393,8 +411,9 @@ h1 {
 }
 
 .phrases-section {
+  position: relative;
+  padding-block: 130px;
   background: linear-gradient(180deg, var(--sky-soft) 0%, var(--accent-soft) 100%);
-  border-block: var(--border);
 }
 
 .phrases {
@@ -439,7 +458,7 @@ h1 {
   text-align: center;
   border: var(--border);
   border-radius: var(--radius);
-  box-shadow: 0 6px 0 var(--ink);
+  box-shadow: var(--shadow-pop);
   backface-visibility: hidden;
 }
 

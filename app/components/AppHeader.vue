@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
   background: var(--header-bg);
   backdrop-filter: blur(12px);
   transition: background-color 0.3s ease;
-  border-bottom: var(--border);
+  border-bottom: 1px solid var(--line);
 }
 
 .header-inner {
@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
   background: var(--yellow);
   border: var(--border);
   border-radius: 14px;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   animation: wiggle 3s ease-in-out infinite;
 }
 
@@ -248,7 +248,7 @@ onBeforeUnmount(() => {
   border: var(--border);
   border-radius: 14px;
   padding: 11px 10px;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
@@ -259,7 +259,7 @@ onBeforeUnmount(() => {
 
 .burger:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
 }
 
 .burger span {
@@ -306,7 +306,7 @@ onBeforeUnmount(() => {
   background: linear-gradient(170deg, #8b5cf6 0%, var(--purple) 55%, #6d28d9 100%);
   border-left: var(--border);
   border-radius: 36px 0 0 36px;
-  box-shadow: -8px 0 0 var(--ink);
+  box-shadow: -16px 0 40px -12px rgba(30, 27, 75, 0.25);
 }
 
 .drawer-head {
@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
   background: var(--white);
   border: var(--border);
   border-radius: 50%;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -361,7 +361,7 @@ onBeforeUnmount(() => {
   background: var(--white);
   border: var(--border);
   border-radius: 20px;
-  box-shadow: 0 5px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.15s ease;
 }
 
@@ -417,7 +417,7 @@ onBeforeUnmount(() => {
   background: var(--accent-soft);
   border: var(--border);
   border-radius: 18px;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.15s ease;
 }
 

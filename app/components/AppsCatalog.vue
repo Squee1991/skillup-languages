@@ -3,7 +3,7 @@ import { languages, platforms, soft, type Language, type Platform } from '~/data
 import LanguageMascot from '~/components/LanguageMascot.vue'
 
 const { t } = useI18n()
-const { l, count } = useL10n()
+const { l } = useL10n()
 const localePath = useLocalePath()
 
 const steps = [
@@ -73,8 +73,6 @@ const statusOf = (lang: Language, p: Platform) => {
               </span>
             </span>
 
-            <span class="lang-learners">👥 {{ t('catalog.learners', { count: count(lang.learners) }) }}</span>
-
             <span class="lang-btn">{{ t('catalog.choose', { name: l(lang.nameAcc) }) }}</span>
           </span>
         </NuxtLink>
@@ -142,7 +140,7 @@ const statusOf = (lang: Language, p: Platform) => {
   background: var(--c);
   border: var(--border);
   border-radius: 50%;
-  box-shadow: 0 5px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   animation: bob 2.4s ease-in-out infinite;
   animation-delay: var(--d);
 }
@@ -301,7 +299,7 @@ const statusOf = (lang: Language, p: Platform) => {
   font-weight: 800;
   font-size: 0.82rem;
   padding: 4px 10px;
-  border: 2px solid var(--ink);
+  border: var(--border);
   border-radius: 999px;
 }
 
@@ -326,12 +324,6 @@ const statusOf = (lang: Language, p: Platform) => {
 
 .platform.none {
   display: none;
-}
-
-.lang-learners {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--ink-soft);
 }
 
 .lang-btn {
@@ -395,8 +387,7 @@ const statusOf = (lang: Language, p: Platform) => {
     font-size: 1.4rem;
   }
 
-  .lang-tagline,
-  .lang-learners {
+  .lang-tagline {
     display: none;
   }
 
@@ -444,7 +435,7 @@ const statusOf = (lang: Language, p: Platform) => {
     width: 44px;
     height: 44px;
     font-size: 1.15rem;
-    box-shadow: 0 3px 0 var(--ink);
+    box-shadow: var(--shadow-sm);
   }
 
   .step-num {

@@ -37,7 +37,6 @@
       "start": "Pobierz i ucz się"
     },
     "soon": "wkrótce",
-    "learners": "{count} uczniów",
     "choose": "Wybierz {name} →"
   },
   "platform": {
@@ -49,19 +48,22 @@
       "ios": "App Store",
       "web": "Otwórz w przeglądarce"
     },
-    "soon": "⏳ Wkrótce"
+    "soon": "⏳ Wkrótce",
+    "desc": { "android": "Na smartfony i tablety z Androidem.", "ios": "Na iPhone’a i iPada.", "web": "Prosto w przeglądarce — nic nie trzeba instalować." }
   },
   "features": {
     "tag": "💡 Dlaczego SkillUp Languages",
     "title": "Nauka, która jest łatwa i przyjemna",
     "subtitle": "Zrobiliśmy wszystko, by język stał się twoim ulubionym nawykiem, a nie nudnym obowiązkiem.",
     "items": {
-      "games": { "title": "Gry zamiast wkuwania", "text": "Słówka i gramatyka utrwalają się dzięki minigrom, quizom i wyzwaniom." },
-      "minutes": { "title": "5 minut dziennie", "text": "Krótkie lekcje łatwo zmieścić w drodze, w przerwie na lunch czy na kawę." },
-      "speech": { "title": "Prawdziwa wymowa", "text": "Nagrania native speakerów i trener mówienia z podpowiedziami." },
-      "streaks": { "title": "Serie i nagrody", "text": "Globi pilnuje twojej serii dni i nagradza za wytrwałość." },
-      "anywhere": { "title": "Zawsze z tobą", "text": "Android, iOS i strona — postępy synchronizują się między urządzeniami." },
-      "levels": { "title": "Poziomy A1–B2", "text": "Kurs opiera się na europejskiej skali CEFR — od zera do swobody." }
+      "games": { "title": "Gry zamiast wkuwania", "text": "Słówka i zasady utrwalają się w grach — uczysz się, nawet tego nie zauważając." },
+      "words": { "title": "Słówka we wszystkich trybach", "text": "Ćwicz nowe słowa na różne sposoby, aż zostaną w głowie na dobre." },
+      "skills": { "title": "Wszystkie umiejętności", "text": "Opisywanie obrazków, audio, teksty, testy i zadania na mówienie." },
+      "grammar": { "title": "Gramatyka z praktyką", "text": "Poznaj zasadę — i od razu utrwal ją w ćwiczeniach." },
+      "lands": { "title": "Mapa krain A1–B1", "text": "Kurs to podróż: przechodzisz krainy po kolei i odblokowujesz nowe." },
+      "level": { "title": "Własny poziom", "text": "Już coś umiesz? Wybierz poziom i nie zaczynaj od zera." },
+      "events": { "title": "Świąteczne wydarzenia", "text": "Nowy Rok i inne święta to specjalne zadania w aplikacji." },
+      "rewards": { "title": "Nagrody i rangi", "text": "Zdobywaj nagrody za postępy i awansuj na wyższe rangi." }
     }
   },
   "how": {
@@ -96,12 +98,11 @@
   },
   "lang": {
     "back": "← Wszystkie języki",
-    "learners": "👥 {count} uczniów",
     "ready": "📱 Dostępne: {list}",
     "chooseApp": "🚀 Wybierz aplikację",
     "platformsTag": "📱 Platformy",
     "platformsTitle": "Gdzie uczyć się {gen}",
-    "platformsSubtitle": "Wybierz wygodny format — postępy są wspólne na wszystkich urządzeniach.",
+    "platformsSubtitle": "Wybierz, co ci wygodniej.",
     "whyTag": "💡 Po co",
     "whyTitle": "Po co uczyć się {gen}?",
     "programTag": "🧩 Program",

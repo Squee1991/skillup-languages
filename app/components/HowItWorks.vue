@@ -58,7 +58,7 @@ const steps = [
   top: 70px;
   left: 16%;
   right: 16%;
-  border-top: 4px dashed var(--ink);
+  border-top: 3px dashed var(--line);
   opacity: 0.3;
 }
 

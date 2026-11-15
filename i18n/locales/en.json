@@ -37,7 +37,6 @@
       "start": "Download and learn"
     },
     "soon": "soon",
-    "learners": "{count} learners",
     "choose": "Choose {name} →"
   },
   "platform": {
@@ -49,19 +48,22 @@
       "ios": "App Store",
       "web": "Open in browser"
     },
-    "soon": "⏳ Coming soon"
+    "soon": "⏳ Coming soon",
+    "desc": { "android": "For Android phones and tablets.", "ios": "For iPhone and iPad.", "web": "Right in your browser — nothing to install." }
   },
   "features": {
     "tag": "💡 Why SkillUp Languages",
     "title": "Learning that’s easy and fun",
     "subtitle": "We did everything to make a language your favorite habit, not a boring chore.",
     "items": {
-      "games": { "title": "Games, not cramming", "text": "Words and grammar stick through mini-games, quizzes and challenges." },
-      "minutes": { "title": "5 minutes a day", "text": "Short lessons fit easily into your commute, lunch or break." },
-      "speech": { "title": "Real pronunciation", "text": "Native speaker audio and a speaking trainer with hints." },
-      "streaks": { "title": "Streaks and rewards", "text": "Globi keeps track of your streak and gives bonuses for persistence." },
-      "anywhere": { "title": "Always with you", "text": "Android, iOS and web — your progress syncs across devices." },
-      "levels": { "title": "Levels A1–B2", "text": "The course follows the European CEFR scale — from zero to fluency." }
+      "games": { "title": "Games, not cramming", "text": "Words and rules stick through games — you learn without even noticing." },
+      "words": { "title": "Words in every mode", "text": "Practice new words in different ways until they stay with you for good." },
+      "skills": { "title": "Every skill at once", "text": "Picture descriptions, audio, texts, tests and speaking tasks." },
+      "grammar": { "title": "Grammar with practice", "text": "Learn a rule — and lock it in right away with exercises." },
+      "lands": { "title": "A map of lands A1–B1", "text": "The course is a journey: clear the lands in order and unlock new ones." },
+      "level": { "title": "Your own level", "text": "Already know some? Pick your level and skip the basics." },
+      "events": { "title": "Holiday events", "text": "New Year and other holidays come with special in-app challenges." },
+      "rewards": { "title": "Rewards and ranks", "text": "Earn rewards for your progress and climb the ranks." }
     }
   },
   "how": {
@@ -96,12 +98,11 @@
   },
   "lang": {
     "back": "← All languages",
-    "learners": "👥 {count} learners",
     "ready": "📱 Available: {list}",
     "chooseApp": "🚀 Choose an app",
     "platformsTag": "📱 Platforms",
     "platformsTitle": "Where to learn {name}",
-    "platformsSubtitle": "Pick the format you like — your progress is shared across devices.",
+    "platformsSubtitle": "Pick whatever suits you best.",
     "whyTag": "💡 Why",
     "whyTitle": "Why learn {name}?",
     "programTag": "🧩 Course",

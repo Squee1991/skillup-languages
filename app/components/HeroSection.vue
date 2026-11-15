@@ -153,7 +153,7 @@ h1 {
   border-radius: 50%;
   background: radial-gradient(circle, #fde68a 0%, #fbbf24 60%, #f59e0b 100%);
   border: var(--border);
-  box-shadow: 0 8px 0 var(--ink);
+  box-shadow: var(--shadow-pop);
 }
 
 .mascot {
@@ -173,7 +173,7 @@ h1 {
   padding: 8px 18px;
   border: var(--border);
   border-radius: 999px;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   animation: float 5s ease-in-out infinite;
   transition: scale 0.15s ease;
 }

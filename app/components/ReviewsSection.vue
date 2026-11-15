@@ -143,13 +143,13 @@ const reviews: Review[] = [
     lang: 'polish',
     platform: 'ios',
     text: {
-      ru: 'Готовилась к Karta Polaka и сдала с первого раза. Спасибо за вопросы по истории и традициям!',
-      uk: 'Готувалася до Karta Polaka і склала з першого разу. Дякую за питання з історії та традицій!',
-      en: 'Prepared for the Karta Polaka and passed on the first try. Thanks for the history and traditions questions!',
-      de: 'Habe mich auf die Karta Polaka vorbereitet und beim ersten Versuch bestanden. Danke für die Fragen zu Geschichte und Traditionen!',
-      es: 'Me preparé para la Karta Polaka y aprobé a la primera. ¡Gracias por las preguntas de historia y tradiciones!',
-      fr: 'Je me suis préparée à la Karta Polaka et je l’ai obtenue du premier coup. Merci pour les questions d’histoire et de traditions !',
-      pl: 'Przygotowałam się do Karty Polaka i zdałam za pierwszym razem. Dzięki za pytania z historii i tradycji!'
+      ru: 'Карта земель затягивает — уже дошла до A2. А задания на говорение реально помогают не бояться говорить!',
+      uk: 'Мапа земель затягує — вже дійшла до A2. А завдання на говоріння справді допомагають не боятися говорити!',
+      en: 'The map of lands is addictive — I’ve already reached A2. And the speaking tasks really help me stop being afraid to talk!',
+      de: 'Die Länderkarte macht süchtig — ich bin schon bei A2. Und die Sprechaufgaben helfen mir wirklich, keine Angst mehr vorm Reden zu haben!',
+      es: 'El mapa de tierras engancha — ya llegué a A2. ¡Y las tareas de expresión oral de verdad me ayudan a perder el miedo a hablar!',
+      fr: 'La carte des terres est addictive — j’en suis déjà au A2. Et les exercices d’expression orale m’aident vraiment à ne plus avoir peur de parler !',
+      pl: 'Mapa krain wciąga — doszłam już do A2. A zadania na mówienie naprawdę pomagają przestać bać się mówić!'
     }
   }
 ]
@@ -475,7 +475,7 @@ figcaption {
   background: var(--white);
   border: var(--border);
   border-radius: 50%;
-  box-shadow: 0 5px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
@@ -501,7 +501,7 @@ figcaption {
 
 .arrow:active:not(:disabled) {
   transform: translateY(3px);
-  box-shadow: 0 2px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
 }
 
 .dots {
@@ -516,7 +516,7 @@ figcaption {
   height: 12px;
   padding: 0;
   background: #e9d5ff;
-  border: 2px solid var(--ink);
+  border: var(--border);
   border-radius: 999px;
   cursor: pointer;
   transition: width 0.3s ease, background 0.3s ease;

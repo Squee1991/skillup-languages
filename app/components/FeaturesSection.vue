@@ -4,11 +4,13 @@ const { t } = useI18n()
 // тексты — в i18n/locales: features.items.<key>
 const features = [
   { key: 'games', icon: '🎮', color: '#fde68a' },
-  { key: 'minutes', icon: '⏱️', color: '#bae6fd' },
-  { key: 'speech', icon: '🗣️', color: '#fbcfe8' },
-  { key: 'streaks', icon: '🔥', color: '#fed7aa' },
-  { key: 'anywhere', icon: '📱', color: '#bbf7d0' },
-  { key: 'levels', icon: '🎯', color: '#ddd6fe' }
+  { key: 'words', icon: '🃏', color: '#bae6fd' },
+  { key: 'skills', icon: '🎧', color: '#fbcfe8' },
+  { key: 'grammar', icon: '📖', color: '#bbf7d0' },
+  { key: 'lands', icon: '🗺️', color: '#fed7aa' },
+  { key: 'level', icon: '🎯', color: '#ddd6fe' },
+  { key: 'events', icon: '🎄', color: '#a7f3d0' },
+  { key: 'rewards', icon: '🏆', color: '#fef08a' }
 ]
 
 // лента листается нативно (тачпад, свайп) по одной карточке; в ряд всегда помещается целое число карточек
@@ -162,7 +164,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', measure))
   background: var(--white);
   border: var(--border);
   border-radius: 50%;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.2s ease;
 }
@@ -175,7 +177,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', measure))
 
 .arrow:active:not(:disabled) {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
 }
 
 .arrow:disabled {
@@ -193,7 +195,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', measure))
   height: 12px;
   padding: 0;
   background: #e9d5ff;
-  border: 2px solid var(--ink);
+  border: var(--border);
   border-radius: 999px;
   cursor: pointer;
   transition: width 0.3s ease, background 0.3s ease;

@@ -7,10 +7,7 @@ export type L10n<T = string> = Record<Locale, T>
 export interface AppLink {
   platform: Platform
   title: string
-  description: L10n
   url: string
-  features?: L10n<string[]>
-  badge?: L10n
   comingSoon?: boolean
 }
 
@@ -36,7 +33,6 @@ export interface Language {
   nativeName: string
   greeting: string
   color: string
-  learners: number
   tagline: L10n
   about: L10n
   reasons: Reason[]
@@ -56,15 +52,15 @@ export const languages: Language[] = [
   {
     id: 'german',
     mascot: {
-      name: { ru: 'Ёж Ганс', uk: 'Їжак Ганс', en: 'Hans the Hedgehog', de: 'Igel Hans', es: 'Hans el Erizo', fr: 'Hans le hérisson', pl: 'Jeż Hans' },
+      name: { ru: 'Ёж Скилхен', uk: 'Їжак Скілхен', en: 'Skillchen the Hedgehog', de: 'Igel Skillchen', es: 'Skillchen el Erizo', fr: 'Skillchen le hérisson', pl: 'Jeż Skillchen' },
       intro: {
-        ru: 'Привет! Я Ганс. Объясню артикли так, что ты их полюбишь — и поделюсь брецелем 🥨',
-        uk: 'Привіт! Я Ганс. Поясню артиклі так, що ти їх полюбиш — і поділюся брецелем 🥨',
-        en: 'Hi! I’m Hans. I’ll explain articles so well you’ll love them — and share my pretzel 🥨',
-        de: 'Hallo! Ich bin Hans. Ich erkläre dir die Artikel so, dass du sie lieben wirst — und teile meine Brezel 🥨',
-        es: '¡Hola! Soy Hans. Te explicaré los artículos tan bien que te encantarán — y compartiré mi pretzel 🥨',
-        fr: 'Salut ! Moi, c’est Hans. Je t’explique les articles si bien que tu vas les adorer — et je partage mon bretzel 🥨',
-        pl: 'Cześć! Jestem Hans. Wytłumaczę ci rodzajniki tak, że je pokochasz — i podzielę się preclem 🥨'
+        ru: 'Привет! Я Скилхен. Объясню артикли так, что ты их полюбишь — и поделюсь брецелем 🥨',
+        uk: 'Привіт! Я Скілхен. Поясню артиклі так, що ти їх полюбиш — і поділюся брецелем 🥨',
+        en: 'Hi! I’m Skillchen. I’ll explain articles so well you’ll love them — and share my pretzel 🥨',
+        de: 'Hallo! Ich bin Skillchen. Ich erkläre dir die Artikel so, dass du sie lieben wirst — und teile meine Brezel 🥨',
+        es: '¡Hola! Soy Skillchen. Te explicaré los artículos tan bien que te encantarán — y compartiré mi pretzel 🥨',
+        fr: 'Salut ! Moi, c’est Skillchen. Je t’explique les articles si bien que tu vas les adorer — et je partage mon bretzel 🥨',
+        pl: 'Cześć! Jestem Skillchen. Wytłumaczę ci rodzajniki tak, że je pokochasz — i podzielę się preclem 🥨'
       }
     },
     name: { ru: 'Немецкий', uk: 'Німецька', en: 'German', de: 'Deutsch', es: 'Alemán', fr: 'Allemand', pl: 'Niemiecki' },
@@ -73,7 +69,6 @@ export const languages: Language[] = [
     nativeName: 'Deutsch',
     greeting: 'Hallo!',
     color: '#f59e0b',
-    learners: 12000,
     tagline: {
       ru: 'Артикли, падежи и длинные слова — больше не страшно!',
       uk: 'Артиклі, відмінки та довгі слова — більше не страшно!',
@@ -173,87 +168,32 @@ export const languages: Language[] = [
       {
         platform: 'android',
         title: 'SkillUp German',
-        description: {
-          ru: 'Карточки, артикли der/die/das и ежедневные мини-уроки по 5 минут.',
-          uk: 'Картки, артиклі der/die/das і щоденні міні-уроки по 5 хвилин.',
-          en: 'Flashcards, der/die/das articles and daily 5-minute mini lessons.',
-          de: 'Karteikarten, Artikel der/die/das und tägliche 5-Minuten-Lektionen.',
-          es: 'Tarjetas, artículos der/die/das y minilecciones diarias de 5 minutos.',
-          fr: 'Cartes mémoire, articles der/die/das et mini-leçons quotidiennes de 5 minutes.',
-          pl: 'Fiszki, rodzajniki der/die/das i codzienne 5-minutowe minilekcje.'
-        },
-        url: 'https://play.google.com/store/apps/details?id=com.skillupgerman.app',
-        features: {
-          ru: ['Мини-уроки по 5 минут', 'Тренажёр артиклей', 'Работает офлайн'],
-          uk: ['Міні-уроки по 5 хвилин', 'Тренажер артиклів', 'Працює офлайн'],
-          en: ['5-minute mini lessons', 'Article trainer', 'Works offline'],
-          de: ['5-Minuten-Lektionen', 'Artikel-Trainer', 'Funktioniert offline'],
-          es: ['Minilecciones de 5 minutos', 'Entrenador de artículos', 'Funciona sin conexión'],
-          fr: ['Mini-leçons de 5 minutes', 'Entraîneur d’articles', 'Fonctionne hors ligne'],
-          pl: ['5-minutowe minilekcje', 'Trener rodzajników', 'Działa offline']
-        },
-        badge: { ru: 'Хит', uk: 'Хіт', en: 'Hit', de: 'Hit', es: 'Top', fr: 'Top', pl: 'Hit' }
+        url: 'https://play.google.com/store/apps/details?id=com.skillupgerman.app'
       },
       {
         platform: 'ios',
         title: 'SkillUp German',
-        description: {
-          ru: 'Та же программа на iPhone и iPad + виджет «слово дня».',
-          uk: 'Та сама програма на iPhone та iPad + віджет «слово дня».',
-          en: 'The same course on iPhone and iPad + a “word of the day” widget.',
-          de: 'Derselbe Kurs auf iPhone und iPad + ein „Wort des Tages“-Widget.',
-          es: 'El mismo curso en iPhone y iPad + un widget de «palabra del día».',
-          fr: 'Le même cours sur iPhone et iPad + un widget « mot du jour ».',
-          pl: 'Ten sam kurs na iPhonie i iPadzie + widżet „słowo dnia”.'
-        },
-        url: 'https://apps.apple.com/app/skillupgerman/id6762300276',
-        features: {
-          ru: ['Виджет «слово дня»', 'Синхронизация с Android', 'Тёмная тема'],
-          uk: ['Віджет «слово дня»', 'Синхронізація з Android', 'Темна тема'],
-          en: ['“Word of the day” widget', 'Sync with Android', 'Dark theme'],
-          de: ['„Wort des Tages“-Widget', 'Sync mit Android', 'Dunkles Design'],
-          es: ['Widget «palabra del día»', 'Sincronización con Android', 'Tema oscuro'],
-          fr: ['Widget « mot du jour »', 'Synchro avec Android', 'Thème sombre'],
-          pl: ['Widżet „słowo dnia”', 'Synchronizacja z Androidem', 'Ciemny motyw']
-        }
+        url: 'https://apps.apple.com/app/skillupgerman/id6762300276'
       },
       {
         platform: 'web',
         title: 'skillupgerman.com',
-        description: {
-          ru: 'Тренажёр грамматики и подготовка к Goethe A1–B1 прямо в браузере.',
-          uk: 'Тренажер граматики та підготовка до Goethe A1–B1 просто в браузері.',
-          en: 'Grammar trainer and Goethe A1–B1 prep right in your browser.',
-          de: 'Grammatiktrainer und Vorbereitung auf Goethe A1–B1 direkt im Browser.',
-          es: 'Entrenador de gramática y preparación para Goethe A1–B1 en tu navegador.',
-          fr: 'Entraîneur de grammaire et préparation au Goethe A1–B1 dans ton navigateur.',
-          pl: 'Trener gramatyki i przygotowanie do Goethe A1–B1 prosto w przeglądarce.'
-        },
-        url: 'https://skillupgerman.com',
-        features: {
-          ru: ['Пробные тесты Goethe', 'Упражнения на падежи', 'Без установки'],
-          uk: ['Пробні тести Goethe', 'Вправи на відмінки', 'Без встановлення'],
-          en: ['Goethe practice tests', 'Case exercises', 'No install needed'],
-          de: ['Goethe-Übungstests', 'Übungen zu den Fällen', 'Ohne Installation'],
-          es: ['Exámenes de práctica Goethe', 'Ejercicios de casos', 'Sin instalación'],
-          fr: ['Tests blancs Goethe', 'Exercices sur les cas', 'Sans installation'],
-          pl: ['Próbne testy Goethe', 'Ćwiczenia z przypadków', 'Bez instalacji']
-        }
+        url: 'https://skillupgerman.com'
       }
     ]
   },
   {
     id: 'spanish',
     mascot: {
-      name: { ru: 'Змейка Пепе', uk: 'Змійка Пепе', en: 'Pepe the Snake', de: 'Schlange Pepe', es: 'Pepe la Serpiente', fr: 'Pepe le serpent', pl: 'Wąż Pepe' },
+      name: { ru: 'Змейка Скилито', uk: 'Змійка Скіліто', en: 'Skillito the Snake', de: 'Schlange Skillito', es: 'Skillito la Serpiente', fr: 'Skillito le serpent', pl: 'Wąż Skillito' },
       intro: {
-        ru: '¡Hola, amigo! Я Пепе. Научу болтать по-испански быстрее, чем я ползаю 🌮',
-        uk: '¡Hola, amigo! Я Пепе. Навчу балакати іспанською швидше, ніж я повзаю 🌮',
-        en: '¡Hola, amigo! I’m Pepe. I’ll get you chatting in Spanish faster than I can slither 🌮',
-        de: '¡Hola, amigo! Ich bin Pepe. Ich bringe dich schneller zum Plaudern auf Spanisch, als ich schlängeln kann 🌮',
-        es: '¡Hola, amigo! Soy Pepe. Te haré charlar en español más rápido de lo que yo repto 🌮',
-        fr: '¡Hola, amigo ! Moi, c’est Pepe. Je vais te faire bavarder en espagnol plus vite que je ne rampe 🌮',
-        pl: '¡Hola, amigo! Jestem Pepe. Nauczę cię gadać po hiszpańsku szybciej, niż pełzam 🌮'
+        ru: '¡Hola, amigo! Я Скилито. Научу болтать по-испански быстрее, чем я ползаю 🌮',
+        uk: '¡Hola, amigo! Я Скіліто. Навчу балакати іспанською швидше, ніж я повзаю 🌮',
+        en: '¡Hola, amigo! I’m Skillito. I’ll get you chatting in Spanish faster than I can slither 🌮',
+        de: '¡Hola, amigo! Ich bin Skillito. Ich bringe dich schneller zum Plaudern auf Spanisch, als ich schlängeln kann 🌮',
+        es: '¡Hola, amigo! Soy Skillito. Te haré charlar en español más rápido de lo que yo repto 🌮',
+        fr: '¡Hola, amigo ! Moi, c’est Skillito. Je vais te faire bavarder en espagnol plus vite que je ne rampe 🌮',
+        pl: '¡Hola, amigo! Jestem Skillito. Nauczę cię gadać po hiszpańsku szybciej, niż pełzam 🌮'
       }
     },
     name: { ru: 'Испанский', uk: 'Іспанська', en: 'Spanish', de: 'Spanisch', es: 'Español', fr: 'Espagnol', pl: 'Hiszpański' },
@@ -262,7 +202,6 @@ export const languages: Language[] = [
     nativeName: 'Español',
     greeting: '¡Hola!',
     color: '#ef4444',
-    learners: 9500,
     tagline: {
       ru: 'Солнечный язык, на котором говорят 500 миллионов человек',
       uk: 'Сонячна мова, якою розмовляють 500 мільйонів людей',
@@ -362,72 +301,19 @@ export const languages: Language[] = [
       {
         platform: 'android',
         title: 'SkillUp Español',
-        description: {
-          ru: 'Разговорные фразы, произношение с озвучкой и игры на скорость.',
-          uk: 'Розмовні фрази, вимова з озвученням та ігри на швидкість.',
-          en: 'Conversational phrases, voiced pronunciation and speed games.',
-          de: 'Alltagsphrasen, vertonte Aussprache und Schnelligkeitsspiele.',
-          es: 'Frases coloquiales, pronunciación con audio y juegos de velocidad.',
-          fr: 'Phrases du quotidien, prononciation audio et jeux de rapidité.',
-          pl: 'Potoczne zwroty, wymowa z nagraniami i gry na szybkość.'
-        },
         url: '#',
-        features: {
-          ru: ['Озвучка носителями', 'Игры на скорость', 'Работает офлайн'],
-          uk: ['Озвучення носіями', 'Ігри на швидкість', 'Працює офлайн'],
-          en: ['Native speaker audio', 'Speed games', 'Works offline'],
-          de: ['Audio von Muttersprachlern', 'Schnelligkeitsspiele', 'Funktioniert offline'],
-          es: ['Audio de nativos', 'Juegos de velocidad', 'Funciona sin conexión'],
-          fr: ['Audio par des natifs', 'Jeux de rapidité', 'Fonctionne hors ligne'],
-          pl: ['Nagrania native speakerów', 'Gry na szybkość', 'Działa offline']
-        }
+        comingSoon: true
       },
       {
         platform: 'ios',
         title: 'SkillUp Español',
-        description: {
-          ru: 'Уроки офлайн, напоминания и прогресс, синхронизированный с Android.',
-          uk: 'Уроки офлайн, нагадування та прогрес, синхронізований з Android.',
-          en: 'Offline lessons, reminders and progress synced with Android.',
-          de: 'Offline-Lektionen, Erinnerungen und mit Android synchronisierter Fortschritt.',
-          es: 'Lecciones sin conexión, recordatorios y progreso sincronizado con Android.',
-          fr: 'Leçons hors ligne, rappels et progression synchronisée avec Android.',
-          pl: 'Lekcje offline, przypomnienia i postępy zsynchronizowane z Androidem.'
-        },
         url: '#',
-        features: {
-          ru: ['Умные напоминания', 'Синхронизация с Android', 'Уроки офлайн'],
-          uk: ['Розумні нагадування', 'Синхронізація з Android', 'Уроки офлайн'],
-          en: ['Smart reminders', 'Sync with Android', 'Offline lessons'],
-          de: ['Smarte Erinnerungen', 'Sync mit Android', 'Offline-Lektionen'],
-          es: ['Recordatorios inteligentes', 'Sincronización con Android', 'Lecciones sin conexión'],
-          fr: ['Rappels intelligents', 'Synchro avec Android', 'Leçons hors ligne'],
-          pl: ['Inteligentne przypomnienia', 'Synchronizacja z Androidem', 'Lekcje offline']
-        },
-        badge: { ru: 'Новое', uk: 'Нове', en: 'New', de: 'Neu', es: 'Nuevo', fr: 'Nouveau', pl: 'Nowość' }
+        comingSoon: true
       },
       {
         platform: 'web',
         title: 'Español Online',
-        description: {
-          ru: 'Спряжения глаголов и интерактивные диалоги для путешествий.',
-          uk: 'Дієвідмінювання та інтерактивні діалоги для подорожей.',
-          en: 'Verb conjugations and interactive travel dialogues.',
-          de: 'Konjugationen und interaktive Reisedialoge.',
-          es: 'Conjugaciones verbales y diálogos interactivos para viajar.',
-          fr: 'Conjugaisons et dialogues de voyage interactifs.',
-          pl: 'Odmiana czasowników i interaktywne dialogi na podróż.'
-        },
         url: '#',
-        features: {
-          ru: ['Тренажёр спряжений', 'Диалоги для поездок'],
-          uk: ['Тренажер дієвідмінювання', 'Діалоги для поїздок'],
-          en: ['Conjugation trainer', 'Travel dialogues'],
-          de: ['Konjugationstrainer', 'Reisedialoge'],
-          es: ['Entrenador de conjugación', 'Diálogos para viajar'],
-          fr: ['Entraîneur de conjugaison', 'Dialogues de voyage'],
-          pl: ['Trener odmiany', 'Dialogi na podróż']
-        },
         comingSoon: true
       }
     ]
@@ -435,15 +321,15 @@ export const languages: Language[] = [
   {
     id: 'polish',
     mascot: {
-      name: { ru: 'Бобёр Бартек', uk: 'Бобер Бартек', en: 'Bartek the Beaver', de: 'Biber Bartek', es: 'Bartek el Castor', fr: 'Bartek le castor', pl: 'Bóbr Bartek' },
+      name: { ru: 'Бобёр Скилек', uk: 'Бобер Скілек', en: 'Skillek the Beaver', de: 'Biber Skillek', es: 'Skillek el Castor', fr: 'Skillek le castor', pl: 'Bóbr Skillek' },
       intro: {
-        ru: 'Cześć! Я Бартек. Строю плотины из слов и угощаю пирогами — пора учить польский 🥟',
-        uk: 'Cześć! Я Бартек. Будую греблі зі слів і пригощаю пирогами — час вчити польську 🥟',
-        en: 'Cześć! I’m Bartek. I build dams out of words and treat you to pierogi — time to learn Polish 🥟',
-        de: 'Cześć! Ich bin Bartek. Ich baue Dämme aus Wörtern und verwöhne dich mit Pierogi — Zeit, Polnisch zu lernen 🥟',
-        es: 'Cześć! Soy Bartek. Construyo presas con palabras y te invito a unos pierogi — ¡es hora de aprender polaco! 🥟',
-        fr: 'Cześć ! Moi, c’est Bartek. Je construis des barrages avec des mots et je t’offre des pierogi — c’est l’heure d’apprendre le polonais 🥟',
-        pl: 'Cześć! Jestem Bartek. Buduję tamy ze słów i częstuję pierogami — czas na polski 🥟'
+        ru: 'Cześć! Я Скилек. Строю плотины из слов и угощаю пирогами — пора учить польский 🥟',
+        uk: 'Cześć! Я Скілек. Будую греблі зі слів і пригощаю пирогами — час вчити польську 🥟',
+        en: 'Cześć! I’m Skillek. I build dams out of words and treat you to pierogi — time to learn Polish 🥟',
+        de: 'Cześć! Ich bin Skillek. Ich baue Dämme aus Wörtern und verwöhne dich mit Pierogi — Zeit, Polnisch zu lernen 🥟',
+        es: 'Cześć! Soy Skillek. Construyo presas con palabras y te invito a unos pierogi — ¡es hora de aprender polaco! 🥟',
+        fr: 'Cześć ! Moi, c’est Skillek. Je construis des barrages avec des mots et je t’offre des pierogi — c’est l’heure d’apprendre le polonais 🥟',
+        pl: 'Cześć! Jestem Skillek. Buduję tamy ze słów i częstuję pierogami — czas na polski 🥟'
       }
     },
     name: { ru: 'Польский', uk: 'Польська', en: 'Polish', de: 'Polnisch', es: 'Polaco', fr: 'Polonais', pl: 'Polski' },
@@ -452,7 +338,6 @@ export const languages: Language[] = [
     nativeName: 'Polski',
     greeting: 'Cześć!',
     color: '#ec4899',
-    learners: 6800,
     tagline: {
       ru: 'Близкий и понятный язык для жизни, работы и учёбы в Польше',
       uk: 'Близька й зрозуміла мова для життя, роботи та навчання в Польщі',
@@ -463,13 +348,13 @@ export const languages: Language[] = [
       pl: 'Język do życia, pracy i nauki w Polsce'
     },
     about: {
-      ru: 'Польский похож на русский, но полон сюрпризов: шипящие звуки, семь падежей и «ложные друзья». SkillUp Polski помогает быстро освоиться — от бытовых фраз до подготовки к Karta Polaka и собеседованиям.',
-      uk: 'Польська схожа на українську, але повна сюрпризів: шиплячі звуки, сім відмінків і «хибні друзі». SkillUp Polski допомагає швидко освоїтися — від побутових фраз до підготовки до Karta Polaka та співбесід.',
-      en: 'Polish is full of surprises: hissing sounds, seven cases and “false friends”. SkillUp Polski helps you settle in fast — from everyday phrases to preparing for the Karta Polaka and job interviews.',
-      de: 'Polnisch steckt voller Überraschungen: Zischlaute, sieben Fälle und „falsche Freunde“. SkillUp Polski hilft dir, dich schnell einzuleben — von Alltagsphrasen bis zur Vorbereitung auf die Karta Polaka und Vorstellungsgespräche.',
-      es: 'El polaco está lleno de sorpresas: sonidos sibilantes, siete casos y «falsos amigos». SkillUp Polski te ayuda a adaptarte rápido — desde frases cotidianas hasta preparar la Karta Polaka y entrevistas de trabajo.',
-      fr: 'Le polonais regorge de surprises : sons chuintants, sept cas et « faux amis ». SkillUp Polski t’aide à t’adapter vite — des phrases du quotidien à la préparation de la Karta Polaka et des entretiens d’embauche.',
-      pl: 'Polski jest pełen niespodzianek: szeleszczące głoski, siedem przypadków i „fałszywi przyjaciele”. SkillUp Polski pomaga szybko się odnaleźć — od codziennych zwrotów po przygotowanie do Karty Polaka i rozmów o pracę.'
+      ru: 'Польский похож на русский, но полон сюрпризов: шипящие звуки, семь падежей и «ложные друзья». SkillUp Polski помогает быстро освоиться — от первых бытовых фраз до уверенного B1.',
+      uk: 'Польська схожа на українську, але повна сюрпризів: шиплячі звуки, сім відмінків і «хибні друзі». SkillUp Polski допомагає швидко освоїтися — від перших побутових фраз до впевненого B1.',
+      en: 'Polish is full of surprises: hissing sounds, seven cases and “false friends”. SkillUp Polski helps you settle in fast — from your first everyday phrases to a confident B1.',
+      de: 'Polnisch steckt voller Überraschungen: Zischlaute, sieben Fälle und „falsche Freunde“. SkillUp Polski hilft dir, dich schnell einzuleben — von den ersten Alltagsphrasen bis zu einem sicheren B1.',
+      es: 'El polaco está lleno de sorpresas: sonidos sibilantes, siete casos y «falsos amigos». SkillUp Polski te ayuda a adaptarte rápido — desde las primeras frases cotidianas hasta un B1 seguro.',
+      fr: 'Le polonais regorge de surprises : sons chuintants, sept cas et « faux amis ». SkillUp Polski t’aide à t’adapter vite — des premières phrases du quotidien jusqu’à un B1 assuré.',
+      pl: 'Polski jest pełen niespodzianek: szeleszczące głoski, siedem przypadków i „fałszywi przyjaciele”. SkillUp Polski pomaga szybko się odnaleźć — od pierwszych codziennych zwrotów po pewne B1.'
     },
     reasons: [
       {
@@ -486,16 +371,16 @@ export const languages: Language[] = [
         }
       },
       {
-        icon: '🪪',
-        title: { ru: 'Karta Polaka', uk: 'Karta Polaka', en: 'Karta Polaka', de: 'Karta Polaka', es: 'Karta Polaka', fr: 'Karta Polaka', pl: 'Karta Polaka' },
+        icon: '💼',
+        title: { ru: 'Работа', uk: 'Робота', en: 'Work', de: 'Arbeit', es: 'Trabajo', fr: 'Travail', pl: 'Praca' },
         text: {
-          ru: 'Готовим к собеседованию: история, культура и традиции.',
-          uk: 'Готуємо до співбесіди: історія, культура та традиції.',
-          en: 'We’ll prep you for the interview: history, culture and traditions.',
-          de: 'Wir bereiten dich aufs Gespräch vor: Geschichte, Kultur und Traditionen.',
-          es: 'Te preparamos para la entrevista: historia, cultura y tradiciones.',
-          fr: 'On te prépare à l’entretien : histoire, culture et traditions.',
-          pl: 'Przygotujemy cię do rozmowy: historia, kultura i tradycje.'
+          ru: 'Коллеги, клиенты и собеседования — говори с ними на одном языке.',
+          uk: 'Колеги, клієнти та співбесіди — говори з ними однією мовою.',
+          en: 'Colleagues, clients and job interviews — speak their language.',
+          de: 'Kollegen, Kunden und Vorstellungsgespräche — sprich ihre Sprache.',
+          es: 'Compañeros, clientes y entrevistas — habla su mismo idioma.',
+          fr: 'Collègues, clients et entretiens — parle la même langue qu’eux.',
+          pl: 'Współpracownicy, klienci i rozmowy o pracę — mów ich językiem.'
         }
       },
       {
@@ -515,31 +400,31 @@ export const languages: Language[] = [
     program: {
       ru: [
         'Ты научишься правильно произносить *ś, ć, ż и sz*, разберёшься с *семью падежами* и перестанешь путаться в *«ложных друзьях»* — словах, которые похожи на русские, но значат совсем другое.',
-        'Освоишь польский для *работы и быта*, подготовишься к *Karta Polaka* и будешь уверенно общаться в любой ситуации — и это только начало ✨'
+        'Освоишь польский для *работы и быта*, пройдёшь путь *от A1 до B1* и будешь уверенно общаться в любой ситуации — и это только начало ✨'
       ],
       uk: [
         'Ти навчишся правильно вимовляти *ś, ć, ż і sz*, розберешся із *сімома відмінками* й перестанеш плутатися в *«хибних друзях»* — словах, що схожі на українські, але означають зовсім інше.',
-        'Опануєш польську для *роботи й побуту*, підготуєшся до *Karta Polaka* та впевнено спілкуватимешся в будь-якій ситуації — і це лише початок ✨'
+        'Опануєш польську для *роботи й побуту*, пройдеш шлях *від A1 до B1* та впевнено спілкуватимешся в будь-якій ситуації — і це лише початок ✨'
       ],
       en: [
         'You’ll learn to pronounce *ś, ć, ż and sz* correctly, get the hang of the *seven cases* and stop tripping over *“false friends”* — words that look familiar but mean something else entirely.',
-        'You’ll master Polish for *work and everyday life*, prepare for the *Karta Polaka* and communicate confidently in any situation — and that’s just the beginning ✨'
+        'You’ll master Polish for *work and everyday life*, go all the way *from A1 to B1* and communicate confidently in any situation — and that’s just the beginning ✨'
       ],
       de: [
         'Du lernst, *ś, ć, ż und sz* richtig auszusprechen, kommst mit den *sieben Fällen* klar und stolperst nicht mehr über *„falsche Freunde“* — Wörter, die vertraut aussehen, aber etwas ganz anderes bedeuten.',
-        'Du meisterst Polnisch für *Arbeit und Alltag*, bereitest dich auf die *Karta Polaka* vor und kommunizierst in jeder Situation sicher — und das ist erst der Anfang ✨'
+        'Du meisterst Polnisch für *Arbeit und Alltag*, gehst den Weg *von A1 bis B1* und kommunizierst in jeder Situation sicher — und das ist erst der Anfang ✨'
       ],
       es: [
         'Aprenderás a pronunciar bien *ś, ć, ż y sz*, dominarás los *siete casos* y dejarás de tropezar con los *«falsos amigos»* — palabras que parecen conocidas pero significan algo totalmente distinto.',
-        'Dominarás el polaco para *el trabajo y la vida diaria*, te prepararás para la *Karta Polaka* y te comunicarás con seguridad en cualquier situación — y esto es solo el principio ✨'
+        'Dominarás el polaco para *el trabajo y la vida diaria*, recorrerás el camino *de A1 a B1* y te comunicarás con seguridad en cualquier situación — y esto es solo el principio ✨'
       ],
       fr: [
         'Tu apprendras à bien prononcer *ś, ć, ż et sz*, tu dompteras les *sept cas* et tu ne trébucheras plus sur les *« faux amis »* — des mots qui semblent familiers mais veulent dire tout autre chose.',
-        'Tu maîtriseras le polonais pour *le travail et la vie quotidienne*, tu te prépareras à la *Karta Polaka* et tu communiqueras avec assurance en toute situation — et ce n’est que le début ✨'
+        'Tu maîtriseras le polonais pour *le travail et la vie quotidienne*, tu feras tout le chemin *de A1 à B1* et tu communiqueras avec assurance en toute situation — et ce n’est que le début ✨'
       ],
       pl: [
         'Nauczysz się poprawnie wymawiać *ś, ć, ż i sz*, opanujesz *siedem przypadków* i przestaniesz mylić *„fałszywych przyjaciół”* — słowa, które wyglądają znajomo, a znaczą coś zupełnie innego.',
-        'Opanujesz polski do *pracy i codziennego życia*, przygotujesz się do *Karty Polaka* i będziesz pewnie porozumiewać się w każdej sytuacji — a to dopiero początek ✨'
+        'Opanujesz polski do *pracy i codziennego życia*, przejdziesz drogę *od A1 do B1* i będziesz pewnie porozumiewać się w każdej sytuacji — a to dopiero początek ✨'
       ]
     },
     phrases: [
@@ -552,72 +437,12 @@ export const languages: Language[] = [
       {
         platform: 'android',
         title: 'SkillUp Polski',
-        description: {
-          ru: 'Падежи без боли, словарь для жизни и работы в Польше.',
-          uk: 'Відмінки без болю, словник для життя та роботи в Польщі.',
-          en: 'Painless cases and vocabulary for living and working in Poland.',
-          de: 'Fälle ohne Schmerz und Wortschatz für Leben und Arbeit in Polen.',
-          es: 'Casos sin dolor y vocabulario para vivir y trabajar en Polonia.',
-          fr: 'Des cas sans douleur et du vocabulaire pour vivre et travailler en Pologne.',
-          pl: 'Przypadki bez bólu i słownictwo do życia i pracy w Polsce.'
-        },
-        url: '#',
-        features: {
-          ru: ['Тренажёр падежей', 'Словарь для работы', 'Работает офлайн'],
-          uk: ['Тренажер відмінків', 'Словник для роботи', 'Працює офлайн'],
-          en: ['Case trainer', 'Work vocabulary', 'Works offline'],
-          de: ['Fälle-Trainer', 'Wortschatz für den Job', 'Funktioniert offline'],
-          es: ['Entrenador de casos', 'Vocabulario laboral', 'Funciona sin conexión'],
-          fr: ['Entraîneur de cas', 'Vocabulaire professionnel', 'Fonctionne hors ligne'],
-          pl: ['Trener przypadków', 'Słownictwo do pracy', 'Działa offline']
-        }
+        url: '#'
       },
       {
         platform: 'ios',
         title: 'SkillUp Polski',
-        description: {
-          ru: 'Ежедневные челленджи и подготовка к Karta Polaka.',
-          uk: 'Щоденні челенджі та підготовка до Karta Polaka.',
-          en: 'Daily challenges and Karta Polaka prep.',
-          de: 'Tägliche Challenges und Vorbereitung auf die Karta Polaka.',
-          es: 'Retos diarios y preparación para la Karta Polaka.',
-          fr: 'Défis quotidiens et préparation à la Karta Polaka.',
-          pl: 'Codzienne wyzwania i przygotowanie do Karty Polaka.'
-        },
-        url: '#',
-        features: {
-          ru: ['Ежедневные челленджи', 'Курс Karta Polaka'],
-          uk: ['Щоденні челенджі', 'Курс Karta Polaka'],
-          en: ['Daily challenges', 'Karta Polaka course'],
-          de: ['Tägliche Challenges', 'Karta-Polaka-Kurs'],
-          es: ['Retos diarios', 'Curso Karta Polaka'],
-          fr: ['Défis quotidiens', 'Cours Karta Polaka'],
-          pl: ['Codzienne wyzwania', 'Kurs Karty Polaka']
-        },
-        comingSoon: true
-      },
-      {
-        platform: 'web',
-        title: 'Polski Online',
-        description: {
-          ru: 'Тесты на уровень, упражнения на ś, ć, ż и живые диалоги.',
-          uk: 'Тести на рівень, вправи на ś, ć, ż і живі діалоги.',
-          en: 'Level tests, ś/ć/ż exercises and real-life dialogues.',
-          de: 'Einstufungstests, Übungen zu ś/ć/ż und lebendige Dialoge.',
-          es: 'Pruebas de nivel, ejercicios de ś/ć/ż y diálogos reales.',
-          fr: 'Tests de niveau, exercices sur ś/ć/ż et dialogues vivants.',
-          pl: 'Testy poziomujące, ćwiczenia z ś/ć/ż i żywe dialogi.'
-        },
-        url: '#',
-        features: {
-          ru: ['Тест на уровень', 'Тренажёр произношения', 'Без установки'],
-          uk: ['Тест на рівень', 'Тренажер вимови', 'Без встановлення'],
-          en: ['Level test', 'Pronunciation trainer', 'No install needed'],
-          de: ['Einstufungstest', 'Aussprachetrainer', 'Ohne Installation'],
-          es: ['Prueba de nivel', 'Entrenador de pronunciación', 'Sin instalación'],
-          fr: ['Test de niveau', 'Entraîneur de prononciation', 'Sans installation'],
-          pl: ['Test poziomujący', 'Trener wymowy', 'Bez instalacji']
-        }
+        url: '#'
       }
     ]
   }

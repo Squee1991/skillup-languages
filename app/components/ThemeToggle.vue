@@ -69,7 +69,7 @@ const toggle = async () => {
   background: linear-gradient(180deg, #7dd3fc 0%, #e0f2fe 100%);
   border: var(--border);
   border-radius: 50%;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.7s ease;
 }
@@ -77,7 +77,7 @@ const toggle = async () => {
 /* нажатие: кнопка проседает, а смена темы расходится от неё кругом */
 .sky:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
 }
 
 .sky.night {

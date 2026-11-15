@@ -37,7 +37,6 @@
       "start": "Descarga y aprende"
     },
     "soon": "pronto",
-    "learners": "{count} estudiantes",
     "choose": "Elegir {name} →"
   },
   "platform": {
@@ -49,19 +48,22 @@
       "ios": "App Store",
       "web": "Abrir en el navegador"
     },
-    "soon": "⏳ Próximamente"
+    "soon": "⏳ Próximamente",
+    "desc": { "android": "Para móviles y tabletas Android.", "ios": "Para iPhone y iPad.", "web": "Directamente en el navegador — sin instalar nada." }
   },
   "features": {
     "tag": "💡 Por qué SkillUp Languages",
     "title": "Aprender es fácil y divertido",
     "subtitle": "Hicimos todo para que el idioma sea tu hábito favorito, no una obligación aburrida.",
     "items": {
-      "games": { "title": "Juegos en vez de memorizar", "text": "Las palabras y la gramática se fijan con minijuegos, cuestionarios y retos." },
-      "minutes": { "title": "5 minutos al día", "text": "Las lecciones cortas caben en el trayecto, la comida o un descanso." },
-      "speech": { "title": "Pronunciación real", "text": "Audio de hablantes nativos y un entrenador de habla con pistas." },
-      "streaks": { "title": "Rachas y premios", "text": "Globi vigila tu racha de días y te premia por tu constancia." },
-      "anywhere": { "title": "Siempre contigo", "text": "Android, iOS y web — tu progreso se sincroniza entre dispositivos." },
-      "levels": { "title": "Niveles A1–B2", "text": "El curso sigue el Marco Común Europeo (MCER) — de cero a la fluidez." }
+      "games": { "title": "Juegos en vez de memorizar", "text": "Palabras y reglas se fijan jugando — aprendes casi sin darte cuenta." },
+      "words": { "title": "Palabras en todos los modos", "text": "Practica el vocabulario de muchas formas hasta que se quede para siempre." },
+      "skills": { "title": "Todas las habilidades", "text": "Describir imágenes, audios, textos, tests y tareas de expresión oral." },
+      "grammar": { "title": "Gramática con práctica", "text": "Entiende la regla — y fíjala enseguida con ejercicios." },
+      "lands": { "title": "Mapa de tierras A1–B1", "text": "El curso es un viaje: supera las tierras en orden y desbloquea nuevas." },
+      "level": { "title": "Tu propio nivel", "text": "¿Ya sabes algo? Elige tu nivel y no empieces de cero." },
+      "events": { "title": "Eventos festivos", "text": "Año Nuevo y otras fiestas traen retos especiales en la app." },
+      "rewards": { "title": "Premios y rangos", "text": "Gana premios por tu progreso y sube de rango." }
     }
   },
   "how": {
@@ -96,12 +98,11 @@
   },
   "lang": {
     "back": "← Todos los idiomas",
-    "learners": "👥 {count} estudiantes",
     "ready": "📱 Disponible: {list}",
     "chooseApp": "🚀 Elegir app",
     "platformsTag": "📱 Plataformas",
     "platformsTitle": "Dónde aprender {name}",
-    "platformsSubtitle": "Elige el formato que prefieras — tu progreso es el mismo en todos los dispositivos.",
+    "platformsSubtitle": "Elige lo que te resulte más cómodo.",
     "whyTag": "💡 Por qué",
     "whyTitle": "¿Por qué aprender {name}?",
     "programTag": "🧩 Curso",

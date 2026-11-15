@@ -44,7 +44,7 @@ const localePath = useLocalePath()
   background: linear-gradient(120deg, var(--pink) 0%, var(--purple) 60%, #4f46e5 100%);
   border: var(--border);
   border-radius: 40px;
-  box-shadow: 0 10px 0 var(--ink);
+  box-shadow: var(--card-shadow);
 }
 
 .cta-mascot {

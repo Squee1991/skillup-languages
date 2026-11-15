@@ -80,7 +80,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
   background: var(--white);
   border: var(--border);
   border-radius: 999px;
-  box-shadow: 0 4px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: transform 0.15s ease;
 }
@@ -109,7 +109,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
   background: var(--white);
   border: var(--border);
   border-radius: 20px;
-  box-shadow: 0 6px 0 var(--ink);
+  box-shadow: var(--shadow-pop);
 }
 
 .option {
@@ -132,7 +132,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
   padding: 2px 0;
   color: var(--ink);
   background: var(--yellow);
-  border: 2px solid var(--ink);
+  border: var(--border);
   border-radius: 8px;
 }
 
@@ -181,6 +181,6 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 .pill.active {
   color: var(--ink);
   background: var(--yellow);
-  box-shadow: 0 3px 0 var(--ink);
+  box-shadow: var(--shadow-sm);
 }
 </style>

@@ -37,7 +37,6 @@
       "start": "Laden und lernen"
     },
     "soon": "bald",
-    "learners": "{count} Lernende",
     "choose": "{name} wählen →"
   },
   "platform": {
@@ -49,19 +48,22 @@
       "ios": "App Store",
       "web": "Im Browser öffnen"
     },
-    "soon": "⏳ Bald verfügbar"
+    "soon": "⏳ Bald verfügbar",
+    "desc": { "android": "Für Android-Smartphones und -Tablets.", "ios": "Für iPhone und iPad.", "web": "Direkt im Browser — keine Installation nötig." }
   },
   "features": {
     "tag": "💡 Warum SkillUp Languages",
     "title": "Lernen, das leicht ist und Spaß macht",
     "subtitle": "Wir haben alles getan, damit eine Sprache zur Lieblingsgewohnheit wird — nicht zur lästigen Pflicht.",
     "items": {
-      "games": { "title": "Spielen statt Pauken", "text": "Wörter und Grammatik bleiben durch Minispiele, Quizze und Challenges hängen." },
-      "minutes": { "title": "5 Minuten am Tag", "text": "Kurze Lektionen passen in jeden Arbeitsweg, jede Mittags- oder Kaffeepause." },
-      "speech": { "title": "Echte Aussprache", "text": "Audio von Muttersprachlern und ein Sprechtrainer mit Hinweisen." },
-      "streaks": { "title": "Serien und Belohnungen", "text": "Globi behält deine Lernserie im Blick und belohnt dein Durchhalten." },
-      "anywhere": { "title": "Immer dabei", "text": "Android, iOS und Web — dein Fortschritt wird auf allen Geräten synchronisiert." },
-      "levels": { "title": "Niveaus A1–B2", "text": "Der Kurs folgt dem europäischen Referenzrahmen GER — von null bis fließend." }
+      "games": { "title": "Spielen statt Pauken", "text": "Wörter und Regeln bleiben durch Spiele hängen — du lernst ganz nebenbei." },
+      "words": { "title": "Wörter in allen Modi", "text": "Übe neue Wörter auf verschiedene Arten, bis sie dauerhaft sitzen." },
+      "skills": { "title": "Alle Fähigkeiten", "text": "Bildbeschreibungen, Audio, Texte, Tests und Sprechaufgaben." },
+      "grammar": { "title": "Grammatik mit Übung", "text": "Regel verstehen — und sofort mit Übungen festigen." },
+      "lands": { "title": "Länderkarte A1–B1", "text": "Der Kurs ist eine Reise: Meistere die Länder der Reihe nach und schalte neue frei." },
+      "level": { "title": "Dein eigenes Niveau", "text": "Du kannst schon etwas? Wähle dein Niveau und fang nicht bei null an." },
+      "events": { "title": "Feiertags-Events", "text": "Neujahr und andere Feiertage bringen besondere Aufgaben in die App." },
+      "rewards": { "title": "Belohnungen und Ränge", "text": "Sammle Belohnungen für deinen Fortschritt und steig im Rang auf." }
     }
   },
   "how": {
@@ -96,12 +98,11 @@
   },
   "lang": {
     "back": "← Alle Sprachen",
-    "learners": "👥 {count} Lernende",
     "ready": "📱 Verfügbar: {list}",
     "chooseApp": "🚀 App wählen",
     "platformsTag": "📱 Plattformen",
     "platformsTitle": "Wo du {name} lernst",
-    "platformsSubtitle": "Wähle das Format, das zu dir passt — dein Fortschritt gilt auf allen Geräten.",
+    "platformsSubtitle": "Wähle, was dir am besten passt.",
     "whyTag": "💡 Warum",
     "whyTitle": "Warum {name} lernen?",
     "programTag": "🧩 Kurs",

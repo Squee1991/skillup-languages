@@ -37,7 +37,6 @@
       "start": "Télécharge et apprends"
     },
     "soon": "bientôt",
-    "learners": "{count} apprenants",
     "choose": "Choisir {name} →"
   },
   "platform": {
@@ -49,19 +48,22 @@
       "ios": "App Store",
       "web": "Ouvrir dans le navigateur"
     },
-    "soon": "⏳ Bientôt"
+    "soon": "⏳ Bientôt",
+    "desc": { "android": "Pour smartphones et tablettes Android.", "ios": "Pour iPhone et iPad.", "web": "Directement dans ton navigateur — rien à installer." }
   },
   "features": {
     "tag": "💡 Pourquoi SkillUp Languages",
     "title": "Apprendre, c’est facile et fun",
     "subtitle": "Nous avons tout fait pour que la langue devienne ton habitude préférée, pas une corvée.",
     "items": {
-      "games": { "title": "Des jeux, pas du bachotage", "text": "Mots et grammaire s’ancrent grâce à des mini-jeux, des quiz et des défis." },
-      "minutes": { "title": "5 minutes par jour", "text": "Les leçons courtes se glissent dans un trajet, un déjeuner ou une pause." },
-      "speech": { "title": "Une vraie prononciation", "text": "Audio par des locuteurs natifs et un entraîneur d’expression avec des indices." },
-      "streaks": { "title": "Séries et récompenses", "text": "Globi suit ta série de jours et récompense ta persévérance." },
-      "anywhere": { "title": "Toujours avec toi", "text": "Android, iOS et web — ta progression se synchronise entre tes appareils." },
-      "levels": { "title": "Niveaux A1–B2", "text": "Le cours suit le Cadre européen commun (CECRL) — de zéro à l’aisance." }
+      "games": { "title": "Des jeux, pas du bachotage", "text": "Mots et règles s’ancrent en jouant — tu apprends sans t’en rendre compte." },
+      "words": { "title": "Les mots dans tous les modes", "text": "Révise le vocabulaire de mille façons jusqu’à ce qu’il reste gravé." },
+      "skills": { "title": "Toutes les compétences", "text": "Description d’images, audio, textes, tests et exercices d’expression orale." },
+      "grammar": { "title": "Grammaire et pratique", "text": "Comprends la règle — et fixe-la aussitôt avec des exercices." },
+      "lands": { "title": "Carte des terres A1–B1", "text": "Le cours est un voyage : franchis les terres dans l’ordre et débloque-en de nouvelles." },
+      "level": { "title": "Ton propre niveau", "text": "Tu as déjà des bases ? Choisis ton niveau et ne pars pas de zéro." },
+      "events": { "title": "Événements festifs", "text": "Nouvel An et autres fêtes apportent des défis spéciaux dans l’appli." },
+      "rewards": { "title": "Récompenses et grades", "text": "Gagne des récompenses pour tes progrès et monte en grade." }
     }
   },
   "how": {
@@ -96,12 +98,11 @@
   },
   "lang": {
     "back": "← Toutes les langues",
-    "learners": "👥 {count} apprenants",
     "ready": "📱 Disponible : {list}",
     "chooseApp": "🚀 Choisir une appli",
     "platformsTag": "📱 Plateformes",
     "platformsTitle": "Où apprendre {name}",
-    "platformsSubtitle": "Choisis le format qui te convient — ta progression est commune à tous tes appareils.",
+    "platformsSubtitle": "Choisis ce qui te convient le mieux.",
     "whyTag": "💡 Pourquoi",
     "whyTitle": "Pourquoi apprendre {name} ?",
     "programTag": "🧩 Programme",
