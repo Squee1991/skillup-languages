@@ -1,5 +1,39 @@
+<script setup lang="ts">
+// Глоби смотрит на курсор: зрачки сдвигаются в его сторону, но не дальше края глаза
+const svg = ref<SVGSVGElement>()
+const eye = reactive({ x: 3, y: 3 })
+const tracking = ref(false)
+let frame = 0
+
+const onMove = (e: PointerEvent) => {
+  if (e.pointerType !== 'mouse' || frame) return
+  frame = requestAnimationFrame(() => {
+    frame = 0
+    const r = svg.value?.getBoundingClientRect()
+    if (!r) return
+    // центр между глазами (120, 134 в координатах viewBox 240×260)
+    const dx = e.clientX - (r.left + (r.width * 120) / 240)
+    const dy = e.clientY - (r.top + (r.height * 134) / 260)
+    const dist = Math.hypot(dx, dy) || 1
+    const k = Math.min(dist / 160, 1) * 8 // чем дальше курсор, тем сильнее косится; максимум 8
+    eye.x = (dx / dist) * k
+    eye.y = (dy / dist) * k
+    tracking.value = true
+  })
+}
+
+onMounted(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  window.addEventListener('pointermove', onMove, { passive: true })
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('pointermove', onMove)
+  cancelAnimationFrame(frame)
+})
+</script>
+
 <template>
-  <svg class="mascot" viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <svg ref="svg" class="mascot" viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <clipPath id="globe-clip">
         <circle cx="120" cy="140" r="92" />
@@ -35,14 +69,19 @@
     <path d="M36 138 C36 30 204 30 204 138" stroke="#ec4899" stroke-width="9" fill="none" stroke-linecap="round" />
     <rect x="20" y="114" width="30" height="52" rx="13" fill="#ec4899" stroke="#1e1b4b" stroke-width="5" />
     <rect x="190" y="114" width="30" height="52" rx="13" fill="#ec4899" stroke="#1e1b4b" stroke-width="5" />
-    <!-- глаза -->
+    <!-- глаза (моргают) -->
+    <g class="blink">
     <circle cx="96" cy="134" r="22" fill="#fff" stroke="#1e1b4b" stroke-width="5" />
     <circle cx="144" cy="134" r="22" fill="#fff" stroke="#1e1b4b" stroke-width="5" />
-    <g class="pupils">
-      <circle cx="99" cy="137" r="11" fill="#1e1b4b" />
-      <circle cx="147" cy="137" r="11" fill="#1e1b4b" />
-      <circle cx="103" cy="132" r="4" fill="#fff" />
-      <circle cx="151" cy="132" r="4" fill="#fff" />
+    <!-- зрачки следят за курсором; пока мышь не двигалась — сами поглядывают по сторонам -->
+    <g class="eyes-follow" :style="{ transform: `translate(${eye.x}px, ${eye.y}px)` }">
+      <g class="pupils" :class="{ tracking }">
+        <circle cx="96" cy="134" r="11" fill="#1e1b4b" />
+        <circle cx="144" cy="134" r="11" fill="#1e1b4b" />
+        <circle cx="100" cy="129" r="4" fill="#fff" />
+        <circle cx="148" cy="129" r="4" fill="#fff" />
+      </g>
+    </g>
     </g>
     <!-- улыбка -->
     <path d="M100 168 Q120 196 140 168 Z" fill="#1e1b4b" stroke="#1e1b4b" stroke-width="4" stroke-linejoin="round" />
@@ -68,8 +107,33 @@
   animation: wave 1.6s ease-in-out infinite;
 }
 
+.blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.08);
+  }
+}
+
+.eyes-follow {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .pupils {
   animation: look 5s ease-in-out infinite;
+}
+
+.pupils.tracking {
+  animation: none;
 }
 
 .spark {

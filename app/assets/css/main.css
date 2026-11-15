@@ -228,23 +228,71 @@ a {
   }
 }
 
-.page-enter-active,
-.page-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.page-enter-from {
-  opacity: 0;
-  transform: translateY(12px);
-}
-
-.page-leave-to {
+/* ---------- появление при скролле (v-reveal, plugins/reveal.ts) ---------- */
+.reveal {
   opacity: 0;
 }
 
-/* плавная смена темы: старая и новая картинка страницы, новая открывается кругом (см. ThemeToggle) */
-::view-transition-old(root),
+.reveal.revealed {
+  animation: reveal-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    translate: 0 36px;
+    scale: 0.96;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    filter: blur(0);
+  }
+}
+
+/* ---------- переходы между страницами (View Transitions, experimental.viewTransition) ---------- */
+/* шапка стоит на месте, страница уходит вниз и тает, новая — поднимается */
+header.header {
+  view-transition-name: site-header;
+}
+
+::view-transition-old(root) {
+  animation: page-out 0.25s ease both;
+}
+
 ::view-transition-new(root) {
+  animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    translate: 0 -12px;
+  }
+}
+
+/* маскот перелетает из карточки каталога на страницу языка (и обратно) */
+::view-transition-group(*) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+/* смена темы: без сдвигов, новая картинка открывается кругом (см. ThemeToggle) */
+:root.theme-switching::view-transition-old(root),
+:root.theme-switching::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+:root.theme-switching * {
+  view-transition-name: none !important;
 }

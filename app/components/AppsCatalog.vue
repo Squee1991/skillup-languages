@@ -23,8 +23,8 @@ const statusOf = (lang: Language, p: Platform) => {
 <template>
   <section id="apps" class="catalog">
     <div class="container">
-      <h2 class="section-title">{{ t('catalog.title') }}</h2>
-      <p class="section-subtitle">{{ t('catalog.subtitle') }}</p>
+      <h2 v-reveal="80" class="section-title">{{ t('catalog.title') }}</h2>
+      <p v-reveal="160" class="section-subtitle">{{ t('catalog.subtitle') }}</p>
 
       <ol class="steps">
         <li v-for="(s, i) in steps" :key="s.key" :style="{ '--c': s.color, '--d': i * 0.3 + 's' }">
@@ -38,15 +38,16 @@ const statusOf = (lang: Language, p: Platform) => {
 
       <div class="languages">
         <NuxtLink
-          v-for="lang in languages"
+          v-for="(lang, i) in languages"
           :key="lang.id"
+          v-reveal="i * 140"
           :to="localePath(`/languages/${lang.id}`)"
           class="lang-card"
           :style="{ '--accent': lang.color, '--accent-soft': soft(lang.color) }"
         >
           <span class="lang-top">
             <span class="greeting">{{ lang.greeting }}</span>
-            <span class="lang-pic">
+            <span class="lang-pic" :style="{ viewTransitionName: `mascot-${lang.id}` }">
               <LanguageMascot :id="lang.id" />
             </span>
           </span>

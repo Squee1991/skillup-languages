@@ -65,7 +65,10 @@ useSeoMeta({
 
         <div class="visual">
           <div class="circle" />
-          <LanguageMascot :id="lang!.id" class="owl" />
+          <!-- имя mascot-… совпадает с карточкой в каталоге — при переходе маскот перелетает оттуда сюда -->
+          <div class="owl-wrap" :style="{ viewTransitionName: `mascot-${lang!.id}` }">
+            <LanguageMascot :id="lang!.id" class="owl" />
+          </div>
           <span class="bubble">{{ lang!.greeting }}</span>
           <span class="name-tag">{{ l(lang!.mascot.name) }}</span>
         </div>
@@ -76,12 +79,12 @@ useSeoMeta({
     <!-- Платформы -->
     <section id="platforms" class="section platforms">
       <div class="container">
-        <span class="tag tag-center">{{ t('lang.platformsTag') }}</span>
-        <h2 class="section-title">{{ t('lang.platformsTitle', { name: l(lang!.nameAcc), gen: l(lang!.nameGen) }) }}</h2>
-        <p class="section-subtitle">{{ t('lang.platformsSubtitle') }}</p>
+        <span v-reveal class="tag tag-center">{{ t('lang.platformsTag') }}</span>
+        <h2 v-reveal="80" class="section-title">{{ t('lang.platformsTitle', { name: l(lang!.nameAcc), gen: l(lang!.nameGen) }) }}</h2>
+        <p v-reveal="160" class="section-subtitle">{{ t('lang.platformsSubtitle') }}</p>
 
         <div class="apps">
-          <AppCard v-for="app in lang!.apps" :key="app.platform" :app="app" />
+          <AppCard v-for="(app, i) in lang!.apps" :key="app.platform" v-reveal="i * 120" :app="app" />
         </div>
       </div>
       <WaveDivider position="bottom" />
@@ -90,10 +93,10 @@ useSeoMeta({
     <!-- Зачем учить -->
     <section class="section reasons-section">
       <div class="container">
-        <span class="tag tag-center">{{ t('lang.whyTag') }}</span>
-        <h2 class="section-title">{{ t('lang.whyTitle', { name: l(lang!.nameAcc), gen: l(lang!.nameGen) }) }}</h2>
+        <span v-reveal class="tag tag-center">{{ t('lang.whyTag') }}</span>
+        <h2 v-reveal="80" class="section-title">{{ t('lang.whyTitle', { name: l(lang!.nameAcc), gen: l(lang!.nameGen) }) }}</h2>
         <div class="reasons">
-          <article v-for="r in lang!.reasons" :key="r.icon" class="reason">
+          <article v-for="(r, i) in lang!.reasons" :key="r.icon" v-reveal="i * 120" class="reason">
             <div class="reason-icon">{{ r.icon }}</div>
             <h3>{{ l(r.title) }}</h3>
             <p>{{ l(r.text) }}</p>
@@ -105,9 +108,9 @@ useSeoMeta({
     <!-- Программа -->
     <section class="section">
       <div class="container">
-        <span class="tag tag-center">{{ t('lang.programTag') }}</span>
-        <h2 class="section-title">{{ t('lang.programTitle') }}</h2>
-        <div class="program">
+        <span v-reveal class="tag tag-center">{{ t('lang.programTag') }}</span>
+        <h2 v-reveal="80" class="section-title">{{ t('lang.programTitle') }}</h2>
+        <div v-reveal="120" class="program">
           <p v-for="(text, i) in l(lang!.program)" :key="i">
             <template v-for="(part, j) in text.split('*')" :key="j">
               <mark v-if="j % 2">{{ part }}</mark>
@@ -122,9 +125,9 @@ useSeoMeta({
     <section class="section phrases-section">
       <WaveDivider position="top" />
       <div class="container">
-        <span class="tag tag-center">{{ t('lang.phrasesTag') }}</span>
-        <h2 class="section-title">{{ t('lang.phrasesTitle') }}</h2>
-        <p class="section-subtitle">{{ t('lang.phrasesSubtitle') }}</p>
+        <span v-reveal class="tag tag-center">{{ t('lang.phrasesTag') }}</span>
+        <h2 v-reveal="80" class="section-title">{{ t('lang.phrasesTitle') }}</h2>
+        <p v-reveal="160" class="section-subtitle">{{ t('lang.phrasesSubtitle') }}</p>
 
         <div class="phrases">
           <button
@@ -147,8 +150,8 @@ useSeoMeta({
     <!-- Другие языки -->
     <section class="section">
       <div class="container">
-        <h2 class="section-title">{{ t('lang.othersTitle') }}</h2>
-        <p class="section-subtitle">{{ t('lang.othersSubtitle') }}</p>
+        <h2 v-reveal="80" class="section-title">{{ t('lang.othersTitle') }}</h2>
+        <p v-reveal="160" class="section-subtitle">{{ t('lang.othersSubtitle') }}</p>
         <div class="others">
           <NuxtLink
             v-for="o in others"
@@ -294,8 +297,12 @@ h1 {
   box-shadow: 0 0 0 12px color-mix(in srgb, var(--accent) 18%, transparent), 0 24px 48px -16px color-mix(in srgb, var(--accent) 60%, transparent);
 }
 
-.owl {
+.owl-wrap {
   position: relative;
+}
+
+.owl {
+  display: block;
   animation: float 4s ease-in-out infinite;
 }
 

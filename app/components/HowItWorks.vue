@@ -13,12 +13,12 @@ const steps = [
   <section id="how" class="section how">
     <WaveDivider position="top" />
     <div class="container">
-      <span class="tag tag-center">{{ t('how.tag') }}</span>
-      <h2 class="section-title">{{ t('how.title') }}</h2>
-      <p class="section-subtitle">{{ t('how.subtitle') }}</p>
+      <span v-reveal class="tag tag-center">{{ t('how.tag') }}</span>
+      <h2 v-reveal="80" class="section-title">{{ t('how.title') }}</h2>
+      <p v-reveal="160" class="section-subtitle">{{ t('how.subtitle') }}</p>
 
       <ol class="steps">
-        <li v-for="s in steps" :key="s.n" class="step">
+        <li v-for="(s, i) in steps" :key="s.n" v-reveal="i * 140" class="step">
           <span class="num" :style="{ background: s.color }">{{ s.n }}</span>
           <div class="step-icon">{{ s.icon }}</div>
           <h3>{{ t(`how.items.${s.key}.title`) }}</h3>

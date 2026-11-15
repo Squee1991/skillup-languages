@@ -16,12 +16,15 @@ export default <RouterConfig>{
     // переход внутри страницы (например, к #apps) — сразу
     if (to.path === from.path) return position
 
-    // переход на другую страницу — ждём, пока она отрисуется после анимации
+    // переход на другую страницу — ждём, пока она отрисуется. Скроллим сразу, без лишнего кадра:
+    // View Transition снимает «новую» картинку сразу после page:finish, и маскот должен прилететь
+    // туда, где он окажется после прокрутки
+    // (поэтому и без плавной прокрутки к якорю — она началась бы уже после снимка)
     const nuxtApp = useNuxtApp()
+    // 'instant' обязательно: у html в main.css стоит scroll-behavior: smooth
+    const instant = { ...(savedPosition || (to.hash ? { el: to.hash, top: 84 } : { top: 0 })), behavior: 'instant' as const }
     return new Promise((resolve) => {
-      nuxtApp.hooks.hookOnce('page:finish', () => {
-        requestAnimationFrame(() => resolve(position))
-      })
+      nuxtApp.hooks.hookOnce('page:finish', () => resolve(instant))
     })
   }
 }

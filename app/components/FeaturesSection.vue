@@ -47,11 +47,11 @@ onBeforeUnmount(() => window.removeEventListener('resize', measure))
 <template>
   <section id="features" class="section">
     <div class="container">
-      <span class="tag tag-center">{{ t('features.tag') }}</span>
-      <h2 class="section-title">{{ t('features.title') }}</h2>
-      <p class="section-subtitle">{{ t('features.subtitle') }}</p>
+      <span v-reveal class="tag tag-center">{{ t('features.tag') }}</span>
+      <h2 v-reveal="80" class="section-title">{{ t('features.title') }}</h2>
+      <p v-reveal="160" class="section-subtitle">{{ t('features.subtitle') }}</p>
 
-      <div ref="track" class="track" @scroll.passive="measure">
+      <div ref="track" v-reveal="200" class="track" @scroll.passive="measure">
           <article
             v-for="(f, i) in features"
             :key="f.key"

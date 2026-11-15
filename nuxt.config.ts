@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     devtools: {enabled: true},
     modules: ['@nuxtjs/i18n', '@nuxtjs/color-mode'],
     css: ['~/assets/css/main.css'],
+    experimental: {viewTransition: true},
 
     // переводы лежат в i18n/locales/*.json, русский — без префикса в адресе (/), остальные — /uk, /en, /de …
     i18n: {
@@ -34,7 +35,7 @@ export default defineNuxtConfig({
     },
 
     app: {
-        pageTransition: {name: 'page', mode: 'out-in'},
+        // переходы между страницами — через View Transitions (стили в main.css)
         head: {
             meta: [
                 {name: 'viewport', content: 'width=device-width, initial-scale=1'},

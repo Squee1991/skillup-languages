@@ -21,7 +21,11 @@ const toggle = async () => {
   const y = r.top + r.height / 2
   const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
 
+  // класс отключает анимацию переходов между страницами (main.css) — у темы своя, кругом
+  const root = document.documentElement
+  root.classList.add('theme-switching')
   const transition = document.startViewTransition(apply)
+  transition.finished.finally(() => root.classList.remove('theme-switching'))
   await transition.ready
   document.documentElement.animate(
     { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },

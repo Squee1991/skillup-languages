@@ -8,7 +8,7 @@ const localePath = useLocalePath()
 <template>
   <section class="cta-wrap">
     <div class="container">
-      <div class="cta">
+      <div v-reveal class="cta">
         <div class="confetti" aria-hidden="true">
           <span v-for="i in 14" :key="i" :style="{ '--i': i }" />
         </div>

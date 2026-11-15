@@ -299,11 +299,11 @@ onBeforeUnmount(stopAuto)
 <template>
   <section id="reviews" class="section reviews-section">
     <div class="container">
-      <span class="tag tag-center">{{ t('reviews.tag') }}</span>
-      <h2 class="section-title">{{ t('reviews.title') }}</h2>
-      <p class="section-subtitle">{{ t('reviews.subtitle') }}</p>
+      <span v-reveal class="tag tag-center">{{ t('reviews.tag') }}</span>
+      <h2 v-reveal="80" class="section-title">{{ t('reviews.title') }}</h2>
+      <p v-reveal="160" class="section-subtitle">{{ t('reviews.subtitle') }}</p>
 
-      <div class="slider" @pointerenter="onEnter" @pointerleave="onLeave">
+      <div v-reveal="200" class="slider" @pointerenter="onEnter" @pointerleave="onLeave">
         <button class="arrow arrow-prev" :disabled="isFirst" :aria-label="t('reviews.prev')" @click="manual(prev)">←</button>
 
         <div
