@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { languages, soft } from '~/data/languages'
-import LanguageMascot from '~/components/LanguageMascot.vue'
-
 const open = ref(false)
 const route = useRoute()
 const { t } = useI18n()
-const { l } = useL10n()
 const localePath = useLocalePath()
 
 // ссылки на разделы главной: /#apps, /en#apps …
@@ -52,7 +48,7 @@ onBeforeUnmount(() => {
       </nav>
 
       <div class="controls">
-        <LocaleSwitcher class="desktop-only" />
+        <LocaleSwitcher />
         <ThemeToggle />
         <NuxtLink :to="home('#apps')" class="btn btn-yellow nav-cta">{{ t('nav.chooseLanguage') }}</NuxtLink>
         <button class="burger" :aria-expanded="open" :aria-label="t('nav.openMenu')" @click="open = true">
@@ -88,32 +84,15 @@ onBeforeUnmount(() => {
               </NuxtLink>
             </nav>
 
-            <p class="drawer-subtitle stagger" :style="{ '--i': links.length }">{{ t('nav.learnLanguage') }}</p>
-            <div class="drawer-langs stagger" :style="{ '--i': links.length + 1 }">
-              <NuxtLink
-                v-for="lang in languages"
-                :key="lang.id"
-                :to="localePath(`/languages/${lang.id}`)"
-                class="drawer-lang"
-                :style="{ '--accent-soft': soft(lang.color) }"
-                @click="close"
-              >
-                <LanguageMascot :id="lang.id" class="drawer-mascot" />
-                <span>{{ l(lang.name) }}</span>
-              </NuxtLink>
-            </div>
-
             <NuxtLink
               :to="home('#apps')"
               class="btn btn-yellow drawer-cta stagger"
-              :style="{ '--i': links.length + 2 }"
+              :style="{ '--i': links.length }"
               @click="close"
             >
               {{ t('nav.chooseApp') }}
             </NuxtLink>
 
-            <p class="drawer-subtitle stagger" :style="{ '--i': links.length + 3 }">{{ t('nav.siteLanguage') }}</p>
-            <LocaleSwitcher inline class="stagger" :style="{ '--i': links.length + 4 }" />
           </aside>
         </div>
       </Transition>
@@ -397,53 +376,9 @@ onBeforeUnmount(() => {
   font-weight: 800;
 }
 
-.drawer-subtitle {
-  margin: 24px 0 10px;
-  font-weight: 800;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #ddd6fe;
-}
-
-.drawer-langs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.drawer-lang {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 10px 4px 8px;
-  font-weight: 800;
-  font-size: 0.85rem;
-  text-decoration: none;
-  color: var(--text);
-  background: var(--accent-soft);
-  border: var(--border);
-  border-radius: 18px;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.15s ease;
-}
-
-.drawer-lang:hover {
-  transform: translateY(-4px) rotate(-2deg);
-}
-
-.drawer-mascot {
-  width: 54px;
-}
-
 .drawer-cta {
   justify-content: center;
   margin-top: 24px;
-}
-
-.drawer-cta + .drawer-subtitle {
-  margin-top: 28px;
 }
 
 /* анимация открытия: фон проявляется, панель выезжает с пружинкой, пункты появляются по очереди */
@@ -528,8 +463,7 @@ onBeforeUnmount(() => {
   }
 
   .nav,
-  .nav-cta,
-  .desktop-only {
+  .nav-cta {
     display: none;
   }
 

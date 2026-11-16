@@ -12,7 +12,6 @@
     "menu": "Menü",
     "openMenu": "Menü öffnen",
     "closeMenu": "Menü schließen",
-    "learnLanguage": "Sprache lernen",
     "chooseApp": "App finden",
     "siteLanguage": "Sprache der Website",
     "theme": "Design",
@@ -24,7 +23,6 @@
     "before": "Lerne Sprachen",
     "highlight": "spielend",
     "after": "mit SkillUp Languages",
-    "lead": "Deutsch, Spanisch und Polnisch — in Apps für Android, iOS und direkt im Browser. Kurze Lektionen, Spiele und der fröhliche Globi, der dich nicht aufgeben lässt.",
     "findApp": "Deine App finden"
   },
   "catalog": {
@@ -96,7 +94,7 @@
     "made": "Mit 💜 gemacht für alle, die Sprachen lernen."
   },
   "lang": {
-    "back": "← Alle Sprachen",
+    "back": "Alle Sprachen",
     "ready": "📱 Verfügbar: {list}",
     "chooseApp": "App wählen",
     "platformsTag": "📱 Plattformen",

@@ -40,7 +40,12 @@ useSeoMeta({
     <!-- Шапка языка -->
     <section class="lang-hero">
       <div class="container">
-        <NuxtLink :to="localePath('/') + '#apps'" class="back-link">{{ t('lang.back') }}</NuxtLink>
+        <NuxtLink :to="localePath('/') + '#apps'" class="back-link">
+          <span class="back-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5" /></svg>
+          </span>
+          {{ t('lang.back') }}
+        </NuxtLink>
       </div>
       <div class="container hero-grid">
         <div>
@@ -200,20 +205,46 @@ useSeoMeta({
   align-items: center;
 }
 
+/* «назад»: круглая кнопка со стрелкой и подпись рядом, без рамки вокруг текста */
 .back-link {
-  display: inline-block;
-  font-weight: 800;
-  text-decoration: none;
-  padding: 6px 14px;
-  background: var(--white);
-  border: var(--border);
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 20px;
-  transition: transform 0.15s ease;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
 }
 
-.back-link:hover {
-  transform: translateX(-4px);
+.back-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--accent) 80%, transparent);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.back-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.back-link:hover .back-icon {
+  transform: translateX(-4px) scale(1.06);
+}
+
+.back-link:active .back-icon {
+  transform: scale(0.92);
 }
 
 h1 {

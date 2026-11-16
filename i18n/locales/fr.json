@@ -12,7 +12,6 @@
     "menu": "Menu",
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
-    "learnLanguage": "Apprendre une langue",
     "chooseApp": "Trouver mon appli",
     "siteLanguage": "Langue du site",
     "theme": "Thème",
@@ -24,7 +23,6 @@
     "before": "Apprends les langues",
     "highlight": "en t’amusant",
     "after": "avec SkillUp Languages",
-    "lead": "Allemand, espagnol et polonais — dans des applis pour Android, iOS et directement dans ton navigateur. Des leçons courtes, des jeux et le joyeux Globi, qui ne te laissera pas abandonner.",
     "findApp": "Trouve ton appli"
   },
   "catalog": {
@@ -96,7 +94,7 @@
     "made": "Fait avec 💜 pour celles et ceux qui apprennent les langues."
   },
   "lang": {
-    "back": "← Toutes les langues",
+    "back": "Toutes les langues",
     "ready": "📱 Disponible : {list}",
     "chooseApp": "Choisir une appli",
     "platformsTag": "📱 Plateformes",

@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// inline — кнопки в ряд (для мобильного меню), иначе — выпадающий список (для шапки)
-defineProps<{ inline?: boolean }>()
-
 const { locale, locales, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
@@ -19,19 +16,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 </script>
 
 <template>
-  <div v-if="inline" class="inline" :aria-label="t('nav.siteLanguage')">
-    <NuxtLink
-      v-for="l in locales"
-      :key="l.code"
-      :to="switchLocalePath(l.code)"
-      class="pill"
-      :class="{ active: l.code === locale }"
-    >
-      {{ short[l.code] }}
-    </NuxtLink>
-  </div>
-
-  <div v-else ref="root" class="dropdown">
+  <div ref="root" class="dropdown">
     <button
       class="trigger"
       :aria-expanded="open"
@@ -155,32 +140,11 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
   transform: translateY(-8px) scale(0.95);
 }
 
-.inline {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-
-.pill {
-  padding: 8px 0;
-  text-align: center;
-  font-family: 'Baloo 2', sans-serif;
-  font-weight: 800;
-  text-decoration: none;
-  color: var(--text);
-  background: color-mix(in srgb, var(--white) 85%, transparent);
-  border: var(--border);
-  border-radius: 999px;
-  transition: transform 0.15s ease;
-}
-
-.pill:hover {
-  transform: translateY(-2px);
-}
-
-.pill.active {
-  color: var(--ink);
-  background: var(--yellow);
-  box-shadow: var(--shadow-sm);
+/* на телефоне переключатель живёт в шапке рядом с темой и бургером — делаем его поуже */
+@media (max-width: 880px) {
+  .trigger {
+    width: 62px;
+    height: 40px;
+  }
 }
 </style>

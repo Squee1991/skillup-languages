@@ -17,7 +17,6 @@ const localePath = useLocalePath()
         <h1>
           {{ t('hero.before') }} <span class="highlight">{{ t('hero.highlight') }}</span> {{ t('hero.after') }}
         </h1>
-        <p class="lead">{{ t('hero.lead') }}</p>
 
         <div class="actions">
           <a href="#apps" class="btn btn-primary hero-cta">{{ t('hero.findApp') }}</a>
@@ -103,7 +102,7 @@ const localePath = useLocalePath()
 h1 {
   isolation: isolate;
   font-size: clamp(2.6rem, 6vw, 4.6rem);
-  margin-bottom: 20px;
+  margin-bottom: 36px;
 }
 
 .highlight {
@@ -124,13 +123,6 @@ h1 {
   border-radius: 8px;
   z-index: -1;
   transform: rotate(-2deg);
-}
-
-.lead {
-  font-size: 1.2rem;
-  color: var(--ink-soft);
-  max-width: 540px;
-  margin-bottom: 32px;
 }
 
 .actions {
@@ -225,10 +217,6 @@ h1 {
   .hero-inner {
     grid-template-columns: 1fr;
     text-align: center;
-  }
-
-  .lead {
-    margin-inline: auto;
   }
 
   .actions {
