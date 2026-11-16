@@ -15,6 +15,23 @@ const links = computed(() => [
 ])
 
 const close = () => (open.value = false)
+const router = useRouter()
+
+// Пункт меню: сначала закрываем меню и возвращаем странице прокрутку (пока меню открыто, у html
+// overflow: hidden и браузер прокрутку к разделу отменяет), и только потом едем к разделу.
+// Если уже на главной — просто плавно скроллим, в том числе когда этот раздел уже был в адресе
+const go = async (href: string) => {
+  close()
+  document.documentElement.style.overflow = ''
+  await nextTick()
+  await new Promise((r) => requestAnimationFrame(r))
+  const [path, hash] = href.split('#')
+  if (route.path !== path) return navigateTo(href)
+  const el = hash && document.getElementById(hash)
+  if (!el) return
+  history.replaceState(history.state, '', href)
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: 'smooth' })
+}
 const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
 
 // закрываем меню при переходе и не даём странице скроллиться под ним
@@ -70,28 +87,19 @@ onBeforeUnmount(() => {
             </div>
 
             <nav class="drawer-links">
-              <NuxtLink
+              <a
                 v-for="(link, i) in links"
                 :key="link.href"
-                :to="link.href"
+                :href="link.href"
                 class="drawer-link stagger"
                 :style="{ '--c': link.color, '--i': i }"
-                @click="close"
+                @click.prevent="go(link.href)"
               >
                 <span class="drawer-icon">{{ link.icon }}</span>
                 {{ link.label }}
                 <span class="drawer-arrow">→</span>
-              </NuxtLink>
+              </a>
             </nav>
-
-            <NuxtLink
-              :to="home('#apps')"
-              class="btn btn-yellow drawer-cta stagger"
-              :style="{ '--i': links.length }"
-              @click="close"
-            >
-              {{ t('nav.chooseApp') }}
-            </NuxtLink>
 
           </aside>
         </div>
@@ -376,10 +384,6 @@ onBeforeUnmount(() => {
   font-weight: 800;
 }
 
-.drawer-cta {
-  justify-content: center;
-  margin-top: 24px;
-}
 
 /* анимация открытия: фон проявляется, панель выезжает с пружинкой, пункты появляются по очереди */
 .drawer-enter-active .overlay,
@@ -432,11 +436,6 @@ onBeforeUnmount(() => {
     font-size: 1.1rem;
   }
 
-  .drawer-cta {
-    font-size: 1rem;
-    padding: 12px 16px;
-    white-space: nowrap;
-  }
 }
 
 @media (max-width: 880px) {

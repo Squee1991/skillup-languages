@@ -37,16 +37,23 @@ useSeoMeta({
 
 <template>
   <div class="lang-page" :style="{ '--accent': lang!.color, '--accent-soft': soft(lang!.color) }">
-    <!-- Шапка языка -->
-    <section class="lang-hero">
+    <!-- «назад»: круглая кнопка, прилипает под шапкой и остаётся на месте при прокрутке.
+         Обёртка нулевой высоты — кнопка висит поверх страницы и не сдвигает контент -->
+    <div class="back-bar">
       <div class="container">
-        <NuxtLink :to="localePath('/') + '#apps'" class="back-link">
-          <span class="back-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5" /></svg>
-          </span>
-          {{ t('lang.back') }}
+        <NuxtLink
+          :to="localePath('/') + '#apps'"
+          class="back-link"
+          :aria-label="t('lang.back')"
+          :title="t('lang.back')"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" /></svg>
         </NuxtLink>
       </div>
+    </div>
+
+    <!-- Шапка языка -->
+    <section class="lang-hero">
       <div class="container hero-grid">
         <div>
           <h1>
@@ -194,7 +201,8 @@ useSeoMeta({
 
 .lang-hero {
   position: relative;
-  padding: 48px 0 120px;
+  /* сверху место под кнопку «назад» */
+  padding: 76px 0 120px;
   background: linear-gradient(160deg, var(--accent-soft) 0%, var(--bg) 100%);
 }
 
@@ -205,31 +213,30 @@ useSeoMeta({
   align-items: center;
 }
 
-/* «назад»: круглая кнопка со стрелкой и подпись рядом, без рамки вокруг текста */
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  font-family: 'Baloo 2', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--text);
-  text-decoration: none;
+/* липнет сразу под шапкой (76px, на телефоне 64px), отступ 12px — у контейнера */
+.back-bar {
+  position: sticky;
+  top: 76px;
+  z-index: 40;
+  height: 0;
 }
 
-.back-icon {
+.back-bar .container {
+  padding-top: 12px;
+}
+
+.back-link {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   background: var(--accent);
   border-radius: 50%;
-  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--accent) 80%, transparent);
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--accent) 90%, #000);
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.back-icon svg {
+.back-link svg {
   width: 22px;
   height: 22px;
   fill: none;
@@ -239,12 +246,18 @@ useSeoMeta({
   stroke-linejoin: round;
 }
 
-.back-link:hover .back-icon {
+.back-link:hover {
   transform: translateX(-4px) scale(1.06);
 }
 
-.back-link:active .back-icon {
+.back-link:active {
   transform: scale(0.92);
+}
+
+@media (max-width: 880px) {
+  .back-bar {
+    top: 64px;
+  }
 }
 
 h1 {

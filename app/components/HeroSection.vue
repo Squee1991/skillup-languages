@@ -223,6 +223,13 @@ h1 {
     justify-content: center;
   }
 
+  /* на телефоне кнопка компактнее и с мягким свечением — иначе она занимает пол-экрана */
+  .hero-cta {
+    padding: 10px 22px;
+    font-size: 1rem;
+    box-shadow: 0 8px 16px -10px var(--glow);
+  }
+
   .hero-visual {
     max-width: 300px;
   }
