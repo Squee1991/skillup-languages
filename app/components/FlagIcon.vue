@@ -19,7 +19,6 @@ defineProps<{ id: string }>()
       <rect y="10" width="30" height="10" fill="#dc143c" />
     </template>
     <rect v-else width="30" height="20" fill="#7c3aed" />
-    <rect width="30" height="20" rx="4" fill="none" stroke="#1e1b4b" stroke-width="2.5" />
   </svg>
 </template>
 

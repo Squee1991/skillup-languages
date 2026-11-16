@@ -348,13 +348,13 @@ export const languages: Language[] = [
       pl: 'Język do życia, pracy i nauki w Polsce'
     },
     about: {
-      ru: 'Польский похож на русский, но полон сюрпризов: шипящие звуки, семь падежей и «ложные друзья». SkillUp Polski помогает быстро освоиться — от первых бытовых фраз до уверенного B1.',
-      uk: 'Польська схожа на українську, але повна сюрпризів: шиплячі звуки, сім відмінків і «хибні друзі». SkillUp Polski допомагає швидко освоїтися — від перших побутових фраз до впевненого B1.',
-      en: 'Polish is full of surprises: hissing sounds, seven cases and “false friends”. SkillUp Polski helps you settle in fast — from your first everyday phrases to a confident B1.',
-      de: 'Polnisch steckt voller Überraschungen: Zischlaute, sieben Fälle und „falsche Freunde“. SkillUp Polski hilft dir, dich schnell einzuleben — von den ersten Alltagsphrasen bis zu einem sicheren B1.',
-      es: 'El polaco está lleno de sorpresas: sonidos sibilantes, siete casos y «falsos amigos». SkillUp Polski te ayuda a adaptarte rápido — desde las primeras frases cotidianas hasta un B1 seguro.',
-      fr: 'Le polonais regorge de surprises : sons chuintants, sept cas et « faux amis ». SkillUp Polski t’aide à t’adapter vite — des premières phrases du quotidien jusqu’à un B1 assuré.',
-      pl: 'Polski jest pełen niespodzianek: szeleszczące głoski, siedem przypadków i „fałszywi przyjaciele”. SkillUp Polski pomaga szybko się odnaleźć — od pierwszych codziennych zwrotów po pewne B1.'
+      ru: 'Польский похож на русский, но полон сюрпризов: шипящие звуки, семь падежей и «ложные друзья». SkillUp Polish помогает быстро освоиться — от первых бытовых фраз до уверенного B1.',
+      uk: 'Польська схожа на українську, але повна сюрпризів: шиплячі звуки, сім відмінків і «хибні друзі». SkillUp Polish допомагає швидко освоїтися — від перших побутових фраз до впевненого B1.',
+      en: 'Polish is full of surprises: hissing sounds, seven cases and “false friends”. SkillUp Polish helps you settle in fast — from your first everyday phrases to a confident B1.',
+      de: 'Polnisch steckt voller Überraschungen: Zischlaute, sieben Fälle und „falsche Freunde“. SkillUp Polish hilft dir, dich schnell einzuleben — von den ersten Alltagsphrasen bis zu einem sicheren B1.',
+      es: 'El polaco está lleno de sorpresas: sonidos sibilantes, siete casos y «falsos amigos». SkillUp Polish te ayuda a adaptarte rápido — desde las primeras frases cotidianas hasta un B1 seguro.',
+      fr: 'Le polonais regorge de surprises : sons chuintants, sept cas et « faux amis ». SkillUp Polish t’aide à t’adapter vite — des premières phrases du quotidien jusqu’à un B1 assuré.',
+      pl: 'Polski jest pełen niespodzianek: szeleszczące głoski, siedem przypadków i „fałszywi przyjaciele”. SkillUp Polish pomaga szybko się odnaleźć — od pierwszych codziennych zwrotów po pewne B1.'
     },
     reasons: [
       {
@@ -436,12 +436,12 @@ export const languages: Language[] = [
     apps: [
       {
         platform: 'android',
-        title: 'SkillUp Polski',
+        title: 'SkillUp Polish',
         url: '#'
       },
       {
         platform: 'ios',
-        title: 'SkillUp Polski',
+        title: 'SkillUp Polish',
         url: '#'
       }
     ]

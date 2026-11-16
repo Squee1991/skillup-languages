@@ -224,7 +224,6 @@ h1 {
 .flag {
   display: inline-block;
   font-size: 0.7em;
-  animation: wiggle 2s ease-in-out infinite;
 }
 
 .native {
