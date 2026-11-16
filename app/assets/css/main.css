@@ -18,6 +18,7 @@
   --surface-muted: #f8fafc;
   --catalog-bg: #7c3aed;
   --header-bg: rgba(255, 248, 238, 0.85);
+  --header-bg-solid: rgb(255, 248, 238);
   --hero-bg: linear-gradient(160deg, #fff8ee 0%, #ffe4f1 55%, #e9e3ff 100%);
   --how-bg: linear-gradient(180deg, #e0f2fe 0%, #fef3c7 100%);
   --sky-soft: #e0f2fe;
@@ -46,6 +47,7 @@
   --surface-muted: #1d1939;
   --catalog-bg: #4c1d95;
   --header-bg: rgba(21, 18, 46, 0.85);
+  --header-bg-solid: rgb(21, 18, 46);
   --hero-bg: linear-gradient(160deg, #1a1538 0%, #2c1742 55%, #1c1a48 100%);
   --how-bg: linear-gradient(180deg, #112a44 0%, #2a2416 100%);
   --sky-soft: #112a44;
@@ -234,22 +236,43 @@ a {
 }
 
 .reveal.revealed {
-  animation: reveal-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
+  animation: reveal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
 }
 
+/* только opacity и сдвиг — их браузер считает на видеокарте; blur и scale на больших блоках тормозят */
 @keyframes reveal-in {
   from {
     opacity: 0;
-    translate: 0 36px;
-    scale: 0.96;
-    filter: blur(6px);
+    transform: translate3d(0, 28px, 0);
   }
   to {
     opacity: 1;
-    translate: 0 0;
-    scale: 1;
-    filter: blur(0);
+    transform: none;
   }
+}
+
+/* на телефоне — короче и ближе, чтобы не ждать, пока доедет */
+@media (max-width: 900px) {
+  .reveal.revealed {
+    animation-duration: 0.45s;
+  }
+
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* бесконечные анимации (маскоты, пятна, искорки) за пределами экрана стоят на паузе — см. plugins/pause-offscreen */
+.offscreen,
+.offscreen * {
+  animation-play-state: paused !important;
 }
 
 /* ---------- переходы между страницами (View Transitions, experimental.viewTransition) ---------- */

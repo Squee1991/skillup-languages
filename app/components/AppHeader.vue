@@ -132,6 +132,14 @@ onBeforeUnmount(() => {
   border-bottom: 1px solid var(--line);
 }
 
+/* размытие под липкой шапкой пересчитывается на каждом кадре прокрутки — на телефоне это главный тормоз */
+@media (max-width: 900px), (pointer: coarse) {
+  .header {
+    background: var(--header-bg-solid);
+    backdrop-filter: none;
+  }
+}
+
 .header-inner {
   display: flex;
   align-items: center;

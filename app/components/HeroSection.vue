@@ -58,7 +58,6 @@ const localePath = useLocalePath()
 .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(2px);
   opacity: 0.55;
   animation: float 8s ease-in-out infinite;
 }

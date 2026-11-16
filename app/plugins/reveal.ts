@@ -24,9 +24,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive<HTMLElement, number | undefined>('reveal', {
     getSSRProps: () => ({}),
     mounted(el, { value }) {
-      if (import.meta.server || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+      if (import.meta.server) return
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
       if (el.getBoundingClientRect().top < innerHeight) return
-      if (value) el.style.setProperty('--reveal-delay', `${value}ms`)
+      // на узком экране карточки идут столбиком — длинная лесенка там только мешает
+      const delay = innerWidth <= 900 ? Math.min(value ?? 0, 120) : value
+      if (delay) el.style.setProperty('--reveal-delay', `${delay}ms`)
       el.classList.add('reveal')
       getObserver().observe(el)
     },
